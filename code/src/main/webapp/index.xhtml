@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Welcome to Wereven!</title>
+	<h:outputStylesheet name="styles/myclasses.css" />
+</h:head>
+<h:body>
+	<p:panelGrid columns="3" width="15%" styleClass="noBorders">
+		<p:button value="Sign Up" onclick="window.open('#{request.contextPath}/signup.xhtml')" />
+		<p:button value="Login" onclick="window.open('#{request.contextPath}/depts.xhtml')" />
+	</p:panelGrid>
+		
+</h:body>
+</html>

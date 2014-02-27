@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Welcome to Wereven!</title>
+	<h:outputStylesheet name="styles/myclasses.css" />
+</h:head>
+<h:body>
+	<h:form>
+        
+		<p:panelGrid columns="3" width="15%" styleClass="noBorders">
+        
+        	<h:outputLabel for="login" value="Login : " />
+			<p:inputText id="login" value="#{userMB.login}" required="true">
+				<f:validateLength minimum="5" />
+				<p:ajax event="blur" update="loginMsg" />
+			</p:inputText>
+			<p:message id="loginMsg" for="login"/>
+			
+			<h:outputLabel for="email" value="E-mail : " />
+			<p:inputText id="email" value="#{userMB.email}" required="true">
+				<f:validateRegex	pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				<p:ajax event="blur" update="emailMsg" />
+			</p:inputText>
+			<p:message id="emailMsg" for="email"/>
+			
+
+			<h:outputLabel for="pass1" value="Password : " />
+			<p:password id="pass1" value="#{userMB.pass}" required="true" match="pass2" feedback="true" inline="true">
+				<f:validateLength minimum="6" />
+				<p:ajax event="blur" update="pass1Msg pass2Msg" />
+			</p:password>
+			<p:message id="pass1Msg" for="pass1"/>
+
+			
+			<h:outputLabel for="pass2" value="Repeat : " />
+			<p:password id="pass2" value="#{userMB.pass}" required="true">
+				<f:validateLength minimum="6" />
+				<p:ajax event="blur" update="pass2Msg pass1Msg" />
+			</p:password>
+			<p:message id="pass2Msg" for="pass2"/>
+
+        
+			<h:outputLabel for="name" value="Name : " />
+			<p:inputText id="name" value="#{userMB.name}" required="true">
+				<f:validateLength minimum="2" />
+				<p:ajax event="blur" update="nameMsg" />
+			</p:inputText>
+			<p:message id="nameMsg" for="name"/>
+	        
+			<h:outputLabel for="surname" value="Surname : " />
+			<p:inputText id="surname" value="#{userMB.surname}">
+				<p:ajax event="blur" update="surnameMsg" />
+			</p:inputText>
+			<p:message id="surnameMsg" for="surname"/>
+	        
+			<p:commandButton id="addUser" value="Add" action="#{userMB.addUser}" ajax="false"/>
+			<p:commandButton id="reset" value="Reset" action="#{userMB.reset}" ajax="false"/>
+			
+		</p:panelGrid>
+		
+	</h:form>
+</h:body>
+</html>
