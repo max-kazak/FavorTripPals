@@ -1,0 +1,31 @@
+ИНСТРУКЦИЯ ПО ЗАПУСКУ
+БД
+1) установить Oracle и SQLDeveloper (см презентацию, задавай вопросы)
+2) запустить SQLDeveloper и открыть соединение от созданного в 1) пользователя до базы
+3) прогнать schema.sql
+
+Предваретиельная настройка
+0) найти в папке оракла файл ojdbc14.jar ( или ojdbc6.jar ) например в (C:\oracle\10.2.0\db_1\jdbc\lib)
+1) установить maven
+2) запустить cmd (Win + R)
+3) выполнить комманду mvn install:install-file -Dfile={Path/to/your/ojdbc.jar} -DgroupId=ojdbc 
+-DartifactId=ojdbc -Dversion=14 -Dpackaging=jar (выполняется один раз)
+3) скачать и выгрузить куда-нибудь tomacat
+4) зайти в папку куда был выгружен tomcat
+5) зайти в подпапку сonf и открыть tomcat-users.xml
+6) добавить перед </tomcat-users> нового пользователя с правами администрарора <user username="admin" password="admin" roles="manager-gui"/>
+
+Сборка
+1) выкачать с github весь проект
+2) в файле {папка проекта}\code\src\main\resources\config\database\db.properties поменять настройки бд на свои (имя, пароль, название бд)
+2) открыть папку code
+3) через адресную строку запустить снова cmd
+4) mvn package
+5) должно завершиться BUILD SUCCESS
+
+Deploy
+1) зайти в папку куда был выгружен tomcat
+2) зайти в подпапку bin и запустить startup.bat (появившееся окно консоли не закрывать!)
+3) открыть через браузер localhost:8080
+4) пройти по ссылке к Manager App
+5) в разделе "WAR file to deploy" выбрать пакет находящийся в {папка проекта}\target\favortrippals.war и нажать Deploy
