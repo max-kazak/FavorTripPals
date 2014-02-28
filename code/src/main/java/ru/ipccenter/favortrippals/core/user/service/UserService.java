@@ -15,7 +15,6 @@ public class UserService implements IUserService {
 	// UserDAO is injected by spring
 	IUserDAO userDAO;
 
-
 	@Transactional(readOnly = false)
 	@Override
 	public void addUser(User user) {
@@ -44,11 +43,10 @@ public class UserService implements IUserService {
 
 
 	@Override
-	public User getUserByLogin(String login) {
-		return getUserDAO().getUserByLogin(login);
+	public User getUserByEmail(String email) {
+		return getUserDAO().getUserByEmail(email);
 	}
-	
-	
+
 	@Override
 	public List<User> getUsers() {
 		return getUserDAO().getUsers();

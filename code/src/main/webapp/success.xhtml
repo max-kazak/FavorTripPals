@@ -3,29 +3,17 @@
  xmlns:f="http://java.sun.com/jsf/core"
  xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Welcome to WeReven!</title>
+	<title>Welcome to FavorTripPals build project!</title>
 </h:head>
 <h:body>
 	<h:form>
 		<h:outputText value="USERs : "></h:outputText>
-		<p:dataTable id="users" var="user" value="#{userMB.userList}" style="width: 10%">
+		<p:dataTable id="users" var="user" value="#{registrationMB.userList}" style="width: 10%">
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="ID" />
 				</f:facet>
 				<h:outputText value="#{user.id}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Login" />
-				</f:facet>
-				<h:outputText value="#{user.login}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="E-mail" />
-				</f:facet>
-				<h:outputText value="#{user.email}" />
 			</p:column>
 			<p:column>
 				<f:facet name="header">
@@ -35,9 +23,9 @@
 			</p:column>
 			<p:column>
 				<f:facet name="header">
-					<h:outputText value="Surname" />
+					<h:outputText value="E-mail" />
 				</f:facet>
-				<h:outputText value="#{user.surname}" />
+				<h:outputText value="#{user.email}" />
 			</p:column>
 		</p:dataTable>
 	</h:form>

@@ -1,6 +1,7 @@
 package ru.ipccenter.favortrippals.core.user.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.SessionFactory;
 
@@ -24,6 +25,12 @@ public class UserDAO implements IUserDAO {
 
 	@Override
 	public void addUser(User user) {
+        long id;
+        do{
+            id = UUID.randomUUID().getLeastSignificantBits();
+            id *= Long.signum(id);
+        } while (getUserById(id)!=null);
+        user.setId(id);
 		getSessionFactory().getCurrentSession().save(user);
 	}
 
@@ -42,30 +49,37 @@ public class UserDAO implements IUserDAO {
 
 	@Override
 	public User getUserById(long id) {
+        String query = "from User where id=?";
 		List list = getSessionFactory().getCurrentSession()
-				.createQuery("from User where id=?")
+				.createQuery(query)
 				.setParameter(0, id)
 				.list();
-		return (User)list.get(0);
+        if(!list.isEmpty())
+		    return (User)list.get(0);
+        else return null;
 	}
 
 
 	@Override
 	public List<User> getUsers() {
+        String query = "from User";
 		List list = getSessionFactory().getCurrentSession()
-				.createQuery("from User")
+				.createQuery(query)
 				.list();
 		return list;
 	}
 
 
 	@Override
-	public User getUserByLogin(String login) {
+	public User getUserByEmail(String email) {
+        String query = "from User where email=?";
 		List list = getSessionFactory().getCurrentSession()
-				.createQuery("from User where login=?")
-				.setParameter(0, login)
+				.createQuery(query)
+				.setParameter(0, email)
 				.list();
-		return (User)list.get(0);
+        if(!list.isEmpty())
+		    return (User)list.get(0);
+        else return null;
 	}
 
 }

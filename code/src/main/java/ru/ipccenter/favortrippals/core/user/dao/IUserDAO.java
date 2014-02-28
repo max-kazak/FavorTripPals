@@ -19,7 +19,7 @@ public void deleteUser(User user);
 
 public User getUserById(long id);
 
-public User getUserByLogin(String login);
+public User getUserByEmail(String login);
 
 public List<User> getUsers();
 }

@@ -7,18 +7,18 @@
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
  
 	<http auto-config="true">
-		<intercept-url pattern="/depts*" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/hello*" access="ROLE_USER,ROLE_ADMIN" />
 		<logout logout-success-url="/index.xhtml" />
 	</http>
  
-	<beans:bean id="wreAuthenticationProvider" class="ru.ipccenter.favortrippals.security.wreAuthenticationProvider">
+	<beans:bean id="ftpAuthenticationProvider" class="ru.ipccenter.favortrippals.security.ftpAuthenticationProvider">
 	    <beans:property name="adminUser" value="admin"/>
 	    <beans:property name="adminPassword" value="admin"/>
 	    <beans:property name="userService" ref="UserService"/>
   	</beans:bean>
   
   <authentication-manager alias="authenticationManager">
-    <authentication-provider ref="wreAuthenticationProvider"/>
+    <authentication-provider ref="ftpAuthenticationProvider"/>
   </authentication-manager>
  
 </beans:beans>

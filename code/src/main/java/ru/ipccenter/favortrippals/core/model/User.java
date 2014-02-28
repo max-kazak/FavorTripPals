@@ -13,14 +13,17 @@ import org.apache.commons.codec.digest.DigestUtils;
 @Table(name="USERS")
 public class User {
 
+    public static final int STATE_ACTIVE = 0;
+    public static final int STATE_FOREIGHN = 1;
+    public static final int STATE_BLOCKED = 2;
+
 	private long id;
-	private String login;
+	private String nickname;
 	private String pass;
 	private String email;
 	private String name;
-	private String surname;
-	
-	 
+    private int state;
+
 	@Id
 	@Column(name="ID", unique = true, nullable = false)
 	public long getId() {
@@ -31,36 +34,20 @@ public class User {
 		this.id = id;
 	}
 	
-	
-	 
-	@Column(name="LOGIN", unique = false, nullable = false)
-	public String getLogin() {
-		return login;
-	}
-	
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	
-	
-	
 	@Column(name="PASS", unique = false, nullable = false)
 	public String getPass() {
 		return pass;
 	}
 	
 	public void setPass(String pass) {
-		this.pass = pass;
+		this.pass = encryptPassword(pass);
 	}
-	
-	
-	@PrePersist
-	@PreUpdate
-	protected void encryptPassword() {
+
+	protected String encryptPassword(String pass) {
 			if (pass != null && (! pass.matches("^[0-9a-fA-F]{40}$"))) {
 				// prevent encryption if already encrypted
-				pass = DigestUtils.sha1Hex(pass);
-			}
+				return DigestUtils.sha1Hex(pass);
+			} else return pass;
 	}
 	
 	
@@ -83,28 +70,33 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	 
-	@Column(name="SURNAME", unique = false, nullable = false)
-	public String getSurname() {
-		return surname;
-	}
-	
-	public void setSurname(String surname) {
-		this.surname = surname;
-	} 
-	
-	 
-	 
-	@Override
+
+    @Column(name="NICKNAME", unique = false, nullable = true)
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    @Column(name="STATE", unique = false, nullable = false)
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    @Override
 	public String toString() {
 		StringBuffer strBuff = new StringBuffer();
 		strBuff.append("id : ").append(getId());
-		strBuff.append(", login : ").append(getLogin());
 		strBuff.append(", email : ").append(getEmail());
+        strBuff.append(", nickname : ").append(getNickname());
 		strBuff.append(", name : ").append(getName());
-		strBuff.append(", surname : ").append(getSurname());
+        strBuff.append(", state : ").append(getState());
 		return strBuff.toString();
 	}
  

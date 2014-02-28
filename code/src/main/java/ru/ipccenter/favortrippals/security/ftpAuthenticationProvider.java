@@ -24,7 +24,7 @@ import ru.ipccenter.favortrippals.core.user.dao.IUserDAO;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 @Service("wreAuthenticationProvider")
-public class wreAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+public class ftpAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
 	private String adminUser;
 	private String adminPassword;
@@ -56,7 +56,7 @@ public class wreAuthenticationProvider extends AbstractUserDetailsAuthentication
 	}
 
 	@Override
-	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+	protected UserDetails retrieveUser(String email, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 		
 		long id = 0;
 		
@@ -70,7 +70,7 @@ public class wreAuthenticationProvider extends AbstractUserDetailsAuthentication
 	    String expectedPassword = null;
 	    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 	    
-	    if (adminUser.equals(username)) {
+	    if (adminUser.equals(email)) {
 	      // pseudo-user admin (ie not configured via Person)
 	      expectedPassword = DigestUtils.sha1Hex(adminPassword); 
 	      // authenticate admin
@@ -82,13 +82,16 @@ public class wreAuthenticationProvider extends AbstractUserDetailsAuthentication
 	    } else {
 	      
 	    try {
-	        User user = userService.getUserByLogin(username);
+	        User user = userService.getUserByEmail(email);
+            if(user==null)
+                throw  new EntityNotFoundException("user with such email don't exist");
+
 	        id = user.getId();
 	        // authenticate the person
 	        expectedPassword = user.getPass();
 	        
 	        if (! StringUtils.hasText(expectedPassword)) {
-	          throw new BadCredentialsException("No password for " + username + " set in database, contact administrator");
+	          throw new BadCredentialsException("No password for " + email + " set in database, contact administrator");
 	        }
 	        if (! encryptedPassword.equals(expectedPassword)) {
 	          throw new BadCredentialsException("Invalid Password");
