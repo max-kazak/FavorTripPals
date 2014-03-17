@@ -1,7 +1,6 @@
 package ru.ipccenter.favortrippals.core.user.dao;
 
 import java.util.List;
-
 import ru.ipccenter.favortrippals.core.model.User;
 
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NonUniqueResultException;
-import javax.persistence.Query;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Required;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import ru.ipccenter.favortrippals.core.model.User;
-import ru.ipccenter.favortrippals.core.user.dao.IUserDAO;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 @Service("wreAuthenticationProvider")
@@ -28,9 +26,7 @@ public class ftpAuthenticationProvider extends AbstractUserDetailsAuthentication
 
 	private String adminUser;
 	private String adminPassword;
-	  
-	private IUserService userService;
-	
+	private IUserService userService;	
 	
 	//DI with Spring
 	@Required

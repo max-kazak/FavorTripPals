@@ -22,12 +22,12 @@ public class User {
 	private String pass;
 	private String email;
 	private String name;
-    private int state;
+        private int state;
 
 	@Id
 	@Column(name="ID", unique = true, nullable = false)
 	public long getId() {
-		return id;
+                return id;
 	}
 	
 	public void setId(long id) {
@@ -90,14 +90,14 @@ public class User {
     }
 
     @Override
-	public String toString() {
-		StringBuffer strBuff = new StringBuffer();
-		strBuff.append("id : ").append(getId());
-		strBuff.append(", email : ").append(getEmail());
+    public String toString() {
+        StringBuffer strBuff = new StringBuffer();
+        strBuff.append("id : ").append(getId());
+        strBuff.append(", email : ").append(getEmail());
         strBuff.append(", nickname : ").append(getNickname());
-		strBuff.append(", name : ").append(getName());
+        strBuff.append(", name : ").append(getName());
         strBuff.append(", state : ").append(getState());
-		return strBuff.toString();
-	}
+        return strBuff.toString();
+    }
  
 }

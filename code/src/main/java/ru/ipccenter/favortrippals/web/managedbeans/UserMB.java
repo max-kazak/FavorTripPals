@@ -61,6 +61,12 @@ public class UserMB {
         return user.getState();
     }
 
+    public User getUser()
+    {
+        checkActuality();
+        return user;
+    }
+
     @Override
     public String toString() {
         checkActuality();
