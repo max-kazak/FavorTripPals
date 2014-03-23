@@ -18,6 +18,16 @@
  <bean id="SocialConnectionService" class="ru.ipccenter.favortrippals.core.user.service.SocialConnectionService">
   	<property name="socialConnectionDAO" ref="SocialConnectionDAO" />
  </bean>
+ 
+ <!-- Request Service Declaration -->
+ <bean id="RequestService" class="ru.ipccenter.favortrippals.core.request.service.RequestService">
+  	<property name="requestDAO" ref="RequestDAO" />
+ </bean>
+ 
+ <!-- Goods Service Declaration -->
+ <bean id="GoodsService" class="ru.ipccenter.favortrippals.core.goods.service.GoodsService">
+  	<property name="goodsDAO" ref="GoodsDAO" />
+ </bean>
 
  <!-- User DAO Declaration -->
  <bean id="UserDAO" class="ru.ipccenter.favortrippals.core.user.dao.UserDAO">
@@ -26,6 +36,16 @@
  
  <!-- SocialConnections DAO Declaration -->
  <bean id="SocialConnectionDAO" class="ru.ipccenter.favortrippals.core.user.dao.SocialConnectionDAO">
+ 	<property name="sessionFactory" ref="SessionFactory" />
+ </bean>
+ 
+ <!-- Request DAO Declaration -->
+ <bean id="RequestDAO" class="ru.ipccenter.favortrippals.core.request.dao.RequestDAO">
+ 	<property name="sessionFactory" ref="SessionFactory" />
+ </bean>
+ 
+ <!-- Goods DAO Declaration -->
+ <bean id="GoodsDAO" class="ru.ipccenter.favortrippals.core.goods.dao.GoodsDAO">
  	<property name="sessionFactory" ref="SessionFactory" />
  </bean>
 
