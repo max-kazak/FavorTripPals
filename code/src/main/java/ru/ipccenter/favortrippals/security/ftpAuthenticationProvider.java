@@ -22,86 +22,101 @@ import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 @Service("wreAuthenticationProvider")
-public class ftpAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+public class ftpAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider
+{
+    private String adminUser;
+    private String adminPassword;
+    private IUserService userService;	
 
-	private String adminUser;
-	private String adminPassword;
-	private IUserService userService;	
-	
-	//DI with Spring
-	@Required
-	public void setAdminUser(String adminUser) {
-	  this.adminUser = adminUser;
-	}
+    //DI with Spring
+    @Required
+    public void setAdminUser(String adminUser)
+    {
+        this.adminUser = adminUser;
+    }
 	  
-	@Required
-	public void setAdminPassword(String adminPassword) {
-	  this.adminPassword = adminPassword;
-	}
+    @Required
+    public void setAdminPassword(String adminPassword)
+    {
+        this.adminPassword = adminPassword;
+    }
 	
-	@Required
-	public void setUserService(IUserService userService) {
-		this.userService = userService;
-	}
+    @Required
+    public void setUserService(IUserService userService)
+    {
+        this.userService = userService;
+    }
+	
+    @Override
+    protected void additionalAuthenticationChecks
+            (UserDetails arg0, UsernamePasswordAuthenticationToken arg1) throws AuthenticationException
+    {
+        return;
+    }
 
-	
-	
-	@Override
-	protected void additionalAuthenticationChecks(UserDetails arg0, UsernamePasswordAuthenticationToken arg1) throws AuthenticationException {
-		return;
+    @Override
+    protected UserDetails retrieveUser
+            (String email, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException
+    {
+        long id = 0;
+        String password = (String) authentication.getCredentials();
+	if (! StringUtils.hasText(password))
+        {
+	    throw new BadCredentialsException("Please enter password");
 	}
-
-	@Override
-	protected UserDetails retrieveUser(String email, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-		
-		long id = 0;
-		
-		String password = (String) authentication.getCredentials();
-	    if (! StringUtils.hasText(password)) {
-	      throw new BadCredentialsException("Please enter password");
-	    }
 	    
-	    String encryptedPassword = DigestUtils.sha1Hex(password); 
+	String encryptedPassword = DigestUtils.sha1Hex(password); 
 	    
-	    String expectedPassword = null;
-	    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+	String expectedPassword = null;
+	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 	    
-	    if (adminUser.equals(email)) {
-	      // pseudo-user admin (ie not configured via Person)
-	      expectedPassword = DigestUtils.sha1Hex(adminPassword); 
-	      // authenticate admin
-	      if (! encryptedPassword.equals(expectedPassword)) {
+	if (adminUser.equals(email))
+        {
+            // pseudo-user admin (ie not configured via Person)
+	    expectedPassword = DigestUtils.sha1Hex(adminPassword); 
+	    // authenticate admin
+	    if (! encryptedPassword.equals(expectedPassword))
+            {
 	        throw new BadCredentialsException("Invalid password");
-	      }
-	      // authorize admin
-	      authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-	    } else {
-	      
-	    try {
-	        User user = userService.getUserByEmail(email);
-            if(user==null)
-                throw  new EntityNotFoundException("user with such email don't exist");
-
-	        id = user.getId();
-	        // authenticate the person
-	        expectedPassword = user.getPass();
-	        
-	        if (! StringUtils.hasText(expectedPassword)) {
-	          throw new BadCredentialsException("No password for " + email + " set in database, contact administrator");
-	        }
-	        if (! encryptedPassword.equals(expectedPassword)) {
-	          throw new BadCredentialsException("Invalid Password");
-	        }
-	        
-	        // authorize the person
-	        authorities.add((new SimpleGrantedAuthority("ROLE_USER")));
-	      } catch (EntityNotFoundException e) {
-	        throw new BadCredentialsException("Invalid user");
-	      } catch (NonUniqueResultException e) {
-	        throw new BadCredentialsException(
-	          "Non-unique user, contact administrator");
-	      }
 	    }
+	    // authorize admin
+	    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+	    }
+            else
+            {
+                try
+                {
+                    User user = userService.getUserByEmail(email);
+                    if(user==null)
+                        throw  new EntityNotFoundException("user with such email don't exist");
+
+                    id = user.getId();
+                    // authenticate the person
+                    expectedPassword = user.getPass();
+	        
+                    if (! StringUtils.hasText(expectedPassword))
+                    {
+                        throw new BadCredentialsException
+                                ("No password for " + email + " set in database, contact administrator");
+                    }
+                    if (! encryptedPassword.equals(expectedPassword))
+                    {
+                        throw new BadCredentialsException("Invalid Password");
+                    }
+	        
+                    // authorize the person
+                    authorities.add((new SimpleGrantedAuthority("ROLE_USER")));
+                }
+                catch (EntityNotFoundException e)
+                {
+                    throw new BadCredentialsException("Invalid user");
+                }
+                catch (NonUniqueResultException e)
+                {
+                    throw new BadCredentialsException(
+                                "Non-unique user, contact administrator");
+                }
+            }
 	    return new org.springframework.security.core.userdetails.User(
 	      ""+id,
 	      password,

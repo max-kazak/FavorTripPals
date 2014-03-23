@@ -13,12 +13,12 @@
      <h:form>
 	 <p:panelGrid columns="4" width="15%" styleClass="noBorders">
     	     <h:outputLabel for="facebook" value="Your FB profile : " />
-             <p:inputText id="facebook" value="#{socialConnectionsMB.userPage}" required="true">
+             <p:inputText id="facebook" value="#{socialConnectionMB.userPage}" required="true">
                  <f:validateLength minimum="3" />
                  <p:ajax event="blur" update="facebookMsg" />
              </p:inputText>
              <p:message id="facebookMsg" for="facebook"/>
-             <p:commandButton id="addConnection" value="Add" action="#{socialConnectionsMB.addConnection}" ajax="false"/>
+             <p:commandButton id="addConnection" value="Add" action="#{socialConnectionMB.addConnection}" ajax="false"/>
     	 </p:panelGrid>
      </h:form>
  </f:view>

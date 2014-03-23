@@ -3,13 +3,13 @@ package ru.ipccenter.favortrippals.core.user.dao;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import ru.ipccenter.favortrippals.core.model.SocialConnections;
+import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
 
 /**
  * @author Ddiimmaann
  */
-public class SocialConnectionsDAO implements ISocialConnectionsDAO
+public class SocialConnectionDAO implements ISocialConnectionDAO
 {
     private SessionFactory sessionFactory;
 
@@ -24,45 +24,35 @@ public class SocialConnectionsDAO implements ISocialConnectionsDAO
     }
 
     @Override
-    public void addConnection(SocialConnections connection)
+    public void addConnection(SocialConnection connection)
     {
-        if (connection == null)
-            connection = new SocialConnections();
-        if (connection.getUser() == null)                    /// Костыль!!!
-        {
-            User user = new User();
-            user.setId(666);
-            connection.setUser(user);
-        }
-        if (connection.getUserPage() == null)
-            connection.setUserPage("I'm not cool(((");
         getSessionFactory().getCurrentSession().save(connection);
     }
 
     @Override
-    public void deleteConnection(SocialConnections connection)
+    public void deleteConnection(SocialConnection connection)
     {
         getSessionFactory().getCurrentSession().delete(connection);
     }
 
     @Override
-    public SocialConnections getConnectionByUserAndType(User user, int networkType) {
-        String stringQuery = "from SocialConnections where user=:user and networkType=:type";
+    public SocialConnection getConnectionByUserAndType(User user, int networkType) {
+        String stringQuery = "from SocialConnection where user=:user and networkType=:type";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("user", user);
         query.setInteger("type", networkType);
         List list = query.list();
         if (list.isEmpty())
             return null;
-        return (SocialConnections)list.get(0);
+        return (SocialConnection)list.get(0);
     }
 
     @Override
-    public List<SocialConnections> getAllConnectionsByUser(User user) {
-        String query = "from SocialConnections where user=?";
+    public List<SocialConnection> getAllConnectionsByUser(User user) {
+        String query = "from SocialConnection where user=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, user.getId()).list();
-        return (List<SocialConnections>)list;
+        return (List<SocialConnection>)list;
     }
     
 }

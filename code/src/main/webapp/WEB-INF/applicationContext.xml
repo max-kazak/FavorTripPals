@@ -9,18 +9,14 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
- <!-- Beans Declaration -->
- <bean id="User" class="ru.ipccenter.favortrippals.core.model.User"/>
- <bean id="SocialConnections" class="ru.ipccenter.favortrippals.core.model.SocialConnections"/>
-
  <!-- User Service Declaration -->
  <bean id="UserService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
   	<property name="userDAO" ref="UserDAO" />
  </bean>
  
  <!-- SocialConnections Service Declaration -->
- <bean id="SocialConnectionsService" class="ru.ipccenter.favortrippals.core.user.service.SocialConnectionsService">
-  	<property name="socialConnectionsDAO" ref="SocialConnectionsDAO" />
+ <bean id="SocialConnectionService" class="ru.ipccenter.favortrippals.core.user.service.SocialConnectionService">
+  	<property name="socialConnectionDAO" ref="SocialConnectionDAO" />
  </bean>
 
  <!-- User DAO Declaration -->
@@ -29,7 +25,7 @@
  </bean>
  
  <!-- SocialConnections DAO Declaration -->
- <bean id="SocialConnectionsDAO" class="ru.ipccenter.favortrippals.core.user.dao.SocialConnectionsDAO">
+ <bean id="SocialConnectionDAO" class="ru.ipccenter.favortrippals.core.user.dao.SocialConnectionDAO">
  	<property name="sessionFactory" ref="SessionFactory" />
  </bean>
 
@@ -53,7 +49,7 @@
  	<property name="annotatedClasses">
   	<list>
     	<value>ru.ipccenter.favortrippals.core.model.User</value>
-        <value>ru.ipccenter.favortrippals.core.model.SocialConnections</value>
+        <value>ru.ipccenter.favortrippals.core.model.SocialConnection</value>
    	</list>
  	</property>
  	<property name="hibernateProperties">

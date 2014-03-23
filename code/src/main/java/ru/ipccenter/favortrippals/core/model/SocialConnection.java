@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="SNETWORKS")
-public class SocialConnections implements Serializable
+public class SocialConnection implements Serializable
 {
     public static final int VKONTAKTE = 0;
     public static final int FACEBOOK = 1;
