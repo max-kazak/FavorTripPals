@@ -8,77 +8,81 @@ import org.hibernate.SessionFactory;
 import ru.ipccenter.favortrippals.core.model.User;
 
 
-public class UserDAO implements IUserDAO {
+public class UserDAO implements IUserDAO
+{
+    private SessionFactory sessionFactory;
+    
+    public SessionFactory getSessionFactory()
+    {
+        return sessionFactory;
+    }
 
-	private SessionFactory sessionFactory;
+    public void setSessionFactory(SessionFactory sessionFactory)
+    {
+        this.sessionFactory = sessionFactory;
+    }
 
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-
-	@Override
-	public void addUser(User user) {
+    @Override
+    public void addUser(User user)
+    {
         long id;
-        do{
+        do
+        {
             id = UUID.randomUUID().getLeastSignificantBits();
             id *= Long.signum(id);
-        } while (getUserById(id)!=null);
+        }
+        while (getUserById(id)!=null);
         user.setId(id);
-		getSessionFactory().getCurrentSession().save(user);
-	}
+        getSessionFactory().getCurrentSession().save(user);
+    }
+    
+    @Override
+    public void deleteUser(User user) 
+    {
+        getSessionFactory().getCurrentSession().delete(user);
+    }
 
 
-	@Override
-	public void deleteUser(User user) {
-		getSessionFactory().getCurrentSession().delete(user);
-	}
+    @Override
+    public void updateUser(User user)
+    {
+        getSessionFactory().getCurrentSession().update(user);
+    }
 
-
-	@Override
-	public void updateUser(User user) {
-		getSessionFactory().getCurrentSession().update(user);
-	}
-
-
-	@Override
-	public User getUserById(long id) {
+    @Override
+    public User getUserById(long id)
+    {
         String query = "from User where id=?";
-		List list = getSessionFactory().getCurrentSession()
+        List list = getSessionFactory().getCurrentSession()
 				.createQuery(query)
 				.setParameter(0, id)
 				.list();
         if(!list.isEmpty())
-		    return (User)list.get(0);
+            return (User)list.get(0);
         else return null;
-	}
-
-
-	@Override
-	public List<User> getUsers() {
+    }
+    
+    @Override
+    public List<User> getUsers()
+    {
         String query = "from User";
-		List list = getSessionFactory().getCurrentSession()
-				.createQuery(query)
-				.list();
-		return list;
-	}
-
-
-	@Override
-	public User getUserByEmail(String email) {
+        List list = getSessionFactory().getCurrentSession()
+                    .createQuery(query)
+                    .list();
+        return list;
+    }
+    
+    @Override
+    public User getUserByEmail(String email)
+    {
         String query = "from User where email=?";
-		List list = getSessionFactory().getCurrentSession()
+        List list = getSessionFactory().getCurrentSession()
 				.createQuery(query)
 				.setParameter(0, email)
 				.list();
         if(!list.isEmpty())
-		    return (User)list.get(0);
+            return (User)list.get(0);
         else return null;
+
 	}
 }

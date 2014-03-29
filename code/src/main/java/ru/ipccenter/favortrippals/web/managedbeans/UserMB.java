@@ -4,67 +4,76 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 @ManagedBean(name="userMB")
 @SessionScoped
-public class UserMB {
+public class UserMB
+{
+    //Spring User Service is injected
+    @ManagedProperty(value="#{UserService}")
+    IUserService userService;
 
-	//Spring User Service is injected
-	@ManagedProperty(value="#{UserService}")
-	IUserService userService;
-		
-	private User user;
+    private User user;
+    public IUserService getUserService()
+    {
+        return userService;
+    }
 	
-	public IUserService getUserService() {
-		return userService;
-	}
+    public void setUserService(IUserService userService)
+    {
+        this.userService = userService;
+    }
 	
-	public void setUserService(IUserService userService) {
-		this.userService = userService;
-	}
-	
-	private void checkActuality(){
-		String actualId = SecurityContextHolder.getContext().getAuthentication().getName(); //id is detted as the name in authentication provider
-		if( (user==null) || ( !actualId.equals(""+user.getId())) )
-		{
-			user = userService.getUserById(Long.parseLong(actualId));
-		}
-	}
+    private void checkActuality()
+    {
+        if(user == null)
+        {
+            user = userService.getCurrentUser();
+        }
+    }
 
-    public long getId() {
+    public long getId()
+    {
         checkActuality();
         return user.getId();
     }
 
-
-    public String getEmail() {
+    public String getEmail()
+    {
         checkActuality();
         return user.getEmail();
     }
 
-    public String getName() {
+    public String getName()
+    {
         checkActuality();
         return user.getName();
     }
 
-    public String getNickname() {
+    public String getNickname()
+    {
         checkActuality();
         return user.getNickname();
     }
 
-    public int getState() {
+    public int getState()
+    {
         checkActuality();
         return user.getState();
     }
 
+    public User getUser()
+    {
+        checkActuality();
+        return user;
+    }
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         checkActuality();
         return user.toString();
     }
-
 }

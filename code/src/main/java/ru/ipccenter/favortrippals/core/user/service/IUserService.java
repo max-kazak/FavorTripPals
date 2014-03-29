@@ -5,22 +5,14 @@ import java.util.List;
 import ru.ipccenter.favortrippals.core.model.User;
 
 
-public interface IUserService {
-
-
-	public void addUser(User user);
-	
-	
-	public void updateUser(User user);
-	
-	
-	public void deleteUser(User user);
-	
-	
-	public User getUserById(long id);
-	
-	public User getUserByEmail(String login);
-	
-	public List<User> getUsers();
-
+public interface IUserService
+{
+    public User getCurrentUser ();
+    public void setCurrentUser (User user); 
+    public void addUser (User user);
+    public void updateUser (User user);
+    public void deleteUser (User user);
+    public User getUserById (long id);
+    public User getUserByEmail (String login);
+    public List<User> getUsers ();
 }

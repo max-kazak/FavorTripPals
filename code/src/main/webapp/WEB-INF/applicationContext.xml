@@ -12,10 +12,28 @@
  <!-- Beans Declaration -->
  <bean id="User" class="ru.ipccenter.favortrippals.core.model.User"/>
  <bean id="Trip" class="ru.ipccenter.favortrippals.core.model.Trip"/>
+ <bean id="Goods" class="ru.ipccenter.favortrippals.core.model.Goods"/>
+ <bean id="Request" class="ru.ipccenter.favortrippals.core.model.Request"/>
+ <bean id="SocialConnection" class="ru.ipccenter.favortrippals.core.model.SocialConnection"/>
 
  <!-- User Service Declaration -->
  <bean id="UserService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
   	<property name="userDAO" ref="UserDAO" />
+ </bean>
+ 
+ <!-- SocialConnections Service Declaration -->
+ <bean id="SocialConnectionService" class="ru.ipccenter.favortrippals.core.user.service.SocialConnectionService">
+  	<property name="socialConnectionDAO" ref="SocialConnectionDAO" />
+ </bean>
+ 
+ <!-- Request Service Declaration -->
+ <bean id="RequestService" class="ru.ipccenter.favortrippals.core.request.service.RequestService">
+  	<property name="requestDAO" ref="RequestDAO" />
+ </bean>
+ 
+ <!-- Goods Service Declaration -->
+ <bean id="GoodsService" class="ru.ipccenter.favortrippals.core.goods.service.GoodsService">
+  	<property name="goodsDAO" ref="GoodsDAO" />
  </bean>
 
  <!-- Trip Service Declaration -->
@@ -25,6 +43,21 @@
 
  <!-- User DAO Declaration -->
  <bean id="UserDAO" class="ru.ipccenter.favortrippals.core.user.dao.UserDAO">
+ 	<property name="sessionFactory" ref="SessionFactory" />
+ </bean>
+ 
+ <!-- SocialConnections DAO Declaration -->
+ <bean id="SocialConnectionDAO" class="ru.ipccenter.favortrippals.core.user.dao.SocialConnectionDAO">
+ 	<property name="sessionFactory" ref="SessionFactory" />
+ </bean>
+ 
+ <!-- Request DAO Declaration -->
+ <bean id="RequestDAO" class="ru.ipccenter.favortrippals.core.request.dao.RequestDAO">
+ 	<property name="sessionFactory" ref="SessionFactory" />
+ </bean>
+ 
+ <!-- Goods DAO Declaration -->
+ <bean id="GoodsDAO" class="ru.ipccenter.favortrippals.core.goods.dao.GoodsDAO">
  	<property name="sessionFactory" ref="SessionFactory" />
  </bean>
 
@@ -45,7 +78,7 @@
 	<property name="url" value="${jdbc.url}" />
 	<property name="username" value="${jdbc.username}" />
 	<property name="password" value="${jdbc.password}" />
-  </bean>
+ </bean>
 
  <!-- Session Factory Declaration -->
  <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -53,9 +86,12 @@
  	<property name="annotatedClasses">
   	<list>
     	<value>ru.ipccenter.favortrippals.core.model.User</value>
-   	    <value>ru.ipccenter.favortrippals.core.model.Trip</value>
+        <value>ru.ipccenter.favortrippals.core.model.Trip</value>
+        <value>ru.ipccenter.favortrippals.core.model.SocialConnection</value>
+   	    <value>ru.ipccenter.favortrippals.core.model.Request</value>
+        <value>ru.ipccenter.favortrippals.core.model.Goods</value>
     </list>
- 	</property>
+    </property>
  	<property name="hibernateProperties">
 	  	<props>
 	    	<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
