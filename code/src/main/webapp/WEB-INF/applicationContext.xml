@@ -11,10 +11,16 @@
 
  <!-- Beans Declaration -->
  <bean id="User" class="ru.ipccenter.favortrippals.core.model.User"/>
+ <bean id="Trip" class="ru.ipccenter.favortrippals.core.model.Trip"/>
 
  <!-- User Service Declaration -->
  <bean id="UserService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
   	<property name="userDAO" ref="UserDAO" />
+ </bean>
+
+ <!-- Trip Service Declaration -->
+ <bean id="TripService" class="ru.ipccenter.favortrippals.core.trip.service.TripService">
+     <property name="tripDAO" ref="TripDAO" />
  </bean>
 
  <!-- User DAO Declaration -->
@@ -22,6 +28,11 @@
  	<property name="sessionFactory" ref="SessionFactory" />
  </bean>
 
+ <!-- Trip DAO Declaration -->
+ <bean id="TripDAO" class="ru.ipccenter.favortrippals.core.trip.dao.TripDAO">
+    <property name="sessionFactory" ref="SessionFactory" />
+ </bean>
+    
  <!-- Data Source Declaration -->
  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
    <property name="location">
@@ -42,7 +53,8 @@
  	<property name="annotatedClasses">
   	<list>
     	<value>ru.ipccenter.favortrippals.core.model.User</value>
-   	</list>
+   	    <value>ru.ipccenter.favortrippals.core.model.Trip</value>
+    </list>
  	</property>
  	<property name="hibernateProperties">
 	  	<props>

@@ -21,7 +21,7 @@ public class RegistrationMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String SUCCESS = "success";
 	private static final String ERROR   = "error";
-	
+
 	//Spring User Service is injected
 	@ManagedProperty(value="#{UserService}")
 	IUserService userService;

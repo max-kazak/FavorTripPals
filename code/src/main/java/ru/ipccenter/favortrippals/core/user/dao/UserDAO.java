@@ -81,5 +81,4 @@ public class UserDAO implements IUserDAO {
 		    return (User)list.get(0);
         else return null;
 	}
-
 }

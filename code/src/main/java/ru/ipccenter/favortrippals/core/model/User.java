@@ -1,11 +1,8 @@
 package ru.ipccenter.favortrippals.core.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import ru.ipccenter.favortrippals.core.model.Trip;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -25,8 +22,7 @@ public class User {
     private int state;
 
 	@Id
-	@Column(name="ID", unique = true, nullable = false)
-	public long getId() {
+    public long getId() {
 		return id;
 	}
 	

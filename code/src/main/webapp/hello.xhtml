@@ -15,7 +15,26 @@
     	     <h:outputText value="Hello #{userMB.name}!"></h:outputText>
     	     <p:button value="LogOut" href="j_spring_security_logout"/>
     	 </p:panelGrid>
+
+         <h3>Enter your trip, please</h3>
+
+         <p:panelGrid columns="2" styleClass="noBorders">
+             <h:outputLabel for="dest" value="Destination : " />
+             <p:inputText id="dest" value="#{creatingTripMB.dest}" required="true"></p:inputText>
+
+             <h:outputLabel for="capacity" value="Capacity : " />
+             <p:inputText id="capacity" value="#{creatingTripMB.capacity}" required="true"></p:inputText>
+         </p:panelGrid>
+
+         <h3>Enter your Departure date</h3>
+         <p:calendar value="#{CreatingTripMB.departure_date}" id="popupCal" />
+
+         <h3>Enter your Arrival date</h3>
+         <p:calendar value="#{CreatingTripMB.arrival_date}" id="popupCal2" />
+
+
      </h:form>
  </f:view>
 </body>
+
 </html>
