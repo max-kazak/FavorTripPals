@@ -18,7 +18,7 @@ public class GoodsService implements IGoodsService
         return goodsDAO;
     }
 
-    public void setUserDAO (IGoodsDAO goodsDAO)
+    public void setGoodsDAO (IGoodsDAO goodsDAO)
     {
         this.goodsDAO = goodsDAO;
     }
