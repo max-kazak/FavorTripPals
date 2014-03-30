@@ -9,6 +9,13 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+ <!-- Beans Declaration -->
+ <bean id="User" class="ru.ipccenter.favortrippals.core.model.User"/>
+ <bean id="Trip" class="ru.ipccenter.favortrippals.core.model.Trip"/>
+ <bean id="Goods" class="ru.ipccenter.favortrippals.core.model.Goods"/>
+ <bean id="Request" class="ru.ipccenter.favortrippals.core.model.Request"/>
+ <bean id="SocialConnection" class="ru.ipccenter.favortrippals.core.model.SocialConnection"/>
+
  <!-- User Service Declaration -->
  <bean id="UserService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
   	<property name="userDAO" ref="UserDAO" />
@@ -27,6 +34,11 @@
  <!-- Goods Service Declaration -->
  <bean id="GoodsService" class="ru.ipccenter.favortrippals.core.goods.service.GoodsService">
   	<property name="goodsDAO" ref="GoodsDAO" />
+ </bean>
+
+ <!-- Trip Service Declaration -->
+ <bean id="TripService" class="ru.ipccenter.favortrippals.core.trip.service.TripService">
+     <property name="tripDAO" ref="TripDAO" />
  </bean>
 
  <!-- User DAO Declaration -->
@@ -49,6 +61,11 @@
  	<property name="sessionFactory" ref="SessionFactory" />
  </bean>
 
+ <!-- Trip DAO Declaration -->
+ <bean id="TripDAO" class="ru.ipccenter.favortrippals.core.trip.dao.TripDAO">
+    <property name="sessionFactory" ref="SessionFactory" />
+ </bean>
+    
  <!-- Data Source Declaration -->
  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
    <property name="location">
@@ -69,11 +86,12 @@
  	<property name="annotatedClasses">
   	<list>
     	<value>ru.ipccenter.favortrippals.core.model.User</value>
+        <value>ru.ipccenter.favortrippals.core.model.Trip</value>
         <value>ru.ipccenter.favortrippals.core.model.SocialConnection</value>
-        <value>ru.ipccenter.favortrippals.core.model.Request</value>
+   	<value>ru.ipccenter.favortrippals.core.model.Request</value>
         <value>ru.ipccenter.favortrippals.core.model.Goods</value>
-   	</list>
- 	</property>
+    </list>
+    </property>
  	<property name="hibernateProperties">
 	  	<props>
 	    	<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
