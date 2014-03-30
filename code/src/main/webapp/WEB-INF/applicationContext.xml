@@ -70,6 +70,8 @@
   	<list>
     	<value>ru.ipccenter.favortrippals.core.model.User</value>
         <value>ru.ipccenter.favortrippals.core.model.SocialConnection</value>
+        <value>ru.ipccenter.favortrippals.core.model.Request</value>
+        <value>ru.ipccenter.favortrippals.core.model.Goods</value>
    	</list>
  	</property>
  	<property name="hibernateProperties">
