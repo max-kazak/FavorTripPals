@@ -4,7 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
-import ru.ipccenter.favortrippals.core.user.service.ISocialConnectionService;
+import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 /**
@@ -15,11 +15,11 @@ import ru.ipccenter.favortrippals.core.user.service.IUserService;
 public class SocialConnectionMB
 {
     // Field with @ManagedProperty annotation is injected by Spring
-    @ManagedProperty (value="#{SocialConnectionService}")
+    @ManagedProperty (value="#{socialConnectionService}")
     ISocialConnectionService socialConnectionService;
     private String userPage;
     private int networkType = SocialConnection.FACEBOOK;
-    @ManagedProperty (value="#{UserService}")
+    @ManagedProperty (value="#{userService}")
     IUserService userService;
 
     public IUserService getUserService() {

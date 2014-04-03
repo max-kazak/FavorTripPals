@@ -12,7 +12,7 @@ import ru.ipccenter.favortrippals.core.user.service.IUserService;
 public class UserMB
 {
     //Spring User Service is injected
-    @ManagedProperty(value="#{UserService}")
+    @ManagedProperty(value="#{userService}")
     IUserService userService;
 
     private User user;

@@ -12,21 +12,20 @@
       org.springframework.web.jsf.el.SpringBeanFacesELResolver
      </el-resolver>
      <message-bundle>
-	  	config/jsf/MyMessages
-	  </message-bundle>
+	  config/jsf/MyMessages
+     </message-bundle>
    </application>
 
-<!-- configuration of navigation rules -->
-<navigation-rule>
-	<from-view-id>/pages/signup.xhtml</from-view-id>
-	<navigation-case>
-		<from-outcome>success</from-outcome>
-		<to-view-id>/pages/hello.xhtml</to-view-id>
-	</navigation-case>
-	<navigation-case>
-		<from-outcome>error</from-outcome>
-		<to-view-id>/pages/error.xhtml</to-view-id>
-	</navigation-case>
-</navigation-rule>
-
+   <!-- configuration of navigation rules -->
+   <navigation-rule>
+     <from-view-id>/pages/signup.xhtml</from-view-id>
+       <navigation-case>
+         <from-outcome>success</from-outcome>
+           <to-view-id>/pages/hello.xhtml</to-view-id>
+       </navigation-case>
+       <navigation-case>
+         <from-outcome>error</from-outcome>
+           <to-view-id>/pages/error.xhtml</to-view-id>
+       </navigation-case>
+   </navigation-rule>
 </faces-config>

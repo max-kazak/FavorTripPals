@@ -1,7 +1,5 @@
 package ru.ipccenter.favortrippals.core.model;
 
-import javax.persistence.*;
-
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;

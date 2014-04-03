@@ -9,7 +9,7 @@
 <h:body>
 	<h:form>
         
-		<p:panelGrid columns="3" width="15%" styleClass="noBorders">
+		<p:panelGrid columns="3" styleClass="noBorders">
 
             <h:outputLabel for="name" value="Name : " />
             <p:inputText id="name" value="#{registrationMB.name}" required="true">
@@ -25,23 +25,6 @@
 				<p:ajax event="blur" update="emailMsg" />
 			</p:inputText>
 			<p:message id="emailMsg" for="email"/>
-			
-
-			<h:outputLabel for="pass1" value="Password : " />
-			<p:password id="pass1" value="#{registrationMB.pass}" required="true" match="pass2" feedback="true" inline="true">
-				<f:validateLength minimum="6" />
-				<p:ajax event="blur" update="pass1Msg pass2Msg" />
-			</p:password>
-			<p:message id="pass1Msg" for="pass1"/>
-
-			
-			<h:outputLabel for="pass2" value="Repeat : " />
-			<p:password id="pass2" value="#{registrationMB.pass}" required="true">
-				<f:validateLength minimum="6" />
-				<p:ajax event="blur" update="pass2Msg pass1Msg" />
-			</p:password>
-			<p:message id="pass2Msg" for="pass2"/>
-
 
 			<p:commandButton id="addUser" value="Add" action="#{registrationMB.registerUser}" ajax="false"/>
 			<p:commandButton id="reset" value="Reset" action="#{registrationMB.reset}" ajax="false"/>
