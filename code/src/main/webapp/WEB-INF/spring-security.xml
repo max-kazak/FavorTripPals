@@ -1,0 +1,24 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+ 
+	<http auto-config="true">
+		<intercept-url pattern="/hello*" access="ROLE_USER,ROLE_ADMIN" />
+		<logout logout-success-url="/index.xhtml" />
+	</http>
+ 
+	<beans:bean id="ftpAuthenticationProvider" class="ru.ipccenter.favortrippals.security.ftpAuthenticationProvider">
+	    <beans:property name="adminUser" value="admin"/>
+	    <beans:property name="adminPassword" value="admin"/>
+	    <beans:property name="userService" ref="UserService"/>
+  	</beans:bean>
+  
+  <authentication-manager alias="authenticationManager">
+    <authentication-provider ref="ftpAuthenticationProvider"/>
+  </authentication-manager>
+ 
+</beans:beans>
