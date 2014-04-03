@@ -10,11 +10,9 @@
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
  <!-- Beans Declaration -->
- <bean id="User" class="ru.ipccenter.favortrippals.core.model.User"/>
- <bean id="Trip" class="ru.ipccenter.favortrippals.core.model.Trip"/>
- <bean id="Goods" class="ru.ipccenter.favortrippals.core.model.Goods"/>
- <bean id="Request" class="ru.ipccenter.favortrippals.core.model.Request"/>
- <bean id="SocialConnection" class="ru.ipccenter.favortrippals.core.model.SocialConnection"/>
+ <bean id="trip" class="ru.ipccenter.favortrippals.core.model.Trip"/>
+ <bean id="goods" class="ru.ipccenter.favortrippals.core.model.Goods"/>
+ <bean id="request" class="ru.ipccenter.favortrippals.core.model.Request"/>
 
  <!-- User Service Declaration -->
  <bean id="userService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
@@ -27,18 +25,18 @@
  </bean>
  
  <!-- Request Service Declaration -->
- <bean id="RequestService" class="ru.ipccenter.favortrippals.core.request.service.RequestService">
-     <property name="requestDAO" ref="RequestDAO" />
+ <bean id="requestService" class="ru.ipccenter.favortrippals.core.request.service.RequestService">
+     <property name="requestDAO" ref="requestDAO" />
  </bean>
  
  <!-- Goods Service Declaration -->
- <bean id="GoodsService" class="ru.ipccenter.favortrippals.core.goods.service.GoodsService">
-     <property name="goodsDAO" ref="GoodsDAO" />
+ <bean id="goodsService" class="ru.ipccenter.favortrippals.core.goods.service.GoodsService">
+     <property name="goodsDAO" ref="goodsDAO" />
  </bean>
 
  <!-- Trip Service Declaration -->
- <bean id="TripService" class="ru.ipccenter.favortrippals.core.trip.service.TripService">
-     <property name="tripDAO" ref="TripDAO" />
+ <bean id="tripService" class="ru.ipccenter.favortrippals.core.trip.service.TripService">
+     <property name="tripDAO" ref="tripDAO" />
  </bean>
 
  <!-- User DAO Declaration -->
@@ -52,18 +50,18 @@
  </bean>
  
  <!-- Request DAO Declaration -->
- <bean id="RequestDAO" class="ru.ipccenter.favortrippals.core.request.dao.RequestDAO">
-     <property name="sessionFactory" ref="SessionFactory" />
+ <bean id="requestDAO" class="ru.ipccenter.favortrippals.core.request.dao.RequestDAO">
+     <property name="sessionFactory" ref="sessionFactory" />
  </bean>
  
  <!-- Goods DAO Declaration -->
- <bean id="GoodsDAO" class="ru.ipccenter.favortrippals.core.goods.dao.GoodsDAO">
-     <property name="sessionFactory" ref="SessionFactory" />
+ <bean id="goodsDAO" class="ru.ipccenter.favortrippals.core.goods.dao.GoodsDAO">
+     <property name="sessionFactory" ref="sessionFactory" />
  </bean>
 
  <!-- Trip DAO Declaration -->
- <bean id="TripDAO" class="ru.ipccenter.favortrippals.core.trip.dao.TripDAO">
-     <property name="sessionFactory" ref="SessionFactory" />
+ <bean id="tripDAO" class="ru.ipccenter.favortrippals.core.trip.dao.TripDAO">
+     <property name="sessionFactory" ref="sessionFactory" />
  </bean>
     
  <!-- Data Source Declaration -->
@@ -73,7 +71,7 @@
      </property>
  </bean>
  
- <bean id="DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+ <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
      <property name="driverClassName" value="${jdbc.driverClassName}" />
      <property name="url" value="${jdbc.url}" />
      <property name="username" value="${jdbc.username}" />
@@ -81,8 +79,8 @@
  </bean>
 
  <!-- Session Factory Declaration -->
- <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-     <property name="dataSource" ref="DataSource" />
+ <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+     <property name="dataSource" ref="dataSource" />
      <property name="annotatedClasses">
      <list>
          <value>ru.ipccenter.favortrippals.core.model.User</value>
@@ -105,6 +103,6 @@
 
  <!-- Transaction Manager is defined -->
  <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-     <property name="sessionFactory" ref="SessionFactory"/>
+     <property name="sessionFactory" ref="sessionFactory"/>
  </bean>
 </beans>
