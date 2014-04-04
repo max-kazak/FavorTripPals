@@ -1,0 +1,8 @@
+ru\ipccenter\favortrippals\core\user\service\UserService.class
+ru\ipccenter\favortrippals\core\user\service\IUserService.class
+ru\ipccenter\favortrippals\web\managedbeans\RegistrationMB.class
+ru\ipccenter\favortrippals\core\model\User.class
+ru\ipccenter\favortrippals\web\managedbeans\UserMB.class
+ru\ipccenter\favortrippals\core\user\dao\UserDAO.class
+ru\ipccenter\favortrippals\security\ftpAuthenticationProvider.class
+ru\ipccenter\favortrippals\core\user\dao\IUserDAO.class

@@ -21,23 +21,21 @@ public class RegistrationMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String SUCCESS = "success";
 	private static final String ERROR   = "error";
-
+	
 	//Spring User Service is injected
-	@ManagedProperty(value="#{UserService}")
+	@ManagedProperty(value="#{userService}")
 	IUserService userService;
 	
 	List<User> userList;
 	
 	private long id;
-	private String pass;
 	private String email;
 	private String name;
 	
 	
 	public String registerUser() {
 		try {
-			User user = new User();
-			user.setPass(getPass());
+			User user = getUserService().getCurrentUser();
 			user.setEmail(getEmail());
 			user.setName(getName());
 			getUserService().addUser(user);
@@ -52,7 +50,6 @@ public class RegistrationMB implements Serializable {
 
 	public void reset() {
 		this.setId(0);
-		this.setPass("");
 		this.setEmail("");
 		this.setName("");
 	}
@@ -87,18 +84,6 @@ public class RegistrationMB implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-
-	
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	
 	
 	public String getEmail() {
 		return email;
