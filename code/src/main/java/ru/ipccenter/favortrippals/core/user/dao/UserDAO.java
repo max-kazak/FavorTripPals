@@ -83,6 +83,5 @@ public class UserDAO implements IUserDAO
         if(!list.isEmpty())
             return (User)list.get(0);
         else return null;
-
-	}
+    }
 }

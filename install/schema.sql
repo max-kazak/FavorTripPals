@@ -91,9 +91,9 @@ ALTER TABLE requests
 
 CREATE TABLE snetworks
 (
-	user_id		  	INTEGER  		NOT NULL ,
-	page			VARCHAR2(20) 	NOT NULL ,
-	network_type	INTEGER  		NOT NULL 
+	user_id		  INTEGER  NOT NULL ,
+	page		  VARCHAR2(20)  NOT NULL ,
+	network_type	  INTEGER  NOT NULL 
 );
 
 CREATE UNIQUE INDEX XPKsnetworks ON snetworks
@@ -102,6 +102,24 @@ CREATE UNIQUE INDEX XPKsnetworks ON snetworks
 ALTER TABLE snetworks
 	ADD CONSTRAINT  XPKsnetworks PRIMARY KEY (user_id,network_type);
 
+CREATE TABLE UserConnection
+(
+    userId varchar(255) NOT NULL,
+    providerId varchar(255) NOT NULL,
+    providerUserId varchar(255),
+    rank int not null,
+    displayName varchar(255),
+    profileUrl varchar(512),
+    imageUrl varchar(512),
+    accessToken varchar(255) NOT NULL,					
+    secret varchar(255),
+    refreshToken varchar(255),
+    expireTime long,
+    primary key (userId, providerId, providerUserId)
+);
+
+CREATE UNIQUE INDEX UserConnectionRank ON UserConnection
+(userId, providerId, rank);
 
 ALTER TABLE friendships
 	ADD (CONSTRAINT  R_8 FOREIGN KEY (user1) REFERENCES users(id));

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns="http://java.sun.com/xml/ns/javaee"
    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
@@ -9,25 +9,24 @@
    <display-name>OTV_JSF_PrimeFaces_Spring_Hibernate</display-name>
 
    <!-- Spring Context Configuration' s Path definition -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/applicationContext.xml,
-			/WEB-INF/spring-security.xml
-		</param-value>
-	</context-param>
+   <context-param>
+     <param-name>contextConfigLocation</param-name>
+       <param-value>
+          /WEB-INF/applicationContext.xml
+       </param-value>
+   </context-param>
 
    <!-- The Bootstrap listener to start up and shut down Spring's root WebApplicationContext. It is registered to Servlet Container -->
-	<listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-	<listener>
-		<listener-class>
-			org.springframework.web.context.request.RequestContextListener
-		</listener-class>
-	</listener>
+   <listener>
+     <listener-class>
+        org.springframework.web.context.ContextLoaderListener
+     </listener-class>
+   </listener>
+   <listener>
+      <listener-class>
+         org.springframework.web.context.request.RequestContextListener
+      </listener-class>
+   </listener>
 
    <!-- Project Stage Level -->
    <context-param>
@@ -37,7 +36,7 @@
 
    <!-- Welcome Page -->
    <welcome-file-list>
-     <welcome-file>index.xhtml</welcome-file>
+     <welcome-file>signin.jsp</welcome-file>
    </welcome-file-list>
 
    <!-- JSF Servlet is defined to container -->
@@ -60,18 +59,20 @@
      <servlet-name>Faces Servlet</servlet-name>
      <url-pattern>*.xhtml</url-pattern>
    </servlet-mapping>
+   
+   <!-- Servlet, witch provide mapping of spring social beens -->
+   <servlet>
+       <servlet-name>appServlet</servlet-name>
+       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+       <init-param>
+           <param-name>contextConfigLocation</param-name>
+           <param-value>/WEB-INF/appControllers.xml</param-value>
+       </init-param>
+       <load-on-startup>1</load-on-startup>
+   </servlet>
 
-	<!-- Spring Security -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>
-                  org.springframework.web.filter.DelegatingFilterProxy
-                </filter-class>
-	</filter>
- 
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
+   <servlet-mapping>
+       <servlet-name>appServlet</servlet-name>
+       <url-pattern>/</url-pattern>
+   </servlet-mapping>
 </web-app>
