@@ -1,5 +1,4 @@
-doc/
-install/
 code/target/
 code/.idea/
-code/src/main/resources/config/database/
+doc/
+*.erwin
