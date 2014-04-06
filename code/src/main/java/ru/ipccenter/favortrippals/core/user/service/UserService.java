@@ -99,12 +99,9 @@ public class UserService implements IUserService
     @Override
     public User getUserByProviderUserId(String provider, String providerUserId)
     {
-        SocialConnection sConnection = getSocialConnectionDAO().getConnectionByProviderUserId(provider, provider);
-        //User user = getUserDAO().getUserBySocialConnection(sConnection);
+        SocialConnection sConnection = getSocialConnectionDAO().getConnectionByProviderUserId(provider, providerUserId);
         if (sConnection == null)
             return null;
-        if (sConnection.getUser() == null)
-            Logger.getLogger(UserService.class.getName()).log(Level.WARNING, "\nsConnection.getUser() == null");
         User user = getUserDAO().getUserById(sConnection.getUser().getId());
         return user;
     }

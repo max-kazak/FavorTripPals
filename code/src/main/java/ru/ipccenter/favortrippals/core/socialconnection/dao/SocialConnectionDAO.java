@@ -1,6 +1,8 @@
 package ru.ipccenter.favortrippals.core.socialconnection.dao;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -54,7 +56,7 @@ public class SocialConnectionDAO implements ISocialConnectionDAO
     {
         String query = "from SocialConnection where user=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
-				.setParameter(0, user.getId()).list();
+				.setParameter(0, user).list();
         return (List<SocialConnection>)list;
     }
 
@@ -66,7 +68,8 @@ public class SocialConnectionDAO implements ISocialConnectionDAO
         Session session = getSessionFactory().getCurrentSession();
         Query query = session.createQuery(stringQuery);
         query.setParameter("id", providerUserId);
-        query.setInteger("type", SocialConnection.getNetworkTypeByString(provider));
+        int networkType = SocialConnection.getNetworkTypeByString(provider);
+        query.setInteger("type", networkType);
         List list = query.list();
         if (list.isEmpty())
             return null;

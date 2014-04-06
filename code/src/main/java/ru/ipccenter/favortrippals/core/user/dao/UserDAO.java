@@ -84,20 +84,6 @@ public class UserDAO implements IUserDAO
         else return null;
     }
 
-    /*
-    @Override
-    public User getUserBySocialConnection(SocialConnection socialConnection)
-    {
-        String hql = "select u from User as u, SocialConnection as s "
-                + "where s.user = u and s = :sc";
-        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-        query.setParameter("sc", socialConnection);
-        List<User> list = query.list();
-        if (list.isEmpty())
-            return null;
-        return list.get(0);
-    }
-    */
     private Long idGenerator ()
     {
         Long id;

@@ -19,8 +19,9 @@ public interface ISocialConnectionDAO
      */
     public SocialConnection getConnectionByUserAndType (User user, int networkType);
     /**
-     * Example: provider = "facebook"
-     *          providerUserId = "18278498150"
+     * Example: provider = "facebook".
+     *          providerUserId = "18278498150".
+     * Only field of user - user.id will be executed.
      * @param provider
      * @param providerUserId
      * @return 
