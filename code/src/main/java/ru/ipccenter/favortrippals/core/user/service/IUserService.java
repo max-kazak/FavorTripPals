@@ -14,5 +14,9 @@ public interface IUserService
     public void deleteUser (User user);
     public User getUserById (long id);
     public User getUserByEmail (String login);
+    /**
+     * See ISocialConnectionDAO.getConnectionByProviderUserId
+     */
+    public User getUserByProviderUserId(String provider, String providerUserId);
     public List<User> getUsers ();
 }

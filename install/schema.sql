@@ -4,10 +4,11 @@ DROP TABLE trips CASCADE CONSTRAINTS PURGE;
 DROP TABLE snetworks CASCADE CONSTRAINTS PURGE;
 DROP TABLE friendships CASCADE CONSTRAINTS PURGE;
 DROP TABLE users CASCADE CONSTRAINTS PURGE;
+DROP TABLE UserConnection CASCADE CONSTRAINTS PURGE;
 
 CREATE TABLE users
 (
-	id		  INTEGER  NOT NULL ,
+	id         INTEGER NOT NULL,
 	name		  VARCHAR2(20)  NULL ,
 	pass		  VARCHAR2(40)  NULL ,
 	state		  INTEGER  NULL ,
@@ -92,8 +93,9 @@ ALTER TABLE requests
 CREATE TABLE snetworks
 (
 	user_id		  INTEGER  NOT NULL ,
-	page		  VARCHAR2(20)  NOT NULL ,
-	network_type	  INTEGER  NOT NULL 
+	page		  VARCHAR2(255)  NULL ,
+  provider_user_id varchar2(255) NOT NULL,
+	network_type INTEGER  NOT NULL 
 );
 
 CREATE UNIQUE INDEX XPKsnetworks ON snetworks

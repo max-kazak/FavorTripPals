@@ -1,6 +1,5 @@
 package ru.ipccenter.favortrippals.core.socialconnection.service;
 
-import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
@@ -10,9 +9,10 @@ import ru.ipccenter.favortrippals.core.socialconnection.dao.ISocialConnectionDAO
 /**
  * @author Ddiimmaann
  */
+@Transactional(readOnly = true)
 public class SocialConnectionService implements ISocialConnectionService
 {
-    SocialConnection socialConnection;
+    SocialConnection currentSocialConnection;
     ISocialConnectionDAO socialConnectionDAO;
     
     public void setSocialConnectionDAO (ISocialConnectionDAO socialConnectionDAO)
@@ -26,25 +26,25 @@ public class SocialConnectionService implements ISocialConnectionService
     }
     
     @Override
-    public void setSocialConnection (SocialConnection socialConnection)
+    public void setCurrentSocialConnection (SocialConnection currentSocialConnection)
     {
-        this.socialConnection = socialConnection;
+        this.currentSocialConnection = currentSocialConnection;
     }
     
     @Override
-    public SocialConnection getSocialConnection ()
+    public SocialConnection getCurrentSocialConnection ()
     {
-        return socialConnection;
+        return currentSocialConnection;
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void addConnection (SocialConnection connection)
     {
         socialConnectionDAO.addConnection(connection);
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void deleteConnection (SocialConnection connection)
     {
@@ -61,5 +61,11 @@ public class SocialConnectionService implements ISocialConnectionService
     public List<SocialConnection> getAllConnectionsByUser (User user)
     {
         return socialConnectionDAO.getAllConnectionsByUser(user);
+    }
+
+    @Override
+    public SocialConnection getConnectionByProviderUserId(String provider, String providerUserId)
+    {
+        return socialConnectionDAO.getConnectionByProviderUserId(provider, providerUserId);
     }
 }

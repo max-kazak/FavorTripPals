@@ -9,8 +9,8 @@ import ru.ipccenter.favortrippals.core.model.User;
  */
 public interface ISocialConnectionService
 {
-    public SocialConnection getSocialConnection ();
-    public void setSocialConnection (SocialConnection connection);
+    public SocialConnection getCurrentSocialConnection ();
+    public void setCurrentSocialConnection (SocialConnection connection);
     public void addConnection (SocialConnection connection);
     public void deleteConnection (SocialConnection connection);
     /**
@@ -20,5 +20,13 @@ public interface ISocialConnectionService
      * @return 
      */
     public SocialConnection getConnectionByUserAndType (User user, int networkType);
+    /**
+     * Example: provider = "facebook"
+     *          providerUserId = "18278498150"
+     * @param provider
+     * @param providerUserId
+     * @return 
+     */
+    public SocialConnection getConnectionByProviderUserId (String provider, String providerUserId);
     public List<SocialConnection> getAllConnectionsByUser (User user);
 }

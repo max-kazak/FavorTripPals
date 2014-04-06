@@ -16,21 +16,22 @@ public class UserMB
     IUserService userService;
 
     private User user;
+    
     public IUserService getUserService()
     {
         return userService;
     }
-	
+
     public void setUserService(IUserService userService)
     {
         this.userService = userService;
     }
-	
+
     private void checkActuality()
     {
         if(user == null)
         {
-            user = userService.getCurrentUser();
+            user = getUserService().getCurrentUser();
         }
     }
 
