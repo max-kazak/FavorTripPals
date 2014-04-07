@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 code/target
+=======
+code/target/
+code/.idea/
+doc/
+*.erwin
+>>>>>>> 87f5d192814a1258c309d9b8a9b4f4ca72be2087
