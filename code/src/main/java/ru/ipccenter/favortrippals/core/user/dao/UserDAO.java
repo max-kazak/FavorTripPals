@@ -1,9 +1,16 @@
 package ru.ipccenter.favortrippals.core.user.dao;
 
+import java.io.CharArrayWriter;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import ru.ipccenter.favortrippals.core.model.SocialConnection;
 
 import ru.ipccenter.favortrippals.core.model.User;
 
@@ -25,14 +32,8 @@ public class UserDAO implements IUserDAO
     @Override
     public void addUser(User user)
     {
-        long id;
-        do
-        {
-            id = UUID.randomUUID().getLeastSignificantBits();
-            id *= Long.signum(id);
-        }
-        while (getUserById(id)!=null);
-        user.setId(id);
+        if (user.getId() == null)
+            user.setId(idGenerator());
         getSessionFactory().getCurrentSession().save(user);
     }
     
@@ -53,13 +54,11 @@ public class UserDAO implements IUserDAO
     public User getUserById(long id)
     {
         String query = "from User where id=?";
-        List list = getSessionFactory().getCurrentSession()
-				.createQuery(query)
-				.setParameter(0, id)
-				.list();
+        Session session = getSessionFactory().getCurrentSession();
+        List list = session.createQuery(query).setParameter(0, id).list();		
         if(!list.isEmpty())
             return (User)list.get(0);
-        else return null;
+        return null;
     }
     
     @Override
@@ -83,5 +82,17 @@ public class UserDAO implements IUserDAO
         if(!list.isEmpty())
             return (User)list.get(0);
         else return null;
+    }
+
+    private Long idGenerator ()
+    {
+        Long id;
+        do
+        {
+            id = UUID.randomUUID().getLeastSignificantBits();
+            id *= Long.signum(id);
+        }
+        while (getUserById(id)!=null);
+        return id;
     }
 }

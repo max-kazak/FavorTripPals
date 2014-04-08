@@ -93,8 +93,9 @@ ALTER TABLE requests
 CREATE TABLE snetworks
 (
 	user_id		  INTEGER  NOT NULL ,
-	page		  VARCHAR2(20)  NOT NULL ,
-	network_type	  INTEGER  NOT NULL 
+	page		  VARCHAR2(255)  NULL ,
+  provider_user_id varchar2(255) NOT NULL,
+	network_type INTEGER  NOT NULL 
 );
 
 CREATE UNIQUE INDEX XPKsnetworks ON snetworks

@@ -17,6 +17,7 @@
  <!-- User Service Declaration -->
  <bean id="userService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
      <property name="userDAO" ref="userDAO" />
+     <property name="socialConnectionDAO" ref="socialConnectionDAO" />
  </bean>
  
  <!-- SocialConnections Service Declaration -->
@@ -66,8 +67,11 @@
     
  <!-- Data Source Declaration -->
  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-     <property name="location">
-         <value>WEB-INF/classes/config/database/db.properties</value>
+     <property name="locations">
+         <list>
+             <value>WEB-INF/classes/config/database/db.properties</value>
+             <value>WEB-INF/classes/config/springsocial/springsocial.properties</value>
+         </list>
      </property>
  </bean>
  

@@ -3,9 +3,10 @@ package ru.ipccenter.favortrippals.core.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import org.apache.commons.codec.digest.DigestUtils;
 
 @Entity
 @Table(name="USERS")
@@ -15,48 +16,25 @@ public class User implements Serializable
     public static final int STATE_FOREIGHN = 1;
     public static final int STATE_BLOCKED = 2;
 
-    private long id;
+    private Long id;
     private String nickname;
-    private String pass;
     private String email;
     private String name;
     private int state;
 
     @Id
     @Column(name="ID", unique = true, nullable = false)
-    public long getId()
+    public Long getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(Long id)
     {
         this.id = id;
     }
 	
-    @Column(name="PASS", unique = false, nullable = false)
-    public String getPass()
-    {
-        return pass;
-    }
-	
-    public void setPass(String pass)
-    {
-        this.pass = encryptPassword(pass);
-    }
-
-    protected String encryptPassword(String pass)
-    {
-        if (pass != null && (! pass.matches("^[0-9a-fA-F]{40}$")))
-        {
-            // prevent encryption if already encrypted
-            return DigestUtils.sha1Hex(pass);
-	}
-        else 
-            return pass;
-    }
-	
-    @Column(name="EMAIL", unique = true, nullable = false)
+    @Column(name="EMAIL", unique = true, nullable = true)
     public String getEmail() 
     {
         return email;
@@ -67,7 +45,7 @@ public class User implements Serializable
         this.email = email;
     }
 	
-    @Column(name="NAME", unique = false, nullable = false)
+    @Column(name="NAME", unique = false, nullable = true)
     public String getName()
     {
         return name;
@@ -89,7 +67,7 @@ public class User implements Serializable
         this.nickname = nickname;
     }
 
-    @Column(name="STATE", unique = false, nullable = false)
+    @Column(name="STATE", unique = false, nullable = true)
     public int getState()
     {
         return state;
