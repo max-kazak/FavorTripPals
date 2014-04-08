@@ -1,1 +1,1 @@
-gource -1920x180 -f --highlight-all-users -multi-sampling D:/Users/Max/Documents/Projects/FavorTripPals/.git/
+gource -1920x1800 -f --highlight-all-users -multi-sampling D:/Users/Max/Documents/Projects/FavorTripPals/.git/
