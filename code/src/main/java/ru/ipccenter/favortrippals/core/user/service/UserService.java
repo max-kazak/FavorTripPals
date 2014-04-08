@@ -1,10 +1,14 @@
 package ru.ipccenter.favortrippals.core.user.service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.transaction.annotation.Transactional;
+import ru.ipccenter.favortrippals.core.model.SocialConnection;
 
 import ru.ipccenter.favortrippals.core.model.User;
+import ru.ipccenter.favortrippals.core.socialconnection.dao.ISocialConnectionDAO;
 import ru.ipccenter.favortrippals.core.user.dao.IUserDAO;
 
 
@@ -14,6 +18,17 @@ public class UserService implements IUserService
 {
     User currentUser;
     IUserDAO userDAO;
+    ISocialConnectionDAO socialConnectionDAO;
+
+    public ISocialConnectionDAO getSocialConnectionDAO()
+    {
+        return socialConnectionDAO;
+    }
+
+    public void setSocialConnectionDAO(ISocialConnectionDAO socialConnectionDAO)
+    {
+        this.socialConnectionDAO = socialConnectionDAO;
+    }
     
     public IUserDAO getUserDAO ()
     {
@@ -76,5 +91,18 @@ public class UserService implements IUserService
     public List<User> getUsers()
     {
         return getUserDAO().getUsers();
+    }
+    
+    /**
+     * See ISocialConnectionDAO.getConnectionByProviderUserId
+     */
+    @Override
+    public User getUserByProviderUserId(String provider, String providerUserId)
+    {
+        SocialConnection sConnection = getSocialConnectionDAO().getConnectionByProviderUserId(provider, providerUserId);
+        if (sConnection == null)
+            return null;
+        User user = getUserDAO().getUserById(sConnection.getUser().getId());
+        return user;
     }
 }

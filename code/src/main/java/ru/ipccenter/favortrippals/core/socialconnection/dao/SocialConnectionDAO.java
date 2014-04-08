@@ -1,7 +1,10 @@
 package ru.ipccenter.favortrippals.core.socialconnection.dao;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
@@ -36,7 +39,8 @@ public class SocialConnectionDAO implements ISocialConnectionDAO
     }
 
     @Override
-    public SocialConnection getConnectionByUserAndType(User user, int networkType) {
+    public SocialConnection getConnectionByUserAndType(User user, int networkType)
+    {
         String stringQuery = "from SocialConnection where user=:user and networkType=:type";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("user", user);
@@ -48,11 +52,28 @@ public class SocialConnectionDAO implements ISocialConnectionDAO
     }
 
     @Override
-    public List<SocialConnection> getAllConnectionsByUser(User user) {
+    public List<SocialConnection> getAllConnectionsByUser(User user)
+    {
         String query = "from SocialConnection where user=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
-				.setParameter(0, user.getId()).list();
+				.setParameter(0, user).list();
         return (List<SocialConnection>)list;
+    }
+
+    @Override
+    public SocialConnection getConnectionByProviderUserId(String provider, String providerUserId)
+    {
+        String stringQuery = "from SocialConnection where providerUserId=:id"
+                + " and networkType=:type";
+        Session session = getSessionFactory().getCurrentSession();
+        Query query = session.createQuery(stringQuery);
+        query.setParameter("id", providerUserId);
+        int networkType = SocialConnection.getNetworkTypeByString(provider);
+        query.setInteger("type", networkType);
+        List list = query.list();
+        if (list.isEmpty())
+            return null;
+        return (SocialConnection)list.get(0);
     }
     
 }

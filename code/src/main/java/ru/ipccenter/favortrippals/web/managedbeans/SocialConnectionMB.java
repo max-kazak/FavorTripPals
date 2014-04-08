@@ -55,7 +55,7 @@ public class SocialConnectionMB
         SocialConnection socialConnections = new SocialConnection();
         socialConnections.setNetworkType(networkType);
         socialConnections.setUserPage(getUserPage());
-        socialConnections.setUser(userService.getCurrentUser());
+        socialConnections.setUser(getUserService().getCurrentUser());
         getSocialConnectionService().addConnection(socialConnections);
         return "success";
     }

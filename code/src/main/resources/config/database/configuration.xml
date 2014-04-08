@@ -1,0 +1,51 @@
+<build>
+    <plugins>
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>sql-maven-plugin</artifactId>
+        <version>1.5</version>
+
+        <dependencies>
+          <!-- specify the dependent JDBC driver here -->
+          <dependency>
+            <groupId>ojdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>14</version>
+          </dependency>
+        </dependencies>
+
+        <!-- common configuration shared by all executions -->
+        <configuration>
+          <driver>oracle.jdbc.driver.OracleDriver</driver>
+          <url>jdbc:oracle:thin:@//localhost:1522/orcl</url>
+          <username>grumpykat</username>
+          <password>grumpykat</password>
+          <!-- You can comment out username/password configurations and
+               have maven to look them up in your settings.xml using ${settingsKey}
+          -->
+          <settingsKey>sensibleKey</settingsKey>
+          <!--all executions are ignored if -Dmaven.test.skip=true-->
+          <skip>${maven.test.skip}</skip>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>create-schema</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <!-- specific configuration for this execution -->
+            <configuration>
+              <!-- specify your SQL commands, can be all of the following configurations -->
+              <autocommit>true</autocommit>
+              <srcFiles>
+                <srcFile>../install/schema.sql</srcFile>
+                <srcFile>../install/sample.sql</srcFile>
+              </srcFiles>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+</build>
