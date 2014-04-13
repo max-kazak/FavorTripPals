@@ -1,3 +1,5 @@
 code/target
 code/.idea
-code/favortrippals.iml
+*.iml
+code/src/main/resources/config/database/configuration.xml
+code/src/main/resources/config/database/db.properties
