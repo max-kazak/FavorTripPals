@@ -7,7 +7,9 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.NativeWebRequest;
+import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
+import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 /**
@@ -17,6 +19,17 @@ import ru.ipccenter.favortrippals.core.user.service.IUserService;
 public class SpringSecuritySignInAdapter implements SignInAdapter
 {
     private IUserService userService;
+    private ISocialConnectionService socialConnectionService;
+
+    public ISocialConnectionService getSocialConnectionService()
+    {
+        return socialConnectionService;
+    }
+
+    public void setSocialConnectionService(ISocialConnectionService socialConnectionService)
+    {
+        this.socialConnectionService = socialConnectionService;
+    }
 
     public IUserService getUserService()
     {
@@ -32,8 +45,13 @@ public class SpringSecuritySignInAdapter implements SignInAdapter
     public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request)
     {
         Long userId = Long.parseLong(localUserId);
+        String provider = connection.getKey().getProviderId();
         User user = getUserService().getUserById(userId);
         getUserService().setCurrentUser(user);
+        SocialConnection socialConnection = 
+                    getSocialConnectionService().getConnectionByUserAndType(user, 
+                    SocialConnection.getNetworkTypeByString(provider));
+        getSocialConnectionService().setCurrentSocialConnection(socialConnection);
         return null;
     }
 }

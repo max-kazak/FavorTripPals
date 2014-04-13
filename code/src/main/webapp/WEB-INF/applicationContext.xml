@@ -70,7 +70,6 @@
      <property name="locations">
          <list>
              <value>WEB-INF/classes/config/database/db.properties</value>
-             <value>WEB-INF/classes/config/springsocial/springsocial.properties</value>
          </list>
      </property>
  </bean>

@@ -1,8 +1,15 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
@@ -11,22 +18,26 @@ import ru.ipccenter.favortrippals.core.user.service.IUserService;
  * @author Ddiimmaann
  */
 @ManagedBean(name="socialConnectionMB")
-@RequestScoped
+@SessionScoped
 public class SocialConnectionMB
 {
     // Field with @ManagedProperty annotation is injected by Spring
     @ManagedProperty (value="#{socialConnectionService}")
     ISocialConnectionService socialConnectionService;
     private String userPage;
-    private int networkType = SocialConnection.FACEBOOK;
+    private String provider;
+    private String userId;
+    private Map<String,String> providers;
     @ManagedProperty (value="#{userService}")
     IUserService userService;
 
-    public IUserService getUserService() {
+    public IUserService getUserService()
+    {
         return userService;
     }
 
-    public void setUserService(IUserService userService) {
+    public void setUserService(IUserService userService)
+    {
         this.userService = userService;
     }
 	
@@ -50,13 +61,88 @@ public class SocialConnectionMB
         return userPage;
     }
     
+    public String getProvider()
+    {
+        return provider;
+    }
+
+    public void setProvider(String provider)
+    {
+        this.provider = provider;
+    }
+
+    public String getUserId()
+    {
+        return userId;
+    }
+
+    public void setUserId(String userId)
+    {
+        this.userId = userId;
+    }
+    
+    public Map<String, String> getProviders()
+    {
+        return providers;
+    }
+    
+    public List<SocialConnection> getConnections ()
+    {
+        return getSocialConnectionService().getAllConnectionsByUser(
+                getUserService().getCurrentUser());
+    }
+    
+    public String deleteConnection()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        SocialConnection sc = getSocialConnectionService().getConnectionByProviderUserId(
+                            map.get("provider"), map.get("id"));
+        SocialConnection current = getSocialConnectionService().getCurrentSocialConnection();
+        if (current != null)
+            if ((sc.getNetworkType() == current.getNetworkType())&&
+                            (sc.getProviderUserId().equals(current.getProviderUserId())))
+            {
+                FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage("You can't delete your current social connection."));
+                return "error";
+            }
+        getSocialConnectionService().deleteConnection(sc);
+        return "success";
+    }
+    
     public String addConnection ()
     {
-        SocialConnection socialConnections = new SocialConnection();
-        socialConnections.setNetworkType(networkType);
-        socialConnections.setUserPage(getUserPage());
-        socialConnections.setUser(getUserService().getCurrentUser());
-        getSocialConnectionService().addConnection(socialConnections);
+        if (getProvider() == null)
+        {
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage("Select your network."));
+            return "error";
+        }
+        if (getSocialConnectionService().getConnectionByUserAndType(
+                            getUserService().getCurrentUser(),
+                            SocialConnection.getNetworkTypeByString(getProvider())) != null)
+        {
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage("Profile " + getProvider() + " already exist."));
+            return "error";
+        }
+        SocialConnection socialConnection = new SocialConnection();
+        socialConnection.setUserPage(getUserPage());
+        socialConnection.setUser(getUserService().getCurrentUser());
+        socialConnection.setProviderUserId(getUserId());
+        socialConnection.setNetworkType(SocialConnection.getNetworkTypeByString(getProvider()));
+        getSocialConnectionService().addConnection(socialConnection);
+        FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage("Success."));
         return "success";
+    }
+    
+    public SocialConnectionMB ()
+    {
+        providers = new HashMap<>(); 
+        providers.put("facebook", "facebook");
+        providers.put("vk", "vk");
+        providers.put("twitter", "twitter");
     }
 }
