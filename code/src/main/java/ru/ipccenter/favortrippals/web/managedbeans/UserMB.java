@@ -16,6 +16,24 @@ public class UserMB
     IUserService userService;
 
     private User user;
+
+    public void setNickname(String nickname)
+    {
+        getUser().setNickname(nickname);
+        getUserService().updateUser(user);
+    }
+
+    public void setName(String name)
+    {
+        getUser().setName(name);
+        getUserService().updateUser(user);
+    }
+
+    public void setEmail(String email)
+    {
+        getUser().setEmail(email);
+        getUserService().updateUser(user);
+    }
     
     public IUserService getUserService()
     {
@@ -44,18 +62,24 @@ public class UserMB
     public String getEmail()
     {
         checkActuality();
+        if ((user.getEmail() == null)||(user.getEmail().length() == 3))
+            return "set your email";
         return user.getEmail();
     }
 
     public String getName()
     {
         checkActuality();
+        if ((user.getName() == null)||(user.getName().length() == 3))
+            return "set your name";
         return user.getName();
     }
 
     public String getNickname()
     {
         checkActuality();
+        if ((user.getNickname() == null)||(user.getNickname().length() == 3))
+            return "set your nickname";
         return user.getNickname();
     }
 

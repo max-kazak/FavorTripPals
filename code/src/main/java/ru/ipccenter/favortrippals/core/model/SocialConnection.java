@@ -94,4 +94,19 @@ public class SocialConnection implements Serializable
                 return -1;
         }
     }
+    
+    public String getProviderNameByType ()
+    {
+        switch (networkType)
+        {
+            case FACEBOOK:
+                return "facebook";
+            case VKONTAKTE:
+                return "vk";
+            case TWITTER:
+                return "twitter";
+            default:
+                return "";
+        }
+    }
 }

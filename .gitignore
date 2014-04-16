@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 code/src/main/resources/config/database/db.properties
 code/target/
+=======
+code/target
+code/.idea
+*.iml
+code/src/main/resources/config/database/configuration.xml
+code/src/main/resources/config/database/db.properties
+>>>>>>> f988fdf25e5b7c4288fa69435081b75ec7b9c7d3

@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:c="http://java.sun.com/jsp/jstl/core">  
+
+ <h:head>
+ <title>Settings</title>
+ </h:head>
+ <h:form id="form">
+ <p:layout fullPage="true">
+     
+ <p:layoutUnit position="west" header="Calendar">  
+     <p:calendar value="#{calendarMB.date}" mode="inline" id="inlineCal"/>
+ </p:layoutUnit>
+    
+ <p:layoutUnit position="center">
+    <p:tabView id="tabView">  
+        <p:tab id="tab1" title="Social connections">  
+
+            <p:dataList id="datalist" value="#{socialConnectionMB.connections}" var="sc" type="definition" >  
+                Social network: #{sc.providerNameByType} <br />
+                User id: #{sc.providerUserId} <br />
+                User page: #{sc.userPage} <br />
+                <p:commandButton value="Delete" 
+                                 actionListener="#{socialConnectionMB.deleteConnection()}" update="datalist">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />  
+                    <f:param name="provider" value="#{sc.providerNameByType}"/>
+                    <f:param name="id" value="#{sc.providerUserId}"/>
+                </p:commandButton>  
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+                </p:confirmDialog>
+            </p:dataList>
+
+            <p:panel id="panel1" header="New connection">  
+                <p:messages id="msgs" autoUpdate="true"/>  
+
+                <h:panelGrid columns="3">
+                    <h:outputLabel for="id" value="Your id: *" />  
+                    <p:inputText id="id" value="#{socialConnectionMB.userId}" required="true" label="User id">  
+                        <f:validateLength minimum="5" />  
+                    </p:inputText>  
+                    <p:message for="id" display="icon"/>  
+
+                    <h:outputLabel for="page" value="Your page:" />  
+                    <p:inputText id="page" value="#{socialConnectionMB.userPage}" label="User page" />  
+                    <br />
+                    <p:selectOneMenu id="provider" value="#{socialConnectionMB.provider}">  
+                        <f:selectItem itemLabel="Select social network" itemValue="" />  
+                        <f:selectItems value="#{socialConnectionMB.providers}" />  
+                    </p:selectOneMenu>
+                </h:panelGrid>  
+                <br />
+                <p:commandButton id="button" value="Save" update="tab1, panel1" actionListener="#{socialConnectionMB.addConnection()}"/>  
+            </p:panel>
+
+        </p:tab>
+        
+        <p:tab id="tab2" title="User data">
+            <h:panelGrid id="panel2" columns="2">
+                <h:outputText value="User name: " />  
+                <p:inplace id="ajaxInplace1" editor="true">  
+                    <p:inputText value="#{userMB.name}"  
+                                required="true" label="text"/>  
+                </p:inplace>
+                <h:outputText value="Nickname: " />  
+                <p:inplace id="ajaxInplace2" editor="true">  
+                    <p:inputText value="#{userMB.nickname}"  
+                                required="true" label="text"/>  
+                </p:inplace>
+                <h:outputText value="Email: " />  
+                <p:inplace id="ajaxInplace3" editor="true">  
+                    <p:inputText value="#{userMB.email}"  
+                                required="true" label="text"/>  
+                </p:inplace>
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+ </p:layoutUnit>
+ </p:layout>
+ </h:form>
+</html>

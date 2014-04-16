@@ -18,8 +18,8 @@
         <configuration>
           <driver>oracle.jdbc.driver.OracleDriver</driver>
           <url>jdbc:oracle:thin:@//localhost:1522/orcl</url>
-          <username>grumpykat</username>
-          <password>grumpykat</password>
+          <username>max</username>
+          <password>max</password>
           <!-- You can comment out username/password configurations and
                have maven to look them up in your settings.xml using ${settingsKey}
           -->
