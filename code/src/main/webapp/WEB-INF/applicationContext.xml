@@ -13,6 +13,7 @@
  <bean id="trip" class="ru.ipccenter.favortrippals.core.model.Trip"/>
  <bean id="goods" class="ru.ipccenter.favortrippals.core.model.Goods"/>
  <bean id="request" class="ru.ipccenter.favortrippals.core.model.Request"/>
+ <bean id="friendship" class="ru.ipccenter.favortrippals.core.model.Friendship"/>
 
  <!-- User Service Declaration -->
  <bean id="userService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
@@ -39,6 +40,11 @@
  <bean id="tripService" class="ru.ipccenter.favortrippals.core.trip.service.TripService">
      <property name="tripDAO" ref="tripDAO" />
  </bean>
+ 
+ <!-- Friendship Service Declaration -->
+ <bean id="friendshipService" class="ru.ipccenter.favortrippals.core.friendship.service.FriendshipService">
+     <property name="friendshipDAO" ref="friendshipDAO" />
+ </bean>
 
  <!-- User DAO Declaration -->
  <bean id="userDAO" class="ru.ipccenter.favortrippals.core.user.dao.UserDAO">
@@ -62,6 +68,11 @@
 
  <!-- Trip DAO Declaration -->
  <bean id="tripDAO" class="ru.ipccenter.favortrippals.core.trip.dao.TripDAO">
+     <property name="sessionFactory" ref="sessionFactory" />
+ </bean>
+ 
+ <!-- Friendship DAO Declaration -->
+ <bean id="friendshipDAO" class="ru.ipccenter.favortrippals.core.friendship.dao.FriendshipDAO">
      <property name="sessionFactory" ref="sessionFactory" />
  </bean>
     
@@ -91,6 +102,7 @@
          <value>ru.ipccenter.favortrippals.core.model.SocialConnection</value>
    	 <value>ru.ipccenter.favortrippals.core.model.Request</value>
          <value>ru.ipccenter.favortrippals.core.model.Goods</value>
+         <value>ru.ipccenter.favortrippals.core.model.Friendship</value>
      </list>
      </property>
      <property name="hibernateProperties">

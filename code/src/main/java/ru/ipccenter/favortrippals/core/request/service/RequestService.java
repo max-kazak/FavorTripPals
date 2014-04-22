@@ -13,7 +13,6 @@ import ru.ipccenter.favortrippals.core.request.dao.IRequestDAO;
 
 public class RequestService implements IRequestService
 {
-    Request currentRequest;
     IRequestDAO requestDAO;
     
     public IRequestDAO getRequestDAO ()
@@ -24,18 +23,6 @@ public class RequestService implements IRequestService
     public void setRequestDAO (IRequestDAO requestDAO)
     {
         this.requestDAO = requestDAO;
-    }
-    
-    @Override
-    public Request getCurrentRequest()
-    {
-        return currentRequest;
-    }
-    
-    @Override
-    public void setCurrentRequest(Request currentRequest)
-    {
-        this.currentRequest = currentRequest;
     }
     
     @Transactional
