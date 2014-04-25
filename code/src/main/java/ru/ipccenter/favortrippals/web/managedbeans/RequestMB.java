@@ -3,10 +3,12 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import ru.ipccenter.favortrippals.core.goods.service.IGoodsService;
+import ru.ipccenter.favortrippals.core.model.Request;
 import ru.ipccenter.favortrippals.core.request.service.IRequestService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 import ru.ipccenter.favortrippals.core.trip.service.ITripService;
@@ -74,5 +76,11 @@ public class RequestMB
     public void setCount(int count)
     {
         this.count = count;
+    }
+    
+    public List<Request> getRequests()
+    {
+        return getRequestService().getAllRequestsByCustomer(
+                getUserService().getCurrentUser());
     }
 }

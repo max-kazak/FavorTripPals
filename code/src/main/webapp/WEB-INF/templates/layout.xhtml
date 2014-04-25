@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+        >
+<h:head>
+    <title>FavorTripPals</title>
+</h:head>
+<h:body>
+    <h:form>
+        <p:layout fullPage="true">
+            <p:layoutUnit style="text-align:center" position="north" size="130">
+                <h:graphicImage url="/resources/ftp_icon.gif"/>
+
+                <p:tabMenu activeIndex="#{tabIndex}">
+                    <p:menuitem value="Home" url="http://localhost:8080/favortrippals/startpage.xhtml"/>
+                    <p:menuitem value="MyTrips" url="http://localhost:8080/favortrippals/mytrips.xhtml"/>
+                    <p:menuitem value="MyRequests"/>
+                    <p:menuitem value="Travellers"/>
+                    <p:menuitem value="Settings"/>
+                </p:tabMenu>
+
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="50">
+                <div style="text-align:right"><h:outputText value="Max_and_group Corporation (c)"/></div>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="content">Put default content here, if any.</ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:form>
+</h:body>
+</html>

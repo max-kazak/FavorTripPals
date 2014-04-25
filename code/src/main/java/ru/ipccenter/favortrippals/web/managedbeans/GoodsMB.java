@@ -6,6 +6,7 @@ package ru.ipccenter.favortrippals.web.managedbeans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.security.core.context.SecurityContextHolder;
 import ru.ipccenter.favortrippals.core.goods.service.IGoodsService;
 import ru.ipccenter.favortrippals.core.model.Goods;
 
@@ -30,9 +31,10 @@ public class GoodsMB
     
     private void checkActuality()
     {
-        if(goods == null)
+        String actualId = SecurityContextHolder.getContext().getAuthentication().getName();
+        if( (goods==null) || ( !actualId.equals(""+goods.getId())) )
         {
-            goods = goodsService.getCurrentGoods();
+            goods = goodsService.getGoodsById(Long.parseLong(actualId));
         }
     }
     

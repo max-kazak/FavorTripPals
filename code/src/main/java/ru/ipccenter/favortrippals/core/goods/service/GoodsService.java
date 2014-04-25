@@ -10,7 +10,6 @@ import ru.ipccenter.favortrippals.core.model.Goods;
 
 public class GoodsService implements IGoodsService
 {
-    Goods currentGoods;
     IGoodsDAO goodsDAO;
     
     public IGoodsDAO getGoodsDAO ()
@@ -21,18 +20,6 @@ public class GoodsService implements IGoodsService
     public void setGoodsDAO (IGoodsDAO goodsDAO)
     {
         this.goodsDAO = goodsDAO;
-    }
-        
-    @Override
-    public Goods getCurrentGoods()
-    {
-        return currentGoods;
-    }
-    
-    @Override
-    public void setCurrentGoods(Goods currentGoods)
-    {
-        this.currentGoods = currentGoods;
     }
     
     @Transactional
@@ -59,8 +46,7 @@ public class GoodsService implements IGoodsService
     @Override
     public Goods getGoodsById(long id)
     {
-        currentGoods = getGoodsDAO().getGoodsById(id);
-        return currentGoods;
+        return getGoodsDAO().getGoodsById(id);
     }
     
     @Override
