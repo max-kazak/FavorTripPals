@@ -1,10 +1,9 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -113,6 +112,9 @@ public class SocialConnectionMB
     
     public String addConnection ()
     {
+        // It's just test of function
+        getSocialConnectionService().printOnTheWall("Favortrippals is the best! " + new Date());
+        //
         if (getProvider() == null)
         {
             FacesContext.getCurrentInstance().addMessage(

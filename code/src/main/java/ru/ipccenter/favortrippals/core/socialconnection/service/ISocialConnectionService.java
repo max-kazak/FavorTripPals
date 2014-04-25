@@ -1,6 +1,7 @@
 package ru.ipccenter.favortrippals.core.socialconnection.service;
 
 import java.util.List;
+import org.springframework.social.connect.Connection;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
 
@@ -11,6 +12,8 @@ public interface ISocialConnectionService
 {
     public SocialConnection getCurrentSocialConnection ();
     public void setCurrentSocialConnection (SocialConnection connection);
+    public void setCurrentConnection (Connection connection);
+    public Connection getCurrentConnection();
     public void addConnection (SocialConnection connection);
     public void deleteConnection (SocialConnection connection);
     /**
@@ -29,4 +32,5 @@ public interface ISocialConnectionService
      */
     public SocialConnection getConnectionByProviderUserId (String provider, String providerUserId);
     public List<SocialConnection> getAllConnectionsByUser (User user);
+    public void printOnTheWall (String message);
 }

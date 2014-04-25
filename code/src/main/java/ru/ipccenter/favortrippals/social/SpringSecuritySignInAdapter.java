@@ -52,6 +52,7 @@ public class SpringSecuritySignInAdapter implements SignInAdapter
                     getSocialConnectionService().getConnectionByUserAndType(user, 
                     SocialConnection.getNetworkTypeByString(provider));
         getSocialConnectionService().setCurrentSocialConnection(socialConnection);
+        getSocialConnectionService().setCurrentConnection(connection);
         return null;
     }
 }
