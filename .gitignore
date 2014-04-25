@@ -1,7 +1,6 @@
+code/src/main/resources/config/database/db.properties
+code/target/
 code/target
 code/.idea
 *.iml
 code/src/main/resources/config/database/configuration.xml
-code/src/main/resources/config/database/db.properties
-code/src/main/resources/config/database/db.properties.sample
-doc
