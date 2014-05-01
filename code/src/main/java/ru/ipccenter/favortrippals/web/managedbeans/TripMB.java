@@ -7,16 +7,25 @@ import javax.faces.bean.SessionScoped;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.NavigationHandler;
+import javax.faces.context.FacesContext;
 
 import ru.ipccenter.favortrippals.core.model.Trip;
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.trip.service.ITripService;
+import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 @ManagedBean(name="tripMB")
 @SessionScoped
 public class TripMB {
+ 
+    @ManagedProperty (value="#{userService}")
+    IUserService userService;
 
-    @ManagedProperty(value ="#(TripService")
+    @ManagedProperty(value ="#{tripService}")
     ITripService tripService;
 
     private Trip trip;
@@ -28,12 +37,22 @@ public class TripMB {
     public void setTripService(ITripService tripService) {
         this.tripService = tripService;
     }
+    
+    public IUserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
 
     private void checkActuality() {
-        String actualId = SecurityContextHolder.getContext().getAuthentication().getName();
-        if( (trip==null) || ( !actualId.equals(""+trip.getId())) )
+        if ((getUserService() == null)||(getUserService().getCurrentUser() == null))
         {
-            trip = tripService.getTripById(Long.parseLong(actualId));
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String redirect = "index";
+            NavigationHandler myNav = facesContext.getApplication().getNavigationHandler();
+            myNav.handleNavigation(facesContext, null, redirect);
         }
     }
 
@@ -66,12 +85,16 @@ public class TripMB {
         checkActuality();
         return trip.getArrival_date();
     }
+    
+    public List<Trip> getTripsByCurrentUser() {
+        checkActuality();
+        List<Trip> list = getTripService().getTripsByTraveller(getUserService().getCurrentUser());
+        return list;
+    }
 
     @Override
     public String toString() {
         checkActuality();
         return trip.toString();
     }
-
-
 }

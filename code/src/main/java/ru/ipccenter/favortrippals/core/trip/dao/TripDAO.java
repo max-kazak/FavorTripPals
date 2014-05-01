@@ -1,11 +1,19 @@
 package ru.ipccenter.favortrippals.core.trip.dao;
 
+import java.io.CharArrayWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import org.hibernate.SessionFactory;
 
 import ru.ipccenter.favortrippals.core.model.Trip;
+import ru.ipccenter.favortrippals.core.model.User;
 
 
 public class TripDAO implements ITripDAO {
@@ -66,19 +74,17 @@ public class TripDAO implements ITripDAO {
         List list = getSessionFactory().getCurrentSession()
                 .createQuery(query)
                 .list();
-        return list;
+        return (List<Trip>)list;
     }
 
 
     @Override
-    public Trip getTripByTraveller(long traveller) {
-        String query = "from Trip where traveller=?";
-        List list = getSessionFactory().getCurrentSession()
-                .createQuery(query)
-                .setParameter(0, traveller)
-                .list();
-        if(!list.isEmpty())
-            return (Trip)list.get(0);
-        else return null;
+    public List<Trip> getTripsByTraveller(User traveller) {
+        String strQuery = "from Trip where traveller=?";
+        Session session = getSessionFactory().getCurrentSession();
+        Query query = session.createQuery(strQuery);
+        query.setParameter(0, traveller);
+        List list = query.list();
+        return (List<Trip>)list;
     }
 }

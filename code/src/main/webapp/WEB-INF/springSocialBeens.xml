@@ -21,6 +21,10 @@
                         <constructor-arg value="${provider.id}"/>
                         <constructor-arg value="${provider.secret}"/>	
                     </bean>
+                    <bean class="org.springframework.social.vkontakte.connect.VKontakteConnectionFactory">
+                        <constructor-arg value="4329095"/>
+                        <constructor-arg value="6oD3z3d2IWpF9QIJra63"/>	
+                    </bean>
                 </list>
             </property>
         </bean>    
@@ -50,8 +54,8 @@
                    <property name="socialConnectionService" ref="socialConnectionService"/>
                </bean>
            </constructor-arg>
-           <property name="signInUrl" value="/index.xhtml" />
-           <property name="signUpUrl" value="/signup.xhtml" />
+           <property name="postSignInUrl" value="/home.xhtml" />
+           <property name="signInUrl" value="/index.jsp" />
         </bean>
 
 	<mvc:view-controller path="/signin" />

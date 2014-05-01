@@ -3,6 +3,7 @@ package ru.ipccenter.favortrippals.core.trip.dao;
 import java.util.List;
 
 import ru.ipccenter.favortrippals.core.model.Trip;
+import ru.ipccenter.favortrippals.core.model.User;
 
 
 public interface ITripDAO {
@@ -19,7 +20,7 @@ public interface ITripDAO {
 
     public Trip getTripById(long id);
 
-    public Trip getTripByTraveller(long traveller);
+    public List<Trip> getTripsByTraveller(User traveller);
 
     public List<Trip> getTrips();
 }

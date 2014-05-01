@@ -3,12 +3,15 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import ru.ipccenter.favortrippals.core.goods.service.IGoodsService;
 import ru.ipccenter.favortrippals.core.model.Request;
+import ru.ipccenter.favortrippals.core.model.Trip;
+import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.request.service.IRequestService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 import ru.ipccenter.favortrippals.core.trip.service.ITripService;
@@ -17,13 +20,13 @@ import ru.ipccenter.favortrippals.core.trip.service.ITripService;
 @RequestScoped
 public class RequestMB 
 {
-    @ManagedProperty(value="#{RequestService}")
+    @ManagedProperty(value="#{requestService}")
     IRequestService requestService;
-    @ManagedProperty(value="#{UserService}")
+    @ManagedProperty(value="#{userService}")
     IUserService userService;
-    @ManagedProperty(value="#{GoodsService}")
+    @ManagedProperty(value="#{goodsService}")
     IGoodsService goodsService;
-    @ManagedProperty(value="#{TripService}")
+    @ManagedProperty(value="#{tripService}")
     ITripService tripService;
     
     private int count;
@@ -82,5 +85,15 @@ public class RequestMB
     {
         return getRequestService().getAllRequestsByCustomer(
                 getUserService().getCurrentUser());
+    }
+    
+    public List<Request> getAllRequestsByTrip(Trip trip)
+    {
+        return getRequestService().getAllRequestsByTrip(trip);
+    }
+    
+    public List<Request> getAllRequestsByCurrentUser()
+    {
+        return new ArrayList<>();
     }
 }

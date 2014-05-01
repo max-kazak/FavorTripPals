@@ -1,8 +1,10 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
+import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
@@ -48,8 +50,13 @@ public class UserMB
     private void checkActuality()
     {
         if(user == null)
-        {
             user = getUserService().getCurrentUser();
+        if (user == null)
+        {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String redirect = "index";
+            NavigationHandler myNav = facesContext.getApplication().getNavigationHandler();
+            myNav.handleNavigation(facesContext, null, redirect);
         }
     }
 

@@ -5,11 +5,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
         >
-    <ui:param name ="tabIndex" value="1"/>
+    <ui:param name ="tabIndex" value="2"/>
     <ui:define name="content">
         <h:form>
             <p:panel header="New Trip">
-                    <h:panelGrid colums="2" cellpadding="5">
+                    <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel for="dest" value="Destination : " />
                         <p:inputText id="dest" value="#{creatingTripMB.dest}" required="true"></p:inputText>
 

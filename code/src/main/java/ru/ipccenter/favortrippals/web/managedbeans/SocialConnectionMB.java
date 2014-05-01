@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -87,8 +88,20 @@ public class SocialConnectionMB
     
     public List<SocialConnection> getConnections ()
     {
+        checkActuality();
         return getSocialConnectionService().getAllConnectionsByUser(
                 getUserService().getCurrentUser());
+    }
+    
+    private void checkActuality()
+    {
+        if ((getUserService() == null)||(getUserService().getCurrentUser() == null))
+        {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String redirect = "index";
+            NavigationHandler myNav = facesContext.getApplication().getNavigationHandler();
+            myNav.handleNavigation(facesContext, null, redirect);
+        }
     }
     
     public String deleteConnection()
@@ -102,8 +115,8 @@ public class SocialConnectionMB
             if ((sc.getNetworkType() == current.getNetworkType())&&
                             (sc.getProviderUserId().equals(current.getProviderUserId())))
             {
-                FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage("You can't delete your current social connection."));
+                //FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(
+                    //FacesMessage.SEVERITY_ERROR,"You can't delete your current social connection.", ""));
                 return "error";
             }
         getSocialConnectionService().deleteConnection(sc);
@@ -112,21 +125,19 @@ public class SocialConnectionMB
     
     public String addConnection ()
     {
-        // It's just test of function
-        getSocialConnectionService().printOnTheWall("Favortrippals is the best! " + new Date());
-        //
+        checkActuality();
         if (getProvider() == null)
         {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage("Select your network."));
+            FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,"Select your network.", ""));
             return "error";
         }
         if (getSocialConnectionService().getConnectionByUserAndType(
                             getUserService().getCurrentUser(),
                             SocialConnection.getNetworkTypeByString(getProvider())) != null)
         {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage("Profile " + getProvider() + " already exist."));
+            FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,"Profile " + getProvider() + " already exist.", ""));
             return "error";
         }
         SocialConnection socialConnection = new SocialConnection();
@@ -135,8 +146,8 @@ public class SocialConnectionMB
         socialConnection.setProviderUserId(getUserId());
         socialConnection.setNetworkType(SocialConnection.getNetworkTypeByString(getProvider()));
         getSocialConnectionService().addConnection(socialConnection);
-        FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage("Success."));
+        FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,"Success.", ""));
         return "success";
     }
     

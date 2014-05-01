@@ -1,7 +1,6 @@
 package ru.ipccenter.favortrippals.core.model;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
+import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -10,14 +9,12 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "Trips" )
-public class Trip {
+public class Trip implements Serializable {
 
     private long id;
     private String dest;
-    private int capacity;
+    private Integer capacity;
 
-    @ManyToOne
-    @JoinColumn(name = "ID")
     private User traveller;
 
     private Calendar departure_date = Calendar.getInstance();
@@ -33,7 +30,7 @@ public class Trip {
         this.id = id;
     }
 
-    @Column(name="DEST", unique = false, nullable = false)
+    @Column(name="DEST", unique = false, nullable = true)
     public String getDest() {
         return dest;
     }
@@ -42,15 +39,17 @@ public class Trip {
         this.dest = dest;
     }
 
-    @Column(name="CAPACITY", unique = false, nullable = false)
-    public int getCapacity() {
+    @Column(name="CAPACITY", unique = false, nullable = true)
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "TRAVELLER", unique = false, nullable = false)
     public User getTraveller() {
         return traveller;
     }
@@ -59,7 +58,8 @@ public class Trip {
         this.traveller = traveller;
     }
 
-    @Column(name="DEPARTURE_DATE", unique = false, nullable = false)
+    @Column(name="DEPARTURE_DATE", unique = false, nullable = true)
+    @Temporal(TemporalType.DATE)
     public Calendar getDeparture_date() {
         return departure_date;
     }
@@ -73,7 +73,8 @@ public class Trip {
         this.departure_date.set(year, month, day, hour, minute);
     }
 
-    @Column(name="ARRIVAL_DATE", unique = false, nullable = false)
+    @Column(name="ARRIVAL_DATE", unique = false, nullable = true)
+    @Temporal(TemporalType.DATE)
     public Calendar getArrival_date() {
         return arrival_date;
     }

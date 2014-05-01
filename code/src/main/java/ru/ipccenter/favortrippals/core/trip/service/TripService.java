@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.ipccenter.favortrippals.core.model.Trip;
+import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.trip.dao.ITripDAO;
 
 
@@ -37,8 +38,8 @@ public class TripService implements ITripService{
     }
 
     @Override
-    public Trip getTripByTraveller(long traveller) {
-        return getTripDAO().getTripByTraveller(traveller);
+    public List<Trip> getTripsByTraveller(User traveller) {
+        return getTripDAO().getTripsByTraveller(traveller);
     }
 
     @Override

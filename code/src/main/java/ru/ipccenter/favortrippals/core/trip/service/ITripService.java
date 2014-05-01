@@ -3,6 +3,7 @@ package ru.ipccenter.favortrippals.core.trip.service;
 import java.util.List;
 
 import ru.ipccenter.favortrippals.core.model.Trip;
+import ru.ipccenter.favortrippals.core.model.User;
 
 public interface ITripService {
 
@@ -17,7 +18,7 @@ public interface ITripService {
 
     public Trip getTripById(long id);
 
-    public Trip getTripByTraveller(long traveller);
+    public List<Trip> getTripsByTraveller(User traveller);
 
     public List<Trip> getTrips();
 }

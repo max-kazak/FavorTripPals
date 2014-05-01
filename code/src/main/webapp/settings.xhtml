@@ -1,23 +1,16 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://java.sun.com/jsf/html"
-     xmlns:f="http://java.sun.com/jsf/core"
-     xmlns:p="http://primefaces.org/ui"
-     xmlns:c="http://java.sun.com/jsp/jstl/core">  
-
- <h:head>
- <title>Settings</title>
- </h:head>
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+ <ui:param name ="tabIndex" value="5"/>
+ <ui:define name="content">
+ 
  <h:form id="form">
- <p:layout fullPage="true">
-     
- <p:layoutUnit position="west" header="Calendar" resizable="true">  
-     <p:calendar value="#{calendarMB.date}" mode="inline" id="inlineCal"/>
- </p:layoutUnit>
-    
- <p:layoutUnit position="center">
-    <p:tabView id="tabView">  
+    <p:tabView id="tabView" >  
         <p:tab id="tab1" title="Social connections">  
-
+            
             <p:dataList id="datalist" value="#{socialConnectionMB.connections}" var="sc" type="definition" >  
                 Social network: #{sc.providerNameByType} <br />
                 User id: #{sc.providerUserId} <br />
@@ -54,7 +47,7 @@
                     </p:selectOneMenu>
                 </h:panelGrid>  
                 <br />
-                <p:commandButton id="button" value="Save" update="tab1, panel1" actionListener="#{socialConnectionMB.addConnection()}"/>  
+                <p:commandButton id="button" value="Save" update="datalist, panel1" actionListener="#{socialConnectionMB.addConnection()}"/>  
             </p:panel>
 
         </p:tab>
@@ -79,7 +72,6 @@
             </h:panelGrid>
         </p:tab>
     </p:tabView>
- </p:layoutUnit>
- </p:layout>
  </h:form>
-</html>
+ </ui:define>
+</ui:composition>

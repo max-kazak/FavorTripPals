@@ -1,8 +1,5 @@
 package ru.ipccenter.favortrippals.social;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.bean.ManagedProperty;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Service;

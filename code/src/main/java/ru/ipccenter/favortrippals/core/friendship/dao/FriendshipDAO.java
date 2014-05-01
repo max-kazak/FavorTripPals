@@ -45,7 +45,7 @@ public class FriendshipDAO implements IFriendshipDAO
     {
         String query = "from Friendship where user1=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
-				.setParameter(0, user.getId()).list();
+				.setParameter(0, user).list();
         return (List<Friendship>)list;
     }
 }

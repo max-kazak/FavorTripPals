@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ipccenter.favortrippals.core.goods.dao.IGoodsDAO;
 import ru.ipccenter.favortrippals.core.model.Goods;
 
+@Transactional(readOnly = true)
 public class GoodsService implements IGoodsService
 {
     IGoodsDAO goodsDAO;
@@ -22,21 +23,21 @@ public class GoodsService implements IGoodsService
         this.goodsDAO = goodsDAO;
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void addGoods(Goods goods)
     {
         getGoodsDAO().addGoods(goods);
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void deleteGoods(Goods goods)
     {
         getGoodsDAO().deleteGoods(goods);
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void updateGoods(Goods goods)
     {
