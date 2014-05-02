@@ -87,6 +87,13 @@ public class Goods implements Serializable
         this.currency = currency;
     }
     
+    public String costWithCurrency()
+    {
+        StringBuffer strBuff = new StringBuffer();
+        strBuff.append(getCost()).append(" ").append(getCurrency());
+        return strBuff.toString();
+    }
+    
     @Override
     public String toString()
     {

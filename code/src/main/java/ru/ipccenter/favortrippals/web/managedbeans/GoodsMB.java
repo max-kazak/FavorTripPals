@@ -80,6 +80,12 @@ public class GoodsMB
         return goods;
     }
     
+    public String costWithCurrency()
+    {
+        checkActuality();
+        return goods.costWithCurrency();
+    }
+    
     @Override
     public String toString()
     {

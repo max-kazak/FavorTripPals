@@ -22,4 +22,5 @@ public interface IRequestDAO
      * @return
      */
     public List<Request> getAllRequestsByGoods(Goods goods);
+    public Request getRequestByAllIds(User customer, Trip trip, Goods goods);
 }

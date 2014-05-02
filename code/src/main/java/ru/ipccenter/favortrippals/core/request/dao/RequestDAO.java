@@ -4,6 +4,7 @@ package ru.ipccenter.favortrippals.core.request.dao;
  * @author Anton
  */
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import ru.ipccenter.favortrippals.core.model.Goods;
 import ru.ipccenter.favortrippals.core.model.Request;
@@ -67,5 +68,19 @@ public class RequestDAO implements IRequestDAO
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, goods.getId()).list();
         return (List<Request>)list;
+    }
+    
+    @Override
+    public Request getRequestByAllIds(User customer, Trip trip, Goods goods)
+    {
+        String stringQuery = "from Request where customer=:customer and trip=:trip and goods:=goods";
+        Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
+        query.setParameter("customer", customer);
+        query.setParameter("trip", trip);
+        query.setParameter("goods", goods);
+        List list = query.list();
+        if (list.isEmpty())
+            return null;
+        return (Request)list.get(0);
     }
 }

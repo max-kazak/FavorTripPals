@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Create your Request</title>
+    </head>
+    <h:form id="form">
+    <p:layout fullPage="true">
+     
+    <p:layoutUnit position="west" header="Calendar">  
+        <p:calendar value="#{calendarMB.date}" mode="inline" id="inlineCal"/>
+    </p:layoutUnit>
+    
+    <p:layoutUnit position="center">
+        <p:panel header="Put here information about your request" toggleable="false" id="panel">              
+        <p:messages id="msgs" autoUpdate="true"/>  
+            
+        <h:panelGrid columns="2" cellpadding="5">  
+            
+            <h:outputLabel value="Goods: *" for="acGoods" />  
+            <p:autoComplete id="acGoods" value="#{autoCompleteMB.txtGoods}" required="true"   
+                    completeMethod="#{autoCompleteMB.complete}"/> 
+            
+            <h:outputLabel value="Count of Goods: " for="countOfGoods" />  
+            <p:inputText id="countOfGoods" value="#{requestMB.count}"  />
+            
+        </h:panelGrid>  
+        </p:panel>
+        
+        <p:commandButton value="Submit" id="submit" update="display" actionListener="#{requestMB.addRequest()}" 
+                         oncomplete="PF('dialog').show()"/>
+        
+        <p:dialog header="Your new Request" widgetVar="dialog"  
+            showEffect="fold" hideEffect="fold" width="200">  
+              
+            <h:panelGrid id="display" columns="2" cellpadding="5" >
+                <h:outputText value="Trip: " />  
+                <h:outputText value="#{requestMB.trip.dest}" />
+                
+                <h:outputText value="Customer: " />  
+                <h:outputText value="#{requestMB.customer.name}" />
+                
+                <h:outputText value="Goods: " />  
+                <h:outputText value="#{requestMB.goods.name}" />
+                
+                <h:outputText value="Count of Goods: " />  
+                <h:outputText value="#{requestMB.count}" /> 
+            </h:panelGrid>            
+        </p:dialog>
+        
+    </p:layoutUnit>
+    </p:layout>
+    </h:form>
+</html>

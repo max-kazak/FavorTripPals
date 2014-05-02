@@ -10,6 +10,9 @@ import ru.ipccenter.favortrippals.core.model.Goods;
 
 public class GoodsDAO implements IGoodsDAO
 {
+    private final int NEW_GOODS = 1;
+    private int state;
+    private String newGoodsName;
     private SessionFactory sessionFactory;
     
     public SessionFactory getSessionFactory()
@@ -69,5 +72,49 @@ public class GoodsDAO implements IGoodsDAO
                     .createQuery(query)
                     .list();
         return list;
+    }
+    
+    @Override
+    public List<String> findGoodsByNameBeginning(String query)
+    {
+        String stringQuery = "select name from Goods where name like ':query%'";
+        List list = getSessionFactory().getCurrentSession()
+                    .createQuery(stringQuery).setParameter("query", query)
+                    .list();
+        return list;
+    }
+    
+    @Override
+    public void setNewGoodsState(int state)
+    {
+        this.state = state;
+    }
+    
+    @Override
+    public boolean getBooleanNewGoodsState()
+    {
+        if (state == NEW_GOODS) return true;
+        else return false;
+    }
+    
+    @Override
+    public void setNewGoodsName(String name)
+    {
+        this.newGoodsName = name;
+    }
+    
+    @Override
+    public String getNewGoodsName()
+    {
+        return newGoodsName;
+    }
+    
+    @Override
+    public Goods getGoodsByName(String name)
+    {
+        String query = "from Goods where name=?";
+        List list = getSessionFactory().getCurrentSession().createQuery(query)
+				.setParameter(0, name).list();
+        return (Goods)list.get(0);
     }
 }

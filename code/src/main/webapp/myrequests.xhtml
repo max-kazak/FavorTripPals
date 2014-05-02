@@ -13,18 +13,34 @@
     
     <p:layoutUnit position="center">
         <p:dataTable var="req" value="#{requestMB.requests}">  
-        <p:column headerText="Trip">  
-            <h:outputText value="#{req.trip}" />  
-        </p:column>  
-  
-        <p:column headerText="Goods">  
-            <h:outputText value="#{req.goods}" />  
-        </p:column>  
-  
-        <p:column headerText="Count of Goods">  
-            <h:outputText value="#{req.count}" />  
-        </p:column>  
-    </p:dataTable> 
+            <p:column headerText="Destination of Trip">  
+                <h:outputText value="#{req.trip.dest}" />  
+            </p:column>  
+        
+            <p:column headerText="Traveller">  
+                <h:outputText value="#{req.trip.traveller.name}" />  
+            </p:column>    
+            
+            <p:column headerText="Departure Date">  
+                <h:outputText value="#{req.trip.departure_date}" />  
+            </p:column>
+        
+            <p:column headerText="Arrival Date">  
+                <h:outputText value="#{req.trip.arrival_date}" />  
+            </p:column>   
+            
+            <p:column headerText="Goods">  
+                <h:outputText value="#{req.goods.name}" />  
+            </p:column>  
+            
+            <p:column headerText="Cost">  
+                <h:outputText value="#{req.goods.costWithCurrency()}" />  
+            </p:column>
+            
+            <p:column headerText="Count of Goods">  
+                <h:outputText value="#{req.count}" />  
+            </p:column>  
+        </p:dataTable> 
     </p:layoutUnit>
     </p:layout>
     </h:form>

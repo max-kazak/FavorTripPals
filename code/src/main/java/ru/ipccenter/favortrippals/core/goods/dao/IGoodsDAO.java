@@ -13,4 +13,10 @@ public interface IGoodsDAO
     public void updateGoods(Goods goods);
     public Goods getGoodsById(long id);
     public List<Goods> getAllGoods();
+    public List<String> findGoodsByNameBeginning(String query);
+    public void setNewGoodsState(int state);
+    public boolean getBooleanNewGoodsState();
+    public void setNewGoodsName(String name);
+    public String getNewGoodsName();
+    public Goods getGoodsByName(String name);
 }
