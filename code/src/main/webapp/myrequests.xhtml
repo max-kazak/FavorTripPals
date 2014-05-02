@@ -1,17 +1,15 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <head>
-        <title>My Requests</title>
-    </head>
-    <h:form id="form">
-    <p:layout fullPage="true">
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
      
-    <p:layoutUnit position="west" header="Calendar">  
-        <p:calendar value="#{calendarMB.date}" mode="inline" id="inlineCal"/>
-    </p:layoutUnit>
-    
-    <p:layoutUnit position="center">
+    <ui:param name ="tabIndex" value="3"/>
+    <ui:define name="content">
+     
+    <h:form id="form">
+
+        <p>My Requests</p>
         <p:dataTable var="req" value="#{requestMB.requests}">  
             <p:column headerText="Destination of Trip">  
                 <h:outputText value="#{req.trip.dest}" />  
@@ -41,7 +39,6 @@
                 <h:outputText value="#{req.count}" />  
             </p:column>  
         </p:dataTable> 
-    </p:layoutUnit>
-    </p:layout>
     </h:form>
-</html>
+    </ui:define>
+    </ui:composition>
