@@ -83,4 +83,15 @@ public class RequestDAO implements IRequestDAO
             return null;
         return (Request)list.get(0);
     }
+    
+    @Override
+    public List<Request> getAllRequestsByCurrentUser(User user)
+    {
+        String stringQuery = "from Request where trip.traveller=:traveller or customer=:customer";
+        Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
+        query.setParameter("customer", user);
+        query.setParameter("traveller", user);
+        List list = query.list();
+        return (List<Request>)list;
+    }
 }

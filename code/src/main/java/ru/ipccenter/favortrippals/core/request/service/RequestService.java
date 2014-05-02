@@ -70,4 +70,10 @@ public class RequestService implements IRequestService
     {
         return getRequestDAO().getRequestByAllIds(customer, trip, goods);
     }
+    
+    @Override
+    public List<Request> getAllRequestsByCurrentUser(User user)
+    {
+        return getRequestDAO().getAllRequestsByCurrentUser(user);
+    }
 }

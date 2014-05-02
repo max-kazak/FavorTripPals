@@ -3,7 +3,6 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
@@ -95,7 +94,6 @@ public class RequestMB
                 getUserService().getCurrentUser());
     }
     
-<<<<<<< HEAD
     public Request getRequest()
     {
         return request;
@@ -177,7 +175,8 @@ public class RequestMB
         }
         while (getGoodsService().getGoodsById(id)!=null);
         return id;
-=======
+    }
+    
     public List<Request> getAllRequestsByTrip(Trip trip)
     {
         return getRequestService().getAllRequestsByTrip(trip);
@@ -185,7 +184,6 @@ public class RequestMB
     
     public List<Request> getAllRequestsByCurrentUser()
     {
-        return new ArrayList<>();
->>>>>>> 17526327446295f2a5a986dd349a1fb0e0125e95
+        return getRequestService().getAllRequestsByCurrentUser(getUserService().getCurrentUser());
     }
 }
