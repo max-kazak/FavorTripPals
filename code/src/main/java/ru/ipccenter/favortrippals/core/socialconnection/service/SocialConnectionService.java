@@ -1,6 +1,8 @@
 package ru.ipccenter.favortrippals.core.socialconnection.service;
 
 import java.util.List;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.facebook.api.Facebook;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
@@ -12,8 +14,21 @@ import ru.ipccenter.favortrippals.core.socialconnection.dao.ISocialConnectionDAO
 @Transactional(readOnly = true)
 public class SocialConnectionService implements ISocialConnectionService
 {
+    Connection currentConnection;
     SocialConnection currentSocialConnection;
     ISocialConnectionDAO socialConnectionDAO;
+    
+    @Override
+    public Connection getCurrentConnection()
+    {
+        return currentConnection;
+    }
+
+    @Override
+    public void setCurrentConnection(Connection currentConnection)
+    {
+        this.currentConnection = currentConnection;
+    }
     
     public void setSocialConnectionDAO (ISocialConnectionDAO socialConnectionDAO)
     {
@@ -67,5 +82,23 @@ public class SocialConnectionService implements ISocialConnectionService
     public SocialConnection getConnectionByProviderUserId(String provider, String providerUserId)
     {
         return socialConnectionDAO.getConnectionByProviderUserId(provider, providerUserId);
+    }
+
+    @Override
+    public void printOnTheWall(String message)
+    {
+        Object api = getCurrentConnection().getApi();
+        if (api instanceof Facebook)
+        {
+            try
+            {
+                Connection<Facebook> connection = (Connection<Facebook>)getCurrentConnection();
+                connection.updateStatus(message);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
     }
 }

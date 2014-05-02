@@ -1,7 +1,5 @@
 package ru.ipccenter.favortrippals.social;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
@@ -51,6 +49,7 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
         {
             user = new User();
             user.setNickname(connection.getDisplayName());
+            user.setName(connection.getDisplayName());
             getUserService().addUser(user);
         }
         SocialConnection socialConnection = 

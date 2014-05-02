@@ -17,7 +17,7 @@ public class Goods implements Serializable
     private String name;
     private String description;
     private String location;
-    private int cost;
+    private Integer cost;
     private String currency;
     
     @Id
@@ -46,7 +46,7 @@ public class Goods implements Serializable
     }
     
     @Column(name="COST", unique = false, nullable = true)
-    public int getCost()
+    public Integer getCost()
     {
         return cost;
     }
@@ -77,7 +77,7 @@ public class Goods implements Serializable
         this.location = location;
     }
     
-    public void setCost(int cost)
+    public void setCost(Integer cost)
     {
         this.cost = cost;
     }

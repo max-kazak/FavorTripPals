@@ -20,7 +20,7 @@ public class User implements Serializable
     private String nickname;
     private String email;
     private String name;
-    private int state;
+    private Integer state;
 
     @Id
     @Column(name="ID", unique = true, nullable = false)
@@ -68,12 +68,12 @@ public class User implements Serializable
     }
 
     @Column(name="STATE", unique = false, nullable = true)
-    public int getState()
+    public Integer getState()
     {
         return state;
     }
 
-    public void setState(int state)
+    public void setState(Integer state)
     {
         this.state = state;
     }

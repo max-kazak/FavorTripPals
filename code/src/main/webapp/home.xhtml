@@ -1,0 +1,69 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+        >
+    <ui:param name ="tabIndex" value="0"/>
+    <ui:define name="content">
+        <h:form id="form">
+            <p>Your trips.</p>
+            <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true">
+                <p:tab title="#{tr.dest}">  
+                    <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
+                        <p:column headerText="goods">  
+                            <h:outputText value="#{req.goods.name}" />  
+                        </p:column>  
+
+                        <p:column headerText="amount">  
+                            <h:outputText value="#{req.count}" />  
+                        </p:column>  
+
+                        <p:column headerText="customer name">  
+                            <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+            </p:accordionPanel>
+            
+            <p>Your requests.</p>
+            <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}">  
+                <p:column headerText="customer name">  
+                    <h:outputText value="#{req.customer.name}" />  
+                </p:column>  
+
+                <p:column headerText="customer nickname">  
+                    <h:outputText value="#{req.customer.nickname}" />  
+                </p:column>  
+
+                <p:column headerText="traveller name">  
+                    <h:outputText value="#{req.trip.traveller.name}" />  
+                </p:column>
+
+                <p:column headerText="traveller nickname">  
+                    <h:outputText value="#{req.trip.traveller.nickname}" />  
+                </p:column>
+                
+                <p:column headerText="status">
+                    
+                </p:column>
+            </p:dataTable>
+            
+            <p>Your friends.</p>
+            <p:dataTable var="friends" value="#{friendshipMB.allFriendshipsByCurrentUser}">  
+                <p:column headerText="name">
+                    <h:outputText value="#{friends.user2.name}" />  
+                </p:column>  
+
+                <p:column headerText="nickname">  
+                    <h:outputText value="#{friends.user2.nickname}" />  
+                </p:column>  
+
+                <p:column headerText="email">  
+                    <h:outputText value="#{friends.user2.email}" />  
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -5,17 +5,68 @@ package ru.ipccenter.favortrippals.core.model;
  * Class include special constants of type of networks.
  */
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+//import ru.ipccenter.favortrippals.core.model.SocialConnection.SocialConnectionK;
 
 @Entity
+//@IdClass(SocialConnectionK.class)
 @Table(name="SNETWORKS")
 public class SocialConnection implements Serializable
-{
+{/*
+    public class SocialConnectionK implements Serializable 
+    {
+        private User user;
+        private int networkType;
+        
+        public SocialConnectionK() {}
+        
+        public SocialConnectionK(User user, int networkType) 
+        {
+            this.user = user;
+            this.networkType = networkType;
+        }
+        
+        public User getUser()
+        {
+            return user;
+        }
+        
+        public int getNetworkType()
+        {
+            return networkType;
+        }
+        
+        @Override
+        public boolean equals(Object o)
+        {
+            if(o instanceof SocialConnectionK)
+            {
+                SocialConnectionK f = (SocialConnectionK)o;
+                if ((f.getUser().getId() == user.getId()) && 
+                        (f.getNetworkType() == networkType))
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode()
+        {
+            int hash = 7;
+            hash = 97 * hash + Objects.hashCode(this.user);
+            hash = 97 * hash + Objects.hashCode(this.networkType);
+            return hash;
+        }
+    }
+    */
     public static final int VKONTAKTE = 0;
     public static final int FACEBOOK = 1;
     public static final int TWITTER = 2;

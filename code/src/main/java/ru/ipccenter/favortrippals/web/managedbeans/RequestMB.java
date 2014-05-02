@@ -3,6 +3,7 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
@@ -23,13 +24,13 @@ import ru.ipccenter.favortrippals.core.trip.service.ITripService;
 @RequestScoped
 public class RequestMB 
 {
-    @ManagedProperty(value="#{RequestService}")
+    @ManagedProperty(value="#{requestService}")
     IRequestService requestService;
-    @ManagedProperty(value="#{UserService}")
+    @ManagedProperty(value="#{userService}")
     IUserService userService;
-    @ManagedProperty(value="#{GoodsService}")
+    @ManagedProperty(value="#{goodsService}")
     IGoodsService goodsService;
-    @ManagedProperty(value="#{TripService}")
+    @ManagedProperty(value="#{tripService}")
     ITripService tripService;
     
     private Request request;
@@ -94,6 +95,7 @@ public class RequestMB
                 getUserService().getCurrentUser());
     }
     
+<<<<<<< HEAD
     public Request getRequest()
     {
         return request;
@@ -175,5 +177,15 @@ public class RequestMB
         }
         while (getGoodsService().getGoodsById(id)!=null);
         return id;
+=======
+    public List<Request> getAllRequestsByTrip(Trip trip)
+    {
+        return getRequestService().getAllRequestsByTrip(trip);
+    }
+    
+    public List<Request> getAllRequestsByCurrentUser()
+    {
+        return new ArrayList<>();
+>>>>>>> 17526327446295f2a5a986dd349a1fb0e0125e95
     }
 }

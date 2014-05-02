@@ -11,13 +11,14 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import ru.ipccenter.favortrippals.core.model.Friendship.FriendshipPK;
+//import ru.ipccenter.favortrippals.core.model.Friendship.FriendshipPK;
 
 @Entity
-@IdClass(FriendshipPK.class)
+//@IdClass(FriendshipPK.class)
 @Table(name="FRIENDSHIPS")
 public class Friendship implements Serializable
 {
+    /*
     public class FriendshipPK implements Serializable 
     {
         protected User user1;
@@ -62,6 +63,7 @@ public class Friendship implements Serializable
             return hash;
         }
     }
+    */
     
     @Id
     @ManyToOne

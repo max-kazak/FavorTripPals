@@ -11,6 +11,7 @@ import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.model.Trip;
 import ru.ipccenter.favortrippals.core.request.dao.IRequestDAO;
 
+@Transactional(readOnly = true)
 public class RequestService implements IRequestService
 {
     IRequestDAO requestDAO;
@@ -25,21 +26,21 @@ public class RequestService implements IRequestService
         this.requestDAO = requestDAO;
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void addRequest(Request request)
     {
         getRequestDAO().addRequest(request);
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void deleteRequest(Request request)
     {
         getRequestDAO().deleteRequest(request);
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void updateRequest(Request request)
     {

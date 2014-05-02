@@ -3,21 +3,34 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.Friendship;
 import ru.ipccenter.favortrippals.core.model.User;
+import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
 @ManagedBean(name="friendshipMB")
 @SessionScoped
 public class FriendshipMB 
 {
-    @ManagedProperty(value ="#(FriendshipService")
+    @ManagedProperty(value ="#{friendshipService}")
     IFriendshipService friendshipService;
-    
+    @ManagedProperty (value="#{userService}")
+    IUserService userService;
     private Friendship friendship;
+
+    public IUserService getUserService()
+    {
+        return userService;
+    }
+
+    public void setUserService(IUserService userService)
+    {
+        this.userService = userService;
+    }
     
     public IFriendshipService getFriendshipService() 
     {
@@ -37,5 +50,11 @@ public class FriendshipMB
     public User getUser2 ()
     {
         return friendship.getUser2();
+    }
+    
+    public List<Friendship> getAllFriendshipsByCurrentUser()
+    {
+        User user = getUserService().getCurrentUser();
+        return getFriendshipService().getAllFriendshipsByUser(user);
     }
 }

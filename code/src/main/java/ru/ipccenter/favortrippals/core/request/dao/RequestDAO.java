@@ -48,7 +48,7 @@ public class RequestDAO implements IRequestDAO
     {
         String query = "from Request where customer=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
-				.setParameter(0, customer.getId()).list();
+				.setParameter(0, customer).list();
         return (List<Request>)list;
     }
     
@@ -57,7 +57,7 @@ public class RequestDAO implements IRequestDAO
     {
         String query = "from Request where trip=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
-				.setParameter(0, trip.getId()).list();
+				.setParameter(0, trip).list();
         return (List<Request>)list;
     }
     
@@ -66,7 +66,7 @@ public class RequestDAO implements IRequestDAO
     {
         String query = "from Request where goods=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
-				.setParameter(0, goods.getId()).list();
+				.setParameter(0, goods).list();
         return (List<Request>)list;
     }
     

@@ -1,0 +1,30 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+        >
+    <ui:param name ="tabIndex" value="2"/>
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="New Trip">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="dest" value="Destination : " />
+                        <p:inputText id="dest" value="#{creatingTripMB.dest}" required="true"></p:inputText>
+
+                        <h:outputLabel for="capacity" value="Capacity : " />
+                        <p:inputText id="capacity" value="#{creatingTripMB.capacity}" required="true"></p:inputText>
+                    </h:panelGrid>
+            </p:panel>
+
+        </h:form>
+
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>

@@ -9,6 +9,7 @@ import ru.ipccenter.favortrippals.core.friendship.dao.IFriendshipDAO;
 import ru.ipccenter.favortrippals.core.model.Friendship;
 import ru.ipccenter.favortrippals.core.model.User;
 
+@Transactional(readOnly = true)
 public class FriendshipService implements IFriendshipService
 {
     IFriendshipDAO friendshipDAO;
@@ -23,21 +24,21 @@ public class FriendshipService implements IFriendshipService
         this.friendshipDAO = friendshipDAO;
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void addFriendship(Friendship friendship)
     {
         getFriendshipDAO().addFriendship(friendship);
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void deleteFriendship(Friendship friendship)
     {
         getFriendshipDAO().deleteFriendship(friendship);
     }
     
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void updateFriendship(Friendship friendship)
     {
