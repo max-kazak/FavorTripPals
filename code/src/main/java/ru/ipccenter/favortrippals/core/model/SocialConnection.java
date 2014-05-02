@@ -14,14 +14,14 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-//import ru.ipccenter.favortrippals.core.model.SocialConnection.SocialConnectionK;
+import ru.ipccenter.favortrippals.core.model.SocialConnection.SocialConnectionK;
 
 @Entity
-//@IdClass(SocialConnectionK.class)
+@IdClass(SocialConnectionK.class)
 @Table(name="SNETWORKS")
 public class SocialConnection implements Serializable
-{/*
-    public class SocialConnectionK implements Serializable 
+{
+    public static class SocialConnectionK implements Serializable 
     {
         private User user;
         private int networkType;
@@ -66,7 +66,7 @@ public class SocialConnection implements Serializable
             return hash;
         }
     }
-    */
+
     public static final int VKONTAKTE = 0;
     public static final int FACEBOOK = 1;
     public static final int TWITTER = 2;

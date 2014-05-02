@@ -12,15 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.IdClass;
-//import ru.ipccenter.favortrippals.core.model.Request.RequestPK;
+import ru.ipccenter.favortrippals.core.model.Request.RequestPK;
 
 @Entity
-//@IdClass(RequestPK.class)
+@IdClass(RequestPK.class)
 @Table(name="REQUESTS")
 public class Request implements Serializable
 {
-    /*
-    public class RequestPK implements Serializable 
+    public static class RequestPK implements Serializable 
     {
         protected Trip trip;
         protected Goods goods;
@@ -74,7 +73,6 @@ public class Request implements Serializable
             return hash;
         }
     }
-    */
     
     @Id
     @ManyToOne
