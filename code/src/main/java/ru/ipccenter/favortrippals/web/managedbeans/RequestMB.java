@@ -131,18 +131,22 @@ public class RequestMB
     
     public String addRequest()
     {
-        if (getGoodsService().getBooleanNewGoodsState())
+        if (getGoodsService().getBooleanNewGoodsState() || 
+                getGoodsService().getBooleanNewCostState() || 
+                getGoodsService().getBooleanNewCurrencyState())
         {
             Goods newGoods = new Goods();
             newGoods.setId(idGeneratorForGoods());
-            //add new parameters
+            newGoods.setCost(getGoodsService().getNewGoodsCost());
+            newGoods.setCurrency(getGoodsService().getNewGoodsCurrency());
             newGoods.setName(getGoodsService().getNewGoodsName());
             getGoodsService().addGoods(newGoods);
             setGoods(newGoods);
         }
         else
         {
-            setGoods(getGoodsService().getGoodsByName(getGoodsService().getNewGoodsName()));
+            setGoods(getGoodsService().getGoodsByParameters(getGoodsService().getNewGoodsName(), 
+                    getGoodsService().getNewGoodsCost(), getGoodsService().getNewGoodsCurrency()));
         }
         
         if (getRequestService().getRequestByAllIds(

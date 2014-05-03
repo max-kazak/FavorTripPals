@@ -1,16 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <head>
-        <title>Create your Request</title>
-    </head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:form id="form">
     <p:layout fullPage="true">
-     
-    <p:layoutUnit position="west" header="Calendar">  
-        <p:calendar value="#{calendarMB.date}" mode="inline" id="inlineCal"/>
-    </p:layoutUnit>
-    
+
     <p:layoutUnit position="center">
         <p:panel header="Put here information about your request" toggleable="false" id="panel">              
         <p:messages id="msgs" autoUpdate="true"/>  
@@ -19,7 +14,21 @@
             
             <h:outputLabel value="Goods: *" for="acGoods" />  
             <p:autoComplete id="acGoods" value="#{autoCompleteMB.txtGoods}" required="true"   
-                    completeMethod="#{autoCompleteMB.complete}"/> 
+                    completeMethod="#{autoCompleteMB.completeName}"/> 
+            
+            <h:outputText value="Cost: " />  
+            <p:selectOneMenu id="cost" value="#{pprMB.cost}" effect="fold" editable="true">  
+                <f:selectItem itemValue="" />  
+                <f:selectItems value="#{pprMB.costs}" /> 
+                <p:ajax update="currencies"  
+                        listener="#{pprMB.handleCostChange}" />  
+            </p:selectOneMenu>
+            
+            <h:outputText id="currencies" value="Currency: " />  
+            <p:selectOneMenu value="#{pprMB.currency}" effect="fold" editable="true">  
+                <f:selectItem itemValue="" />  
+                <f:selectItems value="#{pprMB.currencies}" />  
+            </p:selectOneMenu>
             
             <h:outputLabel value="Count of Goods: " for="countOfGoods" />  
             <p:inputText id="countOfGoods" value="#{requestMB.count}"  />

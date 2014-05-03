@@ -3,8 +3,11 @@ package ru.ipccenter.favortrippals.core.goods.dao;
  *
  * @author Anton
  */
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import ru.ipccenter.favortrippals.core.model.Goods;
 
@@ -12,7 +15,11 @@ public class GoodsDAO implements IGoodsDAO
 {
     private final int NEW_GOODS = 1;
     private int state;
+    private int stateCost;
+    private int stateCurrency;
     private String newGoodsName;
+    private String newGoodsCost;
+    private String newGoodsCurrency;
     private SessionFactory sessionFactory;
     
     public SessionFactory getSessionFactory()
@@ -91,9 +98,35 @@ public class GoodsDAO implements IGoodsDAO
     }
     
     @Override
+    public void setNewCostState(int stateCost)
+    {
+        this.stateCost = stateCost;
+    }
+    
+    @Override
+    public void setNewCurrencyState(int stateCurrency)
+    {
+        this.stateCurrency = stateCurrency;
+    }
+    
+    @Override
     public boolean getBooleanNewGoodsState()
     {
         if (state == NEW_GOODS) return true;
+        else return false;
+    }
+    
+    @Override
+    public boolean getBooleanNewCostState()
+    {
+        if (stateCost == NEW_GOODS) return true;
+        else return false;
+    }
+    
+    @Override
+    public boolean getBooleanNewCurrencyState()
+    {
+        if (stateCurrency == NEW_GOODS) return true;
         else return false;
     }
     
@@ -110,11 +143,66 @@ public class GoodsDAO implements IGoodsDAO
     }
     
     @Override
-    public Goods getGoodsByName(String name)
+    public void setNewGoodsCost(String newGoodsCost)
     {
-        String query = "from Goods where name=?";
+        this.newGoodsCost = newGoodsCost;
+    }
+    
+    @Override
+    public Integer getNewGoodsCost()
+    {
+        return Integer.parseInt(newGoodsCost);
+    }
+    
+    @Override
+    public void setNewGoodsCurrency(String newGoodsCurrency)
+    {
+        this.newGoodsCurrency = newGoodsCurrency;
+    }
+    
+    @Override
+    public String getNewGoodsCurrency()
+    {
+        return newGoodsCurrency;
+    }
+    
+    @Override
+    public Goods getGoodsByParameters(String name, Integer cost, String currency)
+    {
+        String stringQuery = "from Goods where name=:name and cost=:cost and currency=:currency";
+        Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
+        query.setParameter("name", name);
+        query.setParameter("cost", cost);
+        query.setParameter("currency", currency);
+        List list = query.list();
+        return (Goods)list.get(0);
+    }
+    
+    @Override
+    public Map<String, String> getMapOfCostsByName(String name)
+    {
+        String query = "select cost from Goods where name=?";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, name).list();
-        return (Goods)list.get(0);
+        Map<String, String> map = new HashMap<>();
+        if (list.isEmpty()) return map;
+        for (Object x : list)
+            map.put(x.toString(), x.toString());
+        return map;
+    }
+    
+    @Override
+    public Map<String, String> getMapOfCurrenciesByNameAndCost(String name, String cost)
+    {
+        String stringQuery = "select currency from Goods where name=:name and cost:=cost";
+        Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
+        query.setParameter("name", name);
+        query.setParameter("cost", Integer.parseInt(cost));
+        List list = query.list();
+        Map<String, String> map = new HashMap<>();
+        if (list.isEmpty()) return map;
+        for (Object x : list)
+            map.put(x.toString(), x.toString());
+        return map;
     }
 }

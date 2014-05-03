@@ -4,6 +4,7 @@ package ru.ipccenter.favortrippals.core.goods.service;
  * @author Anton
  */
 import java.util.List;
+import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ipccenter.favortrippals.core.goods.dao.IGoodsDAO;
 import ru.ipccenter.favortrippals.core.model.Goods;
@@ -69,9 +70,33 @@ public class GoodsService implements IGoodsService
     }
     
     @Override
+    public void setNewCostState(int stateCost)
+    {
+        getGoodsDAO().setNewCostState(stateCost);
+    }
+    
+    @Override
+    public void setNewCurrencyState(int stateCurrency)
+    {
+        getGoodsDAO().setNewCurrencyState(stateCurrency);
+    }
+    
+    @Override
     public boolean getBooleanNewGoodsState()
     {
         return getGoodsDAO().getBooleanNewGoodsState();
+    }
+    
+    @Override
+    public boolean getBooleanNewCostState()
+    {
+        return getGoodsDAO().getBooleanNewCostState();
+    }
+    
+    @Override
+    public boolean getBooleanNewCurrencyState()
+    {
+        return getGoodsDAO().getBooleanNewCurrencyState();
     }
     
     @Override
@@ -87,8 +112,44 @@ public class GoodsService implements IGoodsService
     }
     
     @Override
-    public Goods getGoodsByName(String name)
+    public void setNewGoodsCost(String newGoodsCost)
     {
-        return getGoodsDAO().getGoodsByName(name);
+        getGoodsDAO().setNewGoodsName(newGoodsCost);
+    }
+    
+    @Override
+    public Integer getNewGoodsCost()
+    {
+        return getGoodsDAO().getNewGoodsCost();
+    }
+    
+    @Override
+    public void setNewGoodsCurrency(String newGoodsCurrency)
+    {
+        getGoodsDAO().setNewGoodsName(newGoodsCurrency);
+    }
+    
+    @Override
+    public String getNewGoodsCurrency()
+    {
+        return getGoodsDAO().getNewGoodsCurrency();
+    }
+    
+    @Override
+    public Goods getGoodsByParameters(String name, Integer cost, String currency)
+    {
+        return getGoodsDAO().getGoodsByParameters(name, cost, currency);
+    }
+    
+    @Override
+    public Map<String, String> getMapOfCostsByName(String name)
+    {
+        return getGoodsDAO().getMapOfCostsByName(name);
+    }
+    
+    @Override
+    public Map<String, String> getMapOfCurrenciesByNameAndCost(String name, String cost)
+    {
+        return getGoodsDAO().getMapOfCurrenciesByNameAndCost(name, cost);
     }
 }

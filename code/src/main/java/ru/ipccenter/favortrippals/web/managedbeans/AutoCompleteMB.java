@@ -18,7 +18,7 @@ public class AutoCompleteMB
     private String txtGoods; 
     private IGoodsService goodsService;
     
-    public List<String> complete(String query) {  
+    public List<String> completeName(String query) {  
         List<String> results = new ArrayList<String>();  
           
         results = getGoodsService().findGoodsByNameBeginning(query);
