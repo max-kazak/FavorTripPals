@@ -88,6 +88,12 @@ public class Request implements Serializable
     private User customer;
     @Column(name = "COUNT", unique = false, nullable = true)
     private Integer count;
+    @Column(name = "MAX_COST", unique = false, nullable = true)
+    private Integer max_cost;
+    @Column(name="CURRENCY", unique = false, nullable = true)
+    private String currency;
+    @Column(name="STATUS", unique = false, nullable = true)
+    private String status;
     
     public void setTrip (Trip trip)
     {
@@ -109,6 +115,21 @@ public class Request implements Serializable
         this.count = count;
     }
     
+    public void setMaxCost (Integer max_cost)
+    {
+        this.max_cost = max_cost;
+    }
+    
+    public void setCurrency (String currency)
+    {
+        this.currency = currency;
+    }
+    
+    public void setStatus (String status)
+    {
+        this.status = status;
+    }
+    
     public Trip getTrip ()
     {
         return trip;
@@ -127,5 +148,20 @@ public class Request implements Serializable
     public Integer getCount ()
     {
         return count;
-    }    
+    } 
+    
+    public Integer getMaxCost ()
+    {
+        return max_cost;
+    }
+    
+    public String getCurrency ()
+    {
+        return currency;
+    }
+    
+    public String getStatus ()
+    {
+        return status;
+    }
 }

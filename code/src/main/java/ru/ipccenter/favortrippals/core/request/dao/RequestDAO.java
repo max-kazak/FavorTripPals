@@ -85,7 +85,7 @@ public class RequestDAO implements IRequestDAO
     }
     
     @Override
-    public List<Request> getAllRequestsByCurrentUser(User user)
+    public List<Request> getAllRequestsByUser(User user)
     {
         String stringQuery = "from Request where trip.traveller=:traveller or customer=:customer";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);

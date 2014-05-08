@@ -3,10 +3,11 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
+import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import org.springframework.security.core.context.SecurityContextHolder;
+import javax.faces.context.FacesContext;
 import ru.ipccenter.favortrippals.core.goods.service.IGoodsService;
 import ru.ipccenter.favortrippals.core.model.Goods;
 
@@ -31,10 +32,12 @@ public class GoodsMB
     
     private void checkActuality()
     {
-        String actualId = SecurityContextHolder.getContext().getAuthentication().getName();
-        if( (goods==null) || ( !actualId.equals(""+goods.getId())) )
+        if (goods == null)
         {
-            goods = goodsService.getGoodsById(Long.parseLong(actualId));
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String redirect = "index";
+            NavigationHandler myNav = facesContext.getApplication().getNavigationHandler();
+            myNav.handleNavigation(facesContext, null, redirect);
         }
     }
     
@@ -62,28 +65,10 @@ public class GoodsMB
         return goods.getLocation();
     }
     
-    public int getCost()
-    {
-        checkActuality();
-        return goods.getCost();
-    }
-    
-    public String getCurrency()
-    {
-        checkActuality();
-        return goods.getCurrency();
-    }
-    
     public Goods getGoods()
     {
         checkActuality();
         return goods;
-    }
-    
-    public String costWithCurrency()
-    {
-        checkActuality();
-        return goods.costWithCurrency();
     }
     
     @Override

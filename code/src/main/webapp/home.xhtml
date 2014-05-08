@@ -28,7 +28,7 @@
             </p:accordionPanel>
             
             <p>Your requests.</p>
-            <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}">  
+            <p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
                 <p:column headerText="customer name">  
                     <h:outputText value="#{req.customer.name}" />  
                 </p:column>  

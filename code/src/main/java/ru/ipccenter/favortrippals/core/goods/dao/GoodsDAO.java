@@ -15,11 +15,7 @@ public class GoodsDAO implements IGoodsDAO
 {
     private final int NEW_GOODS = 1;
     private int state;
-    private int stateCost;
-    private int stateCurrency;
     private String newGoodsName;
-    private String newGoodsCost;
-    private String newGoodsCurrency;
     private SessionFactory sessionFactory;
     
     public SessionFactory getSessionFactory()
@@ -98,35 +94,9 @@ public class GoodsDAO implements IGoodsDAO
     }
     
     @Override
-    public void setNewCostState(int stateCost)
-    {
-        this.stateCost = stateCost;
-    }
-    
-    @Override
-    public void setNewCurrencyState(int stateCurrency)
-    {
-        this.stateCurrency = stateCurrency;
-    }
-    
-    @Override
     public boolean getBooleanNewGoodsState()
     {
         if (state == NEW_GOODS) return true;
-        else return false;
-    }
-    
-    @Override
-    public boolean getBooleanNewCostState()
-    {
-        if (stateCost == NEW_GOODS) return true;
-        else return false;
-    }
-    
-    @Override
-    public boolean getBooleanNewCurrencyState()
-    {
-        if (stateCurrency == NEW_GOODS) return true;
         else return false;
     }
     
@@ -143,37 +113,11 @@ public class GoodsDAO implements IGoodsDAO
     }
     
     @Override
-    public void setNewGoodsCost(String newGoodsCost)
+    public Goods getGoodsByName(String name)
     {
-        this.newGoodsCost = newGoodsCost;
-    }
-    
-    @Override
-    public Integer getNewGoodsCost()
-    {
-        return Integer.parseInt(newGoodsCost);
-    }
-    
-    @Override
-    public void setNewGoodsCurrency(String newGoodsCurrency)
-    {
-        this.newGoodsCurrency = newGoodsCurrency;
-    }
-    
-    @Override
-    public String getNewGoodsCurrency()
-    {
-        return newGoodsCurrency;
-    }
-    
-    @Override
-    public Goods getGoodsByParameters(String name, Integer cost, String currency)
-    {
-        String stringQuery = "from Goods where name=:name and cost=:cost and currency=:currency";
+        String stringQuery = "from Goods where name=:name";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("name", name);
-        query.setParameter("cost", cost);
-        query.setParameter("currency", currency);
         List list = query.list();
         return (Goods)list.get(0);
     }

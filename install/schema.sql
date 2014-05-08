@@ -43,9 +43,7 @@ CREATE TABLE goods
 	name		  VARCHAR2(20)  NULL ,
 	id		  INTEGER  NOT NULL ,
 	description	  VARCHAR2(20)  NULL ,
-	location	  VARCHAR2(20)  NULL ,
-	cost		  INTEGER  NULL ,
-	currency	  VARCHAR2(20)  NULL 
+	location	  VARCHAR2(20)  NULL
 );
 
 CREATE UNIQUE INDEX XPKgoods ON goods
@@ -79,7 +77,10 @@ CREATE TABLE requests
 	trip		  INTEGER  NOT NULL ,
 	goods		  INTEGER  NOT NULL ,
 	customer	  INTEGER  NOT NULL ,
-	count		  INTEGER  NULL 
+	count		  INTEGER  NULL ,
+        max_cost          INTEGER  NULL ,
+	currency	  VARCHAR2(20)  NULL ,
+	status            VARCHAR2(20)  NULL
 );
 
 CREATE UNIQUE INDEX XPKrequests ON requests

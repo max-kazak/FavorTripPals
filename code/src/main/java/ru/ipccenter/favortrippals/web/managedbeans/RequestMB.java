@@ -36,7 +36,10 @@ public class RequestMB
     private User customer;
     private Trip trip;
     private Goods goods;
-    private int count;
+    private Integer count;
+    private Integer max_cost;
+    private String currency;
+    private String status;
     
     public IRequestService getRequestService() 
     {
@@ -78,14 +81,44 @@ public class RequestMB
         this.tripService = tripService;
     }
     
-    public int getCount()
+    public Integer getCount()
     {
         return count;
     }
     
-    public void setCount(int count)
+    public void setCount(Integer count)
     {
         this.count = count;
+    }
+    
+    public Integer getMaxCost()
+    {
+        return max_cost;
+    }
+    
+    public void setMaxCost(Integer max_cost)
+    {
+        this.max_cost = max_cost;
+    }
+    
+    public String getCurrency()
+    {
+        return currency;
+    }
+    
+    public void setCurrency(String currency)
+    {
+        this.currency = currency;
+    }
+    
+    public String getStatus()
+    {
+        return status;
+    }
+    
+    public void setStatus(String status)
+    {
+        this.status = status;
     }
     
     public List<Request> getRequests()
@@ -131,22 +164,17 @@ public class RequestMB
     
     public String addRequest()
     {
-        if (getGoodsService().getBooleanNewGoodsState() || 
-                getGoodsService().getBooleanNewCostState() || 
-                getGoodsService().getBooleanNewCurrencyState())
+        if (getGoodsService().getBooleanNewGoodsState())
         {
             Goods newGoods = new Goods();
             newGoods.setId(idGeneratorForGoods());
-            newGoods.setCost(getGoodsService().getNewGoodsCost());
-            newGoods.setCurrency(getGoodsService().getNewGoodsCurrency());
             newGoods.setName(getGoodsService().getNewGoodsName());
             getGoodsService().addGoods(newGoods);
             setGoods(newGoods);
         }
         else
         {
-            setGoods(getGoodsService().getGoodsByParameters(getGoodsService().getNewGoodsName(), 
-                    getGoodsService().getNewGoodsCost(), getGoodsService().getNewGoodsCurrency()));
+            setGoods(getGoodsService().getGoodsByName(getGoodsService().getNewGoodsName()));
         }
         
         if (getRequestService().getRequestByAllIds(
@@ -163,6 +191,9 @@ public class RequestMB
         newRequest.setTrip(getTrip());
         newRequest.setGoods(getGoods());
         newRequest.setCount(getCount());
+        newRequest.setMaxCost(getMaxCost());
+        newRequest.setCurrency(getCurrency());
+        newRequest.setStatus("not checked");
         getRequestService().addRequest(newRequest);
         FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage("Success."));
@@ -186,8 +217,8 @@ public class RequestMB
         return getRequestService().getAllRequestsByTrip(trip);
     }
     
-    public List<Request> getAllRequestsByCurrentUser()
+    public List<Request> getAllRequestsByUser()
     {
-        return getRequestService().getAllRequestsByCurrentUser(getUserService().getCurrentUser());
+        return getRequestService().getAllRequestsByUser(getUserService().getCurrentUser());
     }
 }
