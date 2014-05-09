@@ -8,62 +8,82 @@
     <ui:param name ="tabIndex" value="0"/>
     <ui:define name="content">
         <h:form id="form">
-            <p>Your trips.</p>
-            <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true">
-                <p:tab title="#{tr.dest}">  
-                    <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
-                        <p:column headerText="goods">  
-                            <h:outputText value="#{req.goods.name}" />  
-                        </p:column>  
-
-                        <p:column headerText="amount">  
-                            <h:outputText value="#{req.count}" />  
-                        </p:column>  
-
-                        <p:column headerText="customer name">  
-                            <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
-                        </p:column>
-                    </p:dataTable>
-                </p:tab>
-            </p:accordionPanel>
-            
-            <p>Your requests.</p>
-            <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}">  
-                <p:column headerText="customer name">  
-                    <h:outputText value="#{req.customer.name}" />  
-                </p:column>  
-
-                <p:column headerText="customer nickname">  
-                    <h:outputText value="#{req.customer.nickname}" />  
-                </p:column>  
-
-                <p:column headerText="traveller name">  
-                    <h:outputText value="#{req.trip.traveller.name}" />  
-                </p:column>
-
-                <p:column headerText="traveller nickname">  
-                    <h:outputText value="#{req.trip.traveller.nickname}" />  
-                </p:column>
+            <p:column style="width:45%;">
+                <p:graphicImage url="#{userMB.picture}" width="200"/>
                 
-                <p:column headerText="status">
+                <p:pickList id="friendList" var="friend" value="#{friendshipMB.friends}"
+                                itemValue="#{friend}" itemLabel="#{friend.name}"
+                                showSourceControls="false" showTargetControls="false"
+                                showSourceFilter="true" showTargetFilter="false" filterMatchMode="contains"
+                                style="height:300px; width:250px;">
+
+                    <f:facet name="myFriends">Your friends</f:facet>
+
+                    <p:column style="width:25%;">
+                        <p:graphicImage url="#{friend.picture}" width="40" height="50" />
+                    </p:column>
                     
-                </p:column>
-            </p:dataTable>
+                    <p:column style="width:25%;">
+                        <h:outputText value="Name:" /><br/>
+                        <h:outputText value="Nickname:" /><br/>
+                        <h:outputText value="Email:" />
+                    </p:column>
+                    
+                    <p:column style="width:25%;">
+                        <h:outputText value="#{friend.name}" style="font-weight: bold"/><br/>
+                        <h:outputText value="#{friend.nickname}" style="font-weight: bold"/><br/>
+                        <h:outputText value="#{friend.email}" style="font-weight: bold"/>
+                    </p:column>
+                    
+                    <p:column style="width:25%;">
+                        <p:button outcome="user.xhtml" value="Visit">
+                            <f:param name="userId" value="#{friend.id}" />
+                        </p:button>
+                    </p:column>
+                </p:pickList>
+            </p:column>
             
-            <p>Your friends.</p>
-            <p:dataTable var="friends" value="#{friendshipMB.allFriendshipsByCurrentUser}">  
-                <p:column headerText="name">
-                    <h:outputText value="#{friends.user2.name}" />  
-                </p:column>  
+            <p:column style="width:45%;">
+                <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true" style="width:45%;">
+                    <p:tab title="#{tr.dest}">  
+                        <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
+                            <p:column headerText="goods">  
+                                <h:outputText value="#{req.goods.name}" />  
+                            </p:column>  
 
-                <p:column headerText="nickname">  
-                    <h:outputText value="#{friends.user2.nickname}" />  
-                </p:column>  
+                            <p:column headerText="amount">  
+                                <h:outputText value="#{req.count}" />  
+                            </p:column>  
 
-                <p:column headerText="email">  
-                    <h:outputText value="#{friends.user2.email}" />  
-                </p:column>
-            </p:dataTable>
+                            <p:column headerText="customer name">  
+                                <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                </p:accordionPanel>
+                
+                <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}" style="width:45%;">  
+                    <p:column headerText="customer name">  
+                        <h:outputText value="#{req.customer.name}" />  
+                    </p:column>  
+
+                    <p:column headerText="customer nickname">  
+                        <h:outputText value="#{req.customer.nickname}" />  
+                    </p:column>  
+
+                    <p:column headerText="traveller name">  
+                        <h:outputText value="#{req.trip.traveller.name}" />  
+                    </p:column>
+
+                    <p:column headerText="traveller nickname">  
+                        <h:outputText value="#{req.trip.traveller.nickname}" />  
+                    </p:column>
+
+                    <p:column headerText="status">
+
+                    </p:column>
+                </p:dataTable>
+            </p:column>
         </h:form>
     </ui:define>
 </ui:composition>

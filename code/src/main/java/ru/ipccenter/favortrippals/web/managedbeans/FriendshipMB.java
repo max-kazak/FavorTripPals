@@ -3,10 +3,15 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
 import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.Friendship;
 import ru.ipccenter.favortrippals.core.model.User;
@@ -21,6 +26,27 @@ public class FriendshipMB
     @ManagedProperty (value="#{userService}")
     IUserService userService;
     private Friendship friendship;
+    private DualListModel<User> friends;
+
+    public DualListModel<User> getFriends()
+    {
+        if (friends != null)
+            return friends;
+        User user = getUserService().getCurrentUser();
+        List<Friendship> fs = getFriendshipService().getAllFriendshipsByUser(user);
+        List<User> friends = new ArrayList<>();
+        for (Friendship friendship : fs)
+        {
+            friends.add(friendship.getUser2());
+        }
+        this.friends = new DualListModel<>(friends, new ArrayList<User>());
+        return this.friends;
+    }
+
+    public void setFriends(DualListModel<User> friends)
+    {
+        this.friends = friends;
+    }
 
     public IUserService getUserService()
     {
@@ -50,11 +76,5 @@ public class FriendshipMB
     public User getUser2 ()
     {
         return friendship.getUser2();
-    }
-    
-    public List<Friendship> getAllFriendshipsByCurrentUser()
-    {
-        User user = getUserService().getCurrentUser();
-        return getFriendshipService().getAllFriendshipsByUser(user);
     }
 }

@@ -76,15 +76,13 @@ public class UserService implements IUserService
     @Override
     public User getUserById(long id)
     {
-        currentUser = getUserDAO().getUserById(id);
-        return currentUser;
+        return getUserDAO().getUserById(id);
     }
     
     @Override
     public User getUserByEmail(String email)
     {
-        currentUser = getUserDAO().getUserByEmail(email);
-        return currentUser;
+        return getUserDAO().getUserByEmail(email);
     }
 
     @Override

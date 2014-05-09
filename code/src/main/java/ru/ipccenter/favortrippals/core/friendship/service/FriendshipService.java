@@ -50,4 +50,10 @@ public class FriendshipService implements IFriendshipService
     {
         return getFriendshipDAO().getAllFriendshipsByUser(user);
     }
+
+    @Override
+    public void createFriendship(User user1, User user2)
+    {
+        
+    }
 }

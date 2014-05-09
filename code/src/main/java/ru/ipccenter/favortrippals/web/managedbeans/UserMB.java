@@ -19,20 +19,30 @@ public class UserMB
 
     private User user;
 
+    public void setPicture(String picture)
+    {
+        checkActuality();
+        getUser().setPicture(picture);
+        getUserService().updateUser(user);
+    }
+    
     public void setNickname(String nickname)
     {
+        checkActuality();
         getUser().setNickname(nickname);
         getUserService().updateUser(user);
     }
 
     public void setName(String name)
     {
+        checkActuality();
         getUser().setName(name);
         getUserService().updateUser(user);
     }
 
     public void setEmail(String email)
     {
+        checkActuality();
         getUser().setEmail(email);
         getUserService().updateUser(user);
     }
@@ -69,24 +79,26 @@ public class UserMB
     public String getEmail()
     {
         checkActuality();
-        if ((user.getEmail() == null)||(user.getEmail().length() == 3))
-            return "set your email";
         return user.getEmail();
+    }
+    
+    public String getPicture()
+    {
+        checkActuality();
+        if (user.getPicture() == null)
+            return "set your photo";
+        return user.getPicture();
     }
 
     public String getName()
     {
         checkActuality();
-        if ((user.getName() == null)||(user.getName().length() == 3))
-            return "set your name";
         return user.getName();
     }
 
     public String getNickname()
     {
         checkActuality();
-        if ((user.getNickname() == null)||(user.getNickname().length() == 3))
-            return "set your nickname";
         return user.getNickname();
     }
 

@@ -41,6 +41,7 @@
                 <bean class="ru.ipccenter.favortrippals.social.SpringConnectionSignUp">
                     <property name="userService" ref="userService"/>
                     <property name="socialConnectionService" ref="socialConnectionService"/>
+                    <property name="friendshipService" ref="friendshipService"/>
                 </bean>
             </property>    
         </bean>

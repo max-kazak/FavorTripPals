@@ -13,7 +13,8 @@ CREATE TABLE users
 	pass		  VARCHAR2(40)  NULL ,
 	state		  INTEGER  NULL ,
 	nickname	  VARCHAR2(20)  NULL ,
-	email		  VARCHAR2(30)  NULL 
+	email		  VARCHAR2(30)  NULL, 
+  picture VARCHAR2(255)  NULL
 );
 
 CREATE UNIQUE INDEX XPKUsers ON users

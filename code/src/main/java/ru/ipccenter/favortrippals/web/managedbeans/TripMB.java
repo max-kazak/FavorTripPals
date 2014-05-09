@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.NavigationHandler;
@@ -89,6 +90,15 @@ public class TripMB {
     public List<Trip> getTripsByCurrentUser() {
         checkActuality();
         List<Trip> list = getTripService().getTripsByTraveller(getUserService().getCurrentUser());
+        return list;
+    }
+    
+    public List<Trip> getTripsByUser() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        long userId = Long.parseLong(map.get("userId"));
+        checkActuality();
+        List<Trip> list = getTripService().getTripsByTraveller(getUserService().getUserById(userId));
         return list;
     }
 

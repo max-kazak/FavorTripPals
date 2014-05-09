@@ -3,8 +3,6 @@ package ru.ipccenter.favortrippals.core.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,6 +18,7 @@ public class User implements Serializable
     private String nickname;
     private String email;
     private String name;
+    private String picture;
     private Integer state;
 
     @Id
@@ -77,6 +76,17 @@ public class User implements Serializable
     {
         this.state = state;
     }
+    
+    @Column(name="PICTURE", unique = false, nullable = true)
+    public String getPicture()
+    {
+        return picture;
+    }
+
+    public void setPicture(String picture)
+    {
+        this.picture = picture;
+    }
 
     @Override
     public String toString()
@@ -87,6 +97,7 @@ public class User implements Serializable
         strBuff.append(", nickname : ").append(getNickname());
         strBuff.append(", name : ").append(getName());
         strBuff.append(", state : ").append(getState());
+        strBuff.append(", picture : ").append(getPicture());
         return strBuff.toString();
     }
 }

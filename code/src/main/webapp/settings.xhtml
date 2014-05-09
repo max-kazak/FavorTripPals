@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
- <ui:param name ="tabIndex" value="5"/>
+ <ui:param name="tabIndex" value="4"/>
  <ui:define name="content">
  
  <h:form id="form">
@@ -67,6 +67,11 @@
                 <h:outputText value="Email: " />  
                 <p:inplace id="ajaxInplace3" editor="true">  
                     <p:inputText value="#{userMB.email}"  
+                                required="true" label="text"/>  
+                </p:inplace>
+                <h:outputText value="Photo: " />  
+                <p:inplace id="ajaxInplace3" editor="true">  
+                    <p:inputText value="#{userMB.picture}"  
                                 required="true" label="text"/>  
                 </p:inplace>
             </h:panelGrid>

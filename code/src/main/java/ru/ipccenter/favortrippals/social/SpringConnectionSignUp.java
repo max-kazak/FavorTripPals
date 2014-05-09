@@ -1,7 +1,13 @@
 package ru.ipccenter.favortrippals.social;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.FriendOperations;
+import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
@@ -11,6 +17,17 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
 {
     private IUserService userService;
     private ISocialConnectionService socialConnectionService;
+    private IFriendshipService friendshipService;
+
+    public IFriendshipService getFriendshipService()
+    {
+        return friendshipService;
+    }
+
+    public void setFriendshipService(IFriendshipService friendshipService)
+    {
+        this.friendshipService = friendshipService;
+    }
 
     public ISocialConnectionService getSocialConnectionService()
     {
@@ -50,6 +67,8 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
             user = new User();
             user.setNickname(connection.getDisplayName());
             user.setName(connection.getDisplayName());
+            user.setEmail("Not set.");
+            user.setPicture(connection.getImageUrl());
             getUserService().addUser(user);
         }
         SocialConnection socialConnection = 
@@ -63,6 +82,23 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
             socialConnection.setUser(user);
             socialConnection.setUserPage(connection.getProfileUrl());
             getSocialConnectionService().addConnection(socialConnection);
+        }
+
+        switch (provider.toLowerCase())
+        {
+            case "facebook":
+                Facebook fb = (Facebook)connection.getApi();
+                FriendOperations fo = fb.friendOperations();
+                List<String> friendIds = fo.getFriendIds();
+                for (String fId : friendIds)
+                {
+                    User friend = getUserService().getUserByProviderUserId(provider, fId);
+                    if (friend != null)
+                        getFriendshipService().createFriendship(user, friend);
+                }
+                break;
+            case "vk": case "vkontakte":
+                break;
         }
         return new Long(user.getId()).toString();
     }
