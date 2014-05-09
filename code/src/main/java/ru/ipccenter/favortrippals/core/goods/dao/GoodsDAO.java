@@ -7,15 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import ru.ipccenter.favortrippals.core.model.Goods;
 
 public class GoodsDAO implements IGoodsDAO
 {
-    private final int NEW_GOODS = 1;
-    private int state;
-    private String newGoodsName;
     private SessionFactory sessionFactory;
     
     public SessionFactory getSessionFactory()
@@ -80,36 +79,11 @@ public class GoodsDAO implements IGoodsDAO
     @Override
     public List<String> findGoodsByNameBeginning(String query)
     {
-        String stringQuery = "select name from Goods where name like ':query%'";
+        String stringQuery = "select name from Goods where name like :query";
         List list = getSessionFactory().getCurrentSession()
-                    .createQuery(stringQuery).setParameter("query", query)
+                    .createQuery(stringQuery).setParameter("query", query+"%")
                     .list();
         return list;
-    }
-    
-    @Override
-    public void setNewGoodsState(int state)
-    {
-        this.state = state;
-    }
-    
-    @Override
-    public boolean getBooleanNewGoodsState()
-    {
-        if (state == NEW_GOODS) return true;
-        else return false;
-    }
-    
-    @Override
-    public void setNewGoodsName(String name)
-    {
-        this.newGoodsName = name;
-    }
-    
-    @Override
-    public String getNewGoodsName()
-    {
-        return newGoodsName;
     }
     
     @Override
@@ -119,6 +93,7 @@ public class GoodsDAO implements IGoodsDAO
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("name", name);
         List list = query.list();
+        if (list.isEmpty()) return null;
         return (Goods)list.get(0);
     }
     
@@ -138,7 +113,7 @@ public class GoodsDAO implements IGoodsDAO
     @Override
     public Map<String, String> getMapOfCurrenciesByNameAndCost(String name, String cost)
     {
-        String stringQuery = "select currency from Goods where name=:name and cost:=cost";
+        String stringQuery = "select currency from Goods where name=:name and cost=:cost";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("name", name);
         query.setParameter("cost", Integer.parseInt(cost));

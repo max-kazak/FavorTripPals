@@ -64,30 +64,6 @@ public class GoodsService implements IGoodsService
     }
     
     @Override
-    public void setNewGoodsState(int state)
-    {
-        getGoodsDAO().setNewGoodsState(state);
-    }
-    
-    @Override
-    public boolean getBooleanNewGoodsState()
-    {
-        return getGoodsDAO().getBooleanNewGoodsState();
-    }
-    
-    @Override
-    public void setNewGoodsName(String name)
-    {
-        getGoodsDAO().setNewGoodsName(name);
-    }
-    
-    @Override
-    public String getNewGoodsName()
-    {
-        return getGoodsDAO().getNewGoodsName();
-    }
-    
-    @Override
     public Goods getGoodsByName(String name)
     {
         return getGoodsDAO().getGoodsByName(name);

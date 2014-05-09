@@ -4,6 +4,7 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  * @author Anton
  */
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -40,6 +41,7 @@ public class RequestMB
     private Integer max_cost;
     private String currency;
     private String status;
+    private String newGoodsName;
     
     public IRequestService getRequestService() 
     {
@@ -162,24 +164,39 @@ public class RequestMB
         this.goods = goods;
     }
     
+    public String getNewGoodsName()
+    {
+        return newGoodsName;
+    }
+    
+    public void setNewGoodsName(String newGoodsName)
+    {
+        this.newGoodsName = newGoodsName;
+    }
+    
     public String addRequest()
     {
-        if (getGoodsService().getBooleanNewGoodsState())
+        Goods myGoods = getGoodsService().getGoodsByName(getNewGoodsName());
+        if (myGoods == null)
         {
             Goods newGoods = new Goods();
             newGoods.setId(idGeneratorForGoods());
-            newGoods.setName(getGoodsService().getNewGoodsName());
+            newGoods.setName(getNewGoodsName());
             getGoodsService().addGoods(newGoods);
             setGoods(newGoods);
         }
         else
         {
-            setGoods(getGoodsService().getGoodsByName(getGoodsService().getNewGoodsName()));
+            setGoods(myGoods);
         }
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        Trip currentTrip = getTripService().getTripById(Long.parseLong(map.get("tripId")));
         
         if (getRequestService().getRequestByAllIds(
                             getUserService().getCurrentUser(),
-                            getTrip(),
+                            currentTrip,
                             getGoods()) != null)
         {
             FacesContext.getCurrentInstance().addMessage(
@@ -188,7 +205,7 @@ public class RequestMB
         }
         Request newRequest = new Request();
         newRequest.setCustomer(getUserService().getCurrentUser());
-        newRequest.setTrip(getTrip());
+        newRequest.setTrip(currentTrip);
         newRequest.setGoods(getGoods());
         newRequest.setCount(getCount());
         newRequest.setMaxCost(getMaxCost());

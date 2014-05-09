@@ -73,7 +73,7 @@ public class RequestDAO implements IRequestDAO
     @Override
     public Request getRequestByAllIds(User customer, Trip trip, Goods goods)
     {
-        String stringQuery = "from Request where customer=:customer and trip=:trip and goods:=goods";
+        String stringQuery = "from Request where customer=:customer and trip=:trip and goods=:goods";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("customer", customer);
         query.setParameter("trip", trip);

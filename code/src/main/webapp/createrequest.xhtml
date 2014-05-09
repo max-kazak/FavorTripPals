@@ -16,10 +16,10 @@
         <h:panelGrid columns="2" cellpadding="5">  
             
             <h:outputLabel value="Goods: *" for="acGoods" />  
-            <p:autoComplete id="acGoods" value="#{autoCompleteMB.txtGoods}" required="true"   
+            <p:autoComplete id="acGoods" value="#{requestMB.newGoodsName}" required="true"   
                     completeMethod="#{autoCompleteMB.completeName}"/> 
             
-            <h:outputLabel value="Maximum Cost you want topay: " for="costOfGoods" />  
+            <h:outputLabel value="Maximum Cost you want to pay: " for="costOfGoods" />  
             <p:inputText id="costOfGoods" value="#{requestMB.maxCost}"  />
             
             <h:outputText id="currencies" value="Currency: " />  

@@ -15,10 +15,6 @@ public interface IGoodsService
     public Goods getGoodsById(long id);
     public List<Goods> getAllGoods();
     public List<String> findGoodsByNameBeginning(String query);
-    public void setNewGoodsState(int state);
-    public boolean getBooleanNewGoodsState();
-    public void setNewGoodsName(String name);
-    public String getNewGoodsName();
     public Goods getGoodsByName(String name);
     public Map<String, String> getMapOfCostsByName(String name);
     public Map<String, String> getMapOfCurrenciesByNameAndCost(String name, String cost);
