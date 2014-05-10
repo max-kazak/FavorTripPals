@@ -26,27 +26,6 @@ public class FriendshipMB
     @ManagedProperty (value="#{userService}")
     IUserService userService;
     private Friendship friendship;
-    private DualListModel<User> friends;
-
-    public DualListModel<User> getFriends()
-    {
-        if (friends != null)
-            return friends;
-        User user = getUserService().getCurrentUser();
-        List<Friendship> fs = getFriendshipService().getAllFriendshipsByUser(user);
-        List<User> friends = new ArrayList<>();
-        for (Friendship friendship : fs)
-        {
-            friends.add(friendship.getUser2());
-        }
-        this.friends = new DualListModel<>(friends, new ArrayList<User>());
-        return this.friends;
-    }
-
-    public void setFriends(DualListModel<User> friends)
-    {
-        this.friends = friends;
-    }
 
     public IUserService getUserService()
     {
@@ -76,5 +55,17 @@ public class FriendshipMB
     public User getUser2 ()
     {
         return friendship.getUser2();
+    }
+    
+    public List<User> getFriendsByCurrentUser ()
+    {
+        User user = getUserService().getCurrentUser();
+        List<Friendship> fs = getFriendshipService().getAllFriendshipsByUser(user);
+        List<User> friends = new ArrayList<>();
+        for (Friendship friendship : fs)
+        {
+            friends.add(friendship.getUser2());
+        }
+        return friends;
     }
 }

@@ -1,5 +1,6 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
+import java.util.Map;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -88,6 +89,20 @@ public class UserMB
         if (user.getPicture() == null)
             return "set your photo";
         return user.getPicture();
+    }
+    
+    public String getPictureByUser()
+    {
+        checkActuality();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("userId"))
+            return "";
+        long userId = Long.parseLong(map.get("userId"));
+        User friend = getUserService().getUserById(userId);
+        if (friend.getPicture() == null)
+            return "set your photo";
+        return friend.getPicture();
     }
 
     public String getName()

@@ -22,8 +22,8 @@
                }
             </style>
             <form action="<c:url value="/signin/facebook" />" method="POST">
-                <button type="submit">
-                    <img src="<c:url value="/resources/facebook.gif"/>" />
+                <button type="submit" style="padding: 0; border: 0; width: 80px; height: 80px;">
+                    <img src="<c:url value="/resources/facebook.jpg"/>" style="width: 80px;"/>
                 </button>
                 <input type="hidden" name="scope" value="email,publish_stream,offline_access" />
             </form>

@@ -2,3 +2,9 @@
     background: none !important;
     border: none !important;
 }
+
+#toFriend:hover
+{
+    border-bottom-style: outset;
+    border-bottom-width: 3px;
+}

@@ -25,7 +25,11 @@ public class FriendshipDAO implements IFriendshipDAO
     @Override
     public void addFriendship(Friendship friendship)
     {
+        Friendship revers = new Friendship();
+        revers.setUser1(friendship.getUser2());
+        revers.setUser2(friendship.getUser1());
         getSessionFactory().getCurrentSession().save(friendship);
+        getSessionFactory().getCurrentSession().save(revers);
     }
     
     @Override

@@ -3,6 +3,7 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  *
  * @author Anton
  */
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -191,6 +192,8 @@ public class RequestMB
     {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("userId"))
+            return new ArrayList<>();
         long userId = Long.parseLong(map.get("userId"));
         return getRequestService().getAllRequestsByCurrentUser(getUserService().getUserById(userId));
     }

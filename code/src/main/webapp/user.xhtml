@@ -5,15 +5,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
         >
-    <ui:param name ="tabIndex" value="1"/>
     <ui:define name="content">
         <h:form id="form">
+        <p:panelGrid><p:row>
+            <p:column width="45%" style="vertical-align: top;">
+                <p:graphicImage url="#{userMB.pictureByUser}" width="300"/>
+            </p:column>
+            
             <p:column width="45%">
-                <p>Your trips.</p>
-                <p:dataGrid value="#{tripMB.tripsByUser}" var="tr" columns="2"  
-                            rows="12" paginator="true" style="width:45%;"
+                <p>Trips.</p>
+                <p:dataGrid value="#{tripMB.tripsByUser}" var="tr" columns="1"  
+                            rows="12" paginator="true"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                    <p:panel header="#{tr.dest}" style="text-align:center; width:45%;">  
+                    <p:panel header="#{tr.dest}" style="text-align:center;  border-style: none; padding: 0;">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
                             <p:column headerText="goods">  
                                 <h:outputText value="#{req.goods.name}" />  
@@ -26,35 +30,26 @@
                             <p:column headerText="customer name">  
                                 <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
                             </p:column>
-                        </p:dataTable>  
+                        </p:dataTable>
                     </p:panel>
                 </p:dataGrid>
-            </p:column>
-            
-            <p:column width="45%">
-                <p>Your requests.</p>
-                <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}" style="width:45%;">  
+                
+                <p>Requests.</p>
+                <p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
                     <p:column headerText="customer name">  
-                        <h:outputText value="#{req.customer.name}" />  
-                    </p:column>  
-
-                    <p:column headerText="customer nickname">  
-                        <h:outputText value="#{req.customer.nickname}" />  
+                        <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
                     </p:column>  
 
                     <p:column headerText="traveller name">  
-                        <h:outputText value="#{req.trip.traveller.name}" />  
-                    </p:column>
-
-                    <p:column headerText="traveller nickname">  
-                        <h:outputText value="#{req.trip.traveller.nickname}" />  
+                        <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />  
                     </p:column>
 
                     <p:column headerText="status">
-
+                        
                     </p:column>
                 </p:dataTable>
             </p:column>
+        </p:row></p:panelGrid>
         </h:form>
     </ui:define>
 </ui:composition>

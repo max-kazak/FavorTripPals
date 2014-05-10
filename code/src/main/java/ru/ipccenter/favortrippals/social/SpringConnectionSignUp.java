@@ -1,5 +1,8 @@
 package ru.ipccenter.favortrippals.social;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,6 +10,7 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FriendOperations;
+import org.springframework.social.facebook.api.ImageType;
 import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
@@ -95,6 +99,25 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
                     User friend = getUserService().getUserByProviderUserId(provider, fId);
                     if (friend != null)
                         getFriendshipService().createFriendship(user, friend);
+                }
+                
+                byte[] im = fb.userOperations().getUserProfileImage(ImageType.LARGE);
+                try
+                {
+                    String path = File.separator + "resources" +
+                                        File.separator + providerUserId + ".jpg";
+                    File outFile = new File(".." + File.separator + "webapps" + File.separator + "favortrippals" + path);
+                    if (!outFile.exists())
+                        outFile.createNewFile();
+                    FileOutputStream fout = new FileOutputStream(outFile);
+                    fout.write(im);
+                    fout.close();
+                    user.setPicture("." + path);
+                    getUserService().updateUser(user);
+                }
+                catch (Exception ex)
+                {
+                    Logger.getLogger(SpringConnectionSignUp.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
             case "vk": case "vkontakte":

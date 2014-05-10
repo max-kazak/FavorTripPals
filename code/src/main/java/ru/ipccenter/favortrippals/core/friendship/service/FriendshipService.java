@@ -4,6 +4,8 @@ package ru.ipccenter.favortrippals.core.friendship.service;
  * @author Anton
  */
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ipccenter.favortrippals.core.friendship.dao.IFriendshipDAO;
 import ru.ipccenter.favortrippals.core.model.Friendship;
@@ -54,6 +56,16 @@ public class FriendshipService implements IFriendshipService
     @Override
     public void createFriendship(User user1, User user2)
     {
-        
+        Friendship fsh = new Friendship();
+        fsh.setUser1(user1);
+        fsh.setUser2(user2);
+        try
+        {
+            getFriendshipDAO().addFriendship(fsh);
+        }
+        catch (Exception e)
+        {
+            Logger.getLogger(FriendshipService.class.getName()).log(Level.WARNING, e.getMessage());
+        }
     }
 }

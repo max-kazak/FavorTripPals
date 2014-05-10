@@ -1,4 +1,5 @@
-<ui:composition template="/WEB-INF/templates/layout.xhtml"
+<ui:composition 
+                template="/WEB-INF/templates/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -7,45 +8,40 @@
         >
     <ui:param name ="tabIndex" value="0"/>
     <ui:define name="content">
-        <h:form id="form">
-            <p:column style="width:45%;">
-                <p:graphicImage url="#{userMB.picture}" width="200"/>
-                
-                <p:pickList id="friendList" var="friend" value="#{friendshipMB.friends}"
-                                itemValue="#{friend}" itemLabel="#{friend.name}"
-                                showSourceControls="false" showTargetControls="false"
-                                showSourceFilter="true" showTargetFilter="false" filterMatchMode="contains"
-                                style="height:300px; width:250px;">
+    <h:form id="form">
+        <p:panelGrid style="border-style: none;"><p:row>
+            <p:column style="width: 1%;">
+                <h:outputText value="Hello #{userMB.name}!" style="font-size: 30px; padding-left: 50px;"/>
+                <br/><br/>
+                <p:graphicImage url="#{userMB.picture}" width="300"/>
 
-                    <f:facet name="myFriends">Your friends</f:facet>
+                <p:dataScroller value="#{friendshipMB.friendsByCurrentUser}" var="friend"
+                                chunkSize="10" mode="inline" scrollHeight="500" style="width:25%; border-style: none;">
 
-                    <p:column style="width:25%;">
-                        <p:graphicImage url="#{friend.picture}" width="40" height="50" />
-                    </p:column>
+                    <f:facet name="header">Your friends</f:facet>
                     
-                    <p:column style="width:25%;">
-                        <h:outputText value="Name:" /><br/>
-                        <h:outputText value="Nickname:" /><br/>
-                        <h:outputText value="Email:" />
-                    </p:column>
-                    
-                    <p:column style="width:25%;">
-                        <h:outputText value="#{friend.name}" style="font-weight: bold"/><br/>
-                        <h:outputText value="#{friend.nickname}" style="font-weight: bold"/><br/>
-                        <h:outputText value="#{friend.email}" style="font-weight: bold"/>
-                    </p:column>
-                    
-                    <p:column style="width:25%;">
-                        <p:button outcome="user.xhtml" value="Visit">
-                            <f:param name="userId" value="#{friend.id}" />
-                        </p:button>
-                    </p:column>
-                </p:pickList>
+                    <a id="toFriend" href="user.xhtml?userId=#{friend.id}">
+                        <p:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <p:graphicImage url="#{friend.picture}" width="80"/>
+
+                            <p:outputPanel>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Name:" />
+                                    <h:outputText value="#{friend.name}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Nickname:" />
+                                    <h:outputText value="#{friend.nickname}" style="font-weight: bold"/>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </p:panelGrid>
+                    </a>
+                </p:dataScroller>
             </p:column>
-            
-            <p:column style="width:45%;">
-                <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true" style="width:45%;">
-                    <p:tab title="#{tr.dest}">  
+
+            <p:column style="width: 45%;">
+                <p>Your trips.</p>
+                <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true">
+                    <p:tab title="#{tr.dest}">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
                             <p:column headerText="goods">  
                                 <h:outputText value="#{req.goods.name}" />  
@@ -61,8 +57,9 @@
                         </p:dataTable>
                     </p:tab>
                 </p:accordionPanel>
-                
-                <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}" style="width:45%;">  
+
+                <p>Your requests.</p>
+                <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}">  
                     <p:column headerText="customer name">  
                         <h:outputText value="#{req.customer.name}" />  
                     </p:column>  
@@ -84,6 +81,7 @@
                     </p:column>
                 </p:dataTable>
             </p:column>
-        </h:form>
+        </p:row></p:panelGrid>
+    </h:form>
     </ui:define>
 </ui:composition>

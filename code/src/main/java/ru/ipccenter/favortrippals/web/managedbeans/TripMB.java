@@ -1,5 +1,6 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -96,6 +97,8 @@ public class TripMB {
     public List<Trip> getTripsByUser() {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("userId"))
+            return new ArrayList<>();
         long userId = Long.parseLong(map.get("userId"));
         checkActuality();
         List<Trip> list = getTripService().getTripsByTraveller(getUserService().getUserById(userId));
