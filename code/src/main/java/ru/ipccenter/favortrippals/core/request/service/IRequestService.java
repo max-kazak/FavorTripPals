@@ -23,5 +23,5 @@ public interface IRequestService
      */
     public List<Request> getAllRequestsByGoods(Goods goods);
     public Request getRequestByAllIds(User customer, Trip trip, Goods goods);
-    public List<Request> getAllRequestsByCurrentUser(User user);
+    public List<Request> getAllRequestsByUser(User user);
 }

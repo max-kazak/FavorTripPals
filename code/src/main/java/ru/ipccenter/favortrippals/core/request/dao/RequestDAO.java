@@ -73,7 +73,7 @@ public class RequestDAO implements IRequestDAO
     @Override
     public Request getRequestByAllIds(User customer, Trip trip, Goods goods)
     {
-        String stringQuery = "from Request where customer=:customer and trip=:trip and goods:=goods";
+        String stringQuery = "from Request where customer=:customer and trip=:trip and goods=:goods";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("customer", customer);
         query.setParameter("trip", trip);
@@ -85,7 +85,7 @@ public class RequestDAO implements IRequestDAO
     }
     
     @Override
-    public List<Request> getAllRequestsByCurrentUser(User user)
+    public List<Request> getAllRequestsByUser(User user)
     {
         String stringQuery = "from Request where trip.traveller=:traveller or customer=:customer";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);

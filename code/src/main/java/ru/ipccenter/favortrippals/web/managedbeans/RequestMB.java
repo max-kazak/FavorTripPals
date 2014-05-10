@@ -38,7 +38,11 @@ public class RequestMB
     private User customer;
     private Trip trip;
     private Goods goods;
-    private int count;
+    private Integer count;
+    private Integer max_cost;
+    private String currency;
+    private String status;
+    private String newGoodsName;
     
     public IRequestService getRequestService() 
     {
@@ -80,14 +84,44 @@ public class RequestMB
         this.tripService = tripService;
     }
     
-    public int getCount()
+    public Integer getCount()
     {
         return count;
     }
     
-    public void setCount(int count)
+    public void setCount(Integer count)
     {
         this.count = count;
+    }
+    
+    public Integer getMaxCost()
+    {
+        return max_cost;
+    }
+    
+    public void setMaxCost(Integer max_cost)
+    {
+        this.max_cost = max_cost;
+    }
+    
+    public String getCurrency()
+    {
+        return currency;
+    }
+    
+    public void setCurrency(String currency)
+    {
+        this.currency = currency;
+    }
+    
+    public String getStatus()
+    {
+        return status;
+    }
+    
+    public void setStatus(String status)
+    {
+        this.status = status;
     }
     
     public List<Request> getRequests()
@@ -131,29 +165,39 @@ public class RequestMB
         this.goods = goods;
     }
     
+    public String getNewGoodsName()
+    {
+        return newGoodsName;
+    }
+    
+    public void setNewGoodsName(String newGoodsName)
+    {
+        this.newGoodsName = newGoodsName;
+    }
+    
     public String addRequest()
     {
-        if (getGoodsService().getBooleanNewGoodsState() || 
-                getGoodsService().getBooleanNewCostState() || 
-                getGoodsService().getBooleanNewCurrencyState())
+        Goods myGoods = getGoodsService().getGoodsByName(getNewGoodsName());
+        if (myGoods == null)
         {
             Goods newGoods = new Goods();
             newGoods.setId(idGeneratorForGoods());
-            newGoods.setCost(getGoodsService().getNewGoodsCost());
-            newGoods.setCurrency(getGoodsService().getNewGoodsCurrency());
-            newGoods.setName(getGoodsService().getNewGoodsName());
+            newGoods.setName(getNewGoodsName());
             getGoodsService().addGoods(newGoods);
             setGoods(newGoods);
         }
         else
         {
-            setGoods(getGoodsService().getGoodsByParameters(getGoodsService().getNewGoodsName(), 
-                    getGoodsService().getNewGoodsCost(), getGoodsService().getNewGoodsCurrency()));
+            setGoods(myGoods);
         }
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        Trip currentTrip = getTripService().getTripById(Long.parseLong(map.get("tripId")));
         
         if (getRequestService().getRequestByAllIds(
                             getUserService().getCurrentUser(),
-                            getTrip(),
+                            currentTrip,
                             getGoods()) != null)
         {
             FacesContext.getCurrentInstance().addMessage(
@@ -162,9 +206,12 @@ public class RequestMB
         }
         Request newRequest = new Request();
         newRequest.setCustomer(getUserService().getCurrentUser());
-        newRequest.setTrip(getTrip());
+        newRequest.setTrip(currentTrip);
         newRequest.setGoods(getGoods());
         newRequest.setCount(getCount());
+        newRequest.setMaxCost(getMaxCost());
+        newRequest.setCurrency(getCurrency());
+        newRequest.setStatus("not checked");
         getRequestService().addRequest(newRequest);
         FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage("Success."));
@@ -195,11 +242,11 @@ public class RequestMB
         if (!map.containsKey("userId"))
             return new ArrayList<>();
         long userId = Long.parseLong(map.get("userId"));
-        return getRequestService().getAllRequestsByCurrentUser(getUserService().getUserById(userId));
+        return getRequestService().getAllRequestsByUser(getUserService().getUserById(userId));
     }
     
     public List<Request> getAllRequestsByCurrentUser()
     {
-        return getRequestService().getAllRequestsByCurrentUser(getUserService().getCurrentUser());
+        return getRequestService().getAllRequestsByUser(getUserService().getCurrentUser());
     }
 }

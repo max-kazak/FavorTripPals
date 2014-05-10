@@ -64,81 +64,9 @@ public class GoodsService implements IGoodsService
     }
     
     @Override
-    public void setNewGoodsState(int state)
+    public Goods getGoodsByName(String name)
     {
-        getGoodsDAO().setNewGoodsState(state);
-    }
-    
-    @Override
-    public void setNewCostState(int stateCost)
-    {
-        getGoodsDAO().setNewCostState(stateCost);
-    }
-    
-    @Override
-    public void setNewCurrencyState(int stateCurrency)
-    {
-        getGoodsDAO().setNewCurrencyState(stateCurrency);
-    }
-    
-    @Override
-    public boolean getBooleanNewGoodsState()
-    {
-        return getGoodsDAO().getBooleanNewGoodsState();
-    }
-    
-    @Override
-    public boolean getBooleanNewCostState()
-    {
-        return getGoodsDAO().getBooleanNewCostState();
-    }
-    
-    @Override
-    public boolean getBooleanNewCurrencyState()
-    {
-        return getGoodsDAO().getBooleanNewCurrencyState();
-    }
-    
-    @Override
-    public void setNewGoodsName(String name)
-    {
-        getGoodsDAO().setNewGoodsName(name);
-    }
-    
-    @Override
-    public String getNewGoodsName()
-    {
-        return getGoodsDAO().getNewGoodsName();
-    }
-    
-    @Override
-    public void setNewGoodsCost(String newGoodsCost)
-    {
-        getGoodsDAO().setNewGoodsName(newGoodsCost);
-    }
-    
-    @Override
-    public Integer getNewGoodsCost()
-    {
-        return getGoodsDAO().getNewGoodsCost();
-    }
-    
-    @Override
-    public void setNewGoodsCurrency(String newGoodsCurrency)
-    {
-        getGoodsDAO().setNewGoodsName(newGoodsCurrency);
-    }
-    
-    @Override
-    public String getNewGoodsCurrency()
-    {
-        return getGoodsDAO().getNewGoodsCurrency();
-    }
-    
-    @Override
-    public Goods getGoodsByParameters(String name, Integer cost, String currency)
-    {
-        return getGoodsDAO().getGoodsByParameters(name, cost, currency);
+        return getGoodsDAO().getGoodsByName(name);
     }
     
     @Override

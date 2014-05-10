@@ -72,8 +72,8 @@ public class RequestService implements IRequestService
     }
     
     @Override
-    public List<Request> getAllRequestsByCurrentUser(User user)
+    public List<Request> getAllRequestsByUser(User user)
     {
-        return getRequestDAO().getAllRequestsByCurrentUser(user);
+        return getRequestDAO().getAllRequestsByUser(user);
     }
 }

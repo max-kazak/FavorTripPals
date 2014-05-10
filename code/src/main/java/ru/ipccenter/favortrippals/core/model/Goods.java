@@ -17,8 +17,6 @@ public class Goods implements Serializable
     private String name;
     private String description;
     private String location;
-    private Integer cost;
-    private String currency;
     
     @Id
     @Column(name="ID", unique = true, nullable = false)
@@ -45,18 +43,6 @@ public class Goods implements Serializable
         return location;
     }
     
-    @Column(name="COST", unique = false, nullable = true)
-    public Integer getCost()
-    {
-        return cost;
-    }
-    
-    @Column(name="CURRENCY", unique = false, nullable = true)
-    public String getCurrency()
-    {
-        return currency;
-    }
-    
     public void setId(long id)
     {
         this.id = id;
@@ -77,23 +63,6 @@ public class Goods implements Serializable
         this.location = location;
     }
     
-    public void setCost(Integer cost)
-    {
-        this.cost = cost;
-    }
-    
-    public void setCurrency(String currency)
-    {
-        this.currency = currency;
-    }
-    
-    public String costWithCurrency()
-    {
-        StringBuffer strBuff = new StringBuffer();
-        strBuff.append(getCost()).append(" ").append(getCurrency());
-        return strBuff.toString();
-    }
-    
     @Override
     public String toString()
     {
@@ -102,8 +71,6 @@ public class Goods implements Serializable
         strBuff.append(", name : ").append(getName());
         strBuff.append(", description : ").append(getDescription());
         strBuff.append(", location : ").append(getLocation());
-        strBuff.append(", cost : ").append(getCost());
-        strBuff.append(", currency : ").append(getCurrency());
         return strBuff.toString();
     }
 }
