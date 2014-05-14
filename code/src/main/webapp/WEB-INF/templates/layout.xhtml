@@ -11,29 +11,42 @@
     <h:outputStylesheet library="styles" name="myclasses.css"/>
 </h:head>
 <h:body>
-    <h:form>
-        <p:layout fullPage="true">
-            <p:layoutUnit style="text-align:center" position="north" size="130">
-                <h:graphicImage url="/resources/ftp_icon.gif"/>
+    <div id="container">
+        <div id="box">
+            <h:form>
+                <p:layout fullPage="false">
 
-                <p:tabMenu activeIndex="#{tabIndex}" style="border-style: none;">
-                    <p:menuitem value="Home" url="http://localhost:8080/favortrippals/home.xhtml"/>
-                    <p:menuitem value="MyTrips" url="http://localhost:8080/favortrippals/mytrips.xhtml"/>
-                    <p:menuitem value="MyRequests" url="http://localhost:8080/favortrippals/myrequests.xhtml"/>
-                    <p:menuitem value="Travellers"/>
-                    <p:menuitem value="Settings" url="http://localhost:8080/favortrippals/settings.xhtml"/>
-                </p:tabMenu>
+                    <p:layoutUnit position="north" style="max-height:85px; max-width:720px;">
+                        <p:layout>
+                            <p:layoutUnit position="west" minSize="230">
+                                <h:graphicImage url="/resources/ftp_icon.gif"/>
+                            </p:layoutUnit>
+                            <p:layoutUnit position="center" style="max-height:70%">
+                                <p:tabMenu activeIndex="#{tabIndex}">
+                                    <p:menuitem value="Home" url="http://localhost:8080/favortrippals/home.xhtml"/>
+                                    <p:menuitem value="MyTrips" url="http://localhost:8080/favortrippals/mytrips.xhtml"/>
+                                    <p:menuitem value="MyRequests" url="http://localhost:8080/favortrippals/myrequests.xhtml"/>
+                                    <p:menuitem value="Travellers"/>
+                                    <p:menuitem value="#{userMB.name}!" url="http://localhost:8080/favortrippals/settings.xhtml"/>
+                                </p:tabMenu>
+                            </p:layoutUnit>
+                        </p:layout>
+                    </p:layoutUnit>
 
-            </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="50">
-                <div style="text-align:right"><h:outputText value="Max_and_group Corporation (c)"/></div>
-            </p:layoutUnit>
+                    <p:layoutUnit position="center" style="border-style: none; min-width:30%; max-width:100%;">
+                        <ui:insert name="content">Put default content here, if any.</ui:insert>
+                    </p:layoutUnit>
 
-            <p:layoutUnit position="center" style="border-style: none;">
-                <ui:insert name="content">Put default content here, if any.</ui:insert>
-            </p:layoutUnit>
-        </p:layout>
-    </h:form>
+
+                    <p:layoutUnit position="south" size="50">
+                        <div style="text-align:right"><h:outputText value="Max_and_group Corporation (c)"/></div>
+                    </p:layoutUnit>
+
+
+                </p:layout>
+            </h:form>
+        </div>
+    </div>
 </h:body>
 </html>
