@@ -124,12 +124,6 @@ public class RequestMB
         this.status = status;
     }
     
-    public List<Request> getRequests()
-    {
-        return getRequestService().getAllRequestsByCustomer(
-                getUserService().getCurrentUser());
-    }
-    
     public Request getRequest()
     {
         return request;
@@ -242,11 +236,16 @@ public class RequestMB
         if (!map.containsKey("userId"))
             return new ArrayList<>();
         long userId = Long.parseLong(map.get("userId"));
-        return getRequestService().getAllRequestsByUser(getUserService().getUserById(userId));
+        return getRequestService().getAllRequestsByCustomer(getUserService().getUserById(userId));
     }
     
-    public List<Request> getAllRequestsByCurrentUser()
+    public List<Request> getAllRequestsByCustomer()
     {
-        return getRequestService().getAllRequestsByUser(getUserService().getCurrentUser());
+        return getRequestService().getAllRequestsByCustomer(getUserService().getCurrentUser());
+    }
+    
+    public List<Request> getAllRequestsByTraveller()
+    {
+        return getRequestService().getAllRequestsByTraveller(getUserService().getCurrentUser());
     }
 }

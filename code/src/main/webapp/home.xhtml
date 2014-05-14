@@ -38,36 +38,36 @@
                 </p:dataScroller>
             </p:column>
 
-            <p:column style="width: 45%;">
+            <p:column style="width: 45%; vertical-align: top;">
                 <p>Your trips.</p>
                 <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true">
                     <p:tab title="#{tr.dest}">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
+                            <p:column headerText="customer name">  
+                                <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
+                            </p:column>
+                            
                             <p:column headerText="goods">  
                                 <h:outputText value="#{req.goods.name}" />  
-                            </p:column>  
+                            </p:column>
+                            
+                            <p:column headerText="cost">  
+                                <h:outputText value="#{req.maxCost} #{req.currency}" />  
+                            </p:column>
 
                             <p:column headerText="amount">  
                                 <h:outputText value="#{req.count}" />  
                             </p:column>  
 
-                            <p:column headerText="customer name">  
-                                <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
+                            <p:column headerText="status">  
+                                <h:outputText value="#{req.status}" />  
                             </p:column>
                         </p:dataTable>
                     </p:tab>
                 </p:accordionPanel>
 
                 <p>Your requests.</p>
-                <p:dataTable var="req" value="#{requestMB.allRequestsByCurrentUser}">  
-                    <p:column headerText="customer name">  
-                        <h:outputText value="#{req.customer.name}" />  
-                    </p:column>  
-
-                    <p:column headerText="customer nickname">  
-                        <h:outputText value="#{req.customer.nickname}" />  
-                    </p:column>  
-
+                <p:dataTable var="req" value="#{requestMB.allRequestsByCustomer}">  
                     <p:column headerText="traveller name">  
                         <h:outputText value="#{req.trip.traveller.name}" />  
                     </p:column>
@@ -75,9 +75,25 @@
                     <p:column headerText="traveller nickname">  
                         <h:outputText value="#{req.trip.traveller.nickname}" />  
                     </p:column>
+                    
+                    <p:column headerText="destination">  
+                        <h:outputText value="#{req.trip.dest}" />  
+                    </p:column>
+
+                    <p:column headerText="goods">  
+                        <h:outputText value="#{req.goods.name}" />  
+                    </p:column>
+                    
+                    <p:column headerText="cost">  
+                        <h:outputText value="#{req.maxCost} #{req.currency}" />  
+                    </p:column>
+
+                    <p:column headerText="amount">  
+                        <h:outputText value="#{req.count}" />  
+                    </p:column>
 
                     <p:column headerText="status">
-
+                        <h:outputText value="#{req.status}" />  
                     </p:column>
                 </p:dataTable>
             </p:column>

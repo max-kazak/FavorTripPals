@@ -19,16 +19,24 @@
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
                     <p:panel header="#{tr.dest}" style="text-align:center;  border-style: none; padding: 0;">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
+                            <p:column headerText="customer name">  
+                                <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
+                            </p:column>
+                            
                             <p:column headerText="goods">  
                                 <h:outputText value="#{req.goods.name}" />  
-                            </p:column>  
+                            </p:column>
+                            
+                            <p:column headerText="cost">  
+                                <h:outputText value="#{req.maxCost} #{req.currency}" />  
+                            </p:column>
 
                             <p:column headerText="amount">  
                                 <h:outputText value="#{req.count}" />  
                             </p:column>  
 
-                            <p:column headerText="customer name">  
-                                <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
+                            <p:column headerText="status">  
+                                <h:outputText value="#{req.status}" />  
                             </p:column>
                         </p:dataTable>
                     </p:panel>
@@ -36,16 +44,32 @@
                 
                 <p>Requests.</p>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
-                    <p:column headerText="customer name">  
-                        <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
-                    </p:column>  
-
                     <p:column headerText="traveller name">  
-                        <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />  
+                        <h:outputText value="#{req.trip.traveller.name}" />  
+                    </p:column>
+
+                    <p:column headerText="traveller nickname">  
+                        <h:outputText value="#{req.trip.traveller.nickname}" />  
+                    </p:column>
+                    
+                    <p:column headerText="destination">  
+                        <h:outputText value="#{req.trip.dest}" />  
+                    </p:column>
+
+                    <p:column headerText="goods">  
+                        <h:outputText value="#{req.goods.name}" />  
+                    </p:column>
+                    
+                    <p:column headerText="cost">  
+                        <h:outputText value="#{req.maxCost} #{req.currency}" />  
+                    </p:column>
+
+                    <p:column headerText="amount">  
+                        <h:outputText value="#{req.count}" />  
                     </p:column>
 
                     <p:column headerText="status">
-                        
+                        <h:outputText value="#{req.status}" />  
                     </p:column>
                 </p:dataTable>
             </p:column>

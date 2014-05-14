@@ -94,4 +94,13 @@ public class RequestDAO implements IRequestDAO
         List list = query.list();
         return (List<Request>)list;
     }
+    
+    @Override
+    public List<Request> getAllRequestsByTraveller(User traveller)
+    {
+        String query = "from Request where trip.traveller=?";
+        List list = getSessionFactory().getCurrentSession().createQuery(query)
+				.setParameter(0, traveller).list();
+        return (List<Request>)list;
+    }
 }
