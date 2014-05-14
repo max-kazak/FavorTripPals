@@ -2,7 +2,7 @@
     background: none !important;
     border: none !important;
 }
-
+/*
 .ui-layout-pane-north {
     border: none;
     font-size: small;
@@ -15,25 +15,21 @@
 
 .ui-layout-pane-center {
     border: none;
+	overflow:hidden;
 }
 
 .ui-layout-pane-west {
     border: none;
     overflow-x:hidden !important!;
 }
-
+*/
 #container
  {
-     margin: 0;
-     padding 0;
-     text-align:centered;
- }
-
- #box
- {
-     width:800px;
-     margin: 0 auto;
-     text-align:left;
+     /*height:100%;*/ 
+	 min-width:800px; 
+	 max-width:1100px;
+	 margin: 0 auto;
+	text-align: left;
  }
 
 #toFriend:hover
@@ -41,3 +37,10 @@
     border-bottom-style: outset;
     border-bottom-width: 3px;
 }
+
+body {
+margin: 0;
+padding: 0;
+text-align: center;
+}
+
