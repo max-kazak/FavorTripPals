@@ -24,17 +24,24 @@
 <!--			<p:layoutUnit position="center" class="centered" style="height:100%; min-width:800px; max-width:1000px;">
 -->
 			<div id="container">							
-				<div id="header">		
+				<div id="header">
 					<h:graphicImage url="/resources/ftp_icon.gif" style="display: block; margin-left: auto; margin-right: auto;"/>
-				
+
+                    <div id="menuButton">
+                    <p:menuButton value="#{userMB.name}!">
+                        <p:menuitem value="Settings" url="http://localhost:8080/favortrippals/settings.xhtml"/>
+                        <p:menuitem value="Log out"/>
+                    </p:menuButton>
+                    </div>
+
 					<p:tabMenu activeIndex="#{tabIndex}">
 						<p:menuitem value="Home" url="http://localhost:8080/favortrippals/home.xhtml"/>
 						<p:menuitem value="MyTrips" url="http://localhost:8080/favortrippals/mytrips.xhtml"/>
 						<p:menuitem value="MyRequests" url="http://localhost:8080/favortrippals/myrequests.xhtml"/>
 						<p:menuitem value="Travellers"/>
-						<p:menuitem value="#{userMB.name}!" url="http://localhost:8080/favortrippals/settings.xhtml"/>
-					</p:tabMenu>								
-                </div>            
+					</p:tabMenu>
+
+                </div>
 							
 				<div id="main" class="ui-corner-all">				
 					<ui:insert name="content">Put default content here, if any.</ui:insert>
