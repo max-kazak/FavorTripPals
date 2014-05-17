@@ -57,6 +57,11 @@
 	text-align: left;
  }
 
+ #menuButton
+ {
+    text-align: right;
+ }
+
 #toFriend:hover
 {
     border-bottom-style: outset;
