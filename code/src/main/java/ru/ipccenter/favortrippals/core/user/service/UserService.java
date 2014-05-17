@@ -103,4 +103,10 @@ public class UserService implements IUserService
         User user = getUserDAO().getUserById(sConnection.getUser().getId());
         return user;
     }
+    
+    @Override
+    public String getUrlOfSmallPicture(long id)
+    {
+        return getUserDAO().getUrlOfSmallPicture(id);
+    }
 }

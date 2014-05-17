@@ -19,4 +19,5 @@ public interface IUserService
      */
     public User getUserByProviderUserId(String provider, String providerUserId);
     public List<User> getUsers ();
+    public String getUrlOfSmallPicture(long id);
 }

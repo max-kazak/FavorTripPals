@@ -12,8 +12,8 @@
   
         <p>Upcoming Friends' Trips</p>
         <p:dataTable var="tr" value="#{tripMB.upcomingTrips}">  
-            <p:column width="45%" style="vertical-align: top;">
-                <p:graphicImage url="#{tr.traveller.picture}" width="300"/>
+            <p:column>
+                <p:graphicImage url="#{userMB.getUrlOfSmallPicture(tr.traveller.id)}"/>
             </p:column>
         
             <p:column headerText="Traveller">  
@@ -30,7 +30,7 @@
             
             <p:column>  
                 <p:button outcome="createrequest" value="Add Request">
-                    <f:param name="tripId" value=#{tr.id} />
+                    <f:param name="tripId" value="#{tr.id}" />
                 </p:button>
             </p:column> 
         </p:dataTable> 

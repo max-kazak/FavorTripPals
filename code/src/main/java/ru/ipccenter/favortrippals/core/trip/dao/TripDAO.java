@@ -95,10 +95,10 @@ public class TripDAO implements ITripDAO {
     @Override
     public List<Trip> getUpcomingTrips(User user)
     {
-        String strQuery = "from Trip where departure_date>:date and traveller=friendship.user2 and "
-                + "friendship.user1=:user order by date asc";
+        String strQuery = "select Trips.* from Trips, Friendships where Trips.traveller = Friendships.user1 and "
+                + "Friendships.user2 = :user and Trips.departure_date>:date order by Trips.departure_date";
         Session session = getSessionFactory().getCurrentSession();
-        Query query = session.createQuery(strQuery);
+        Query query = session.createSQLQuery(strQuery).addEntity(Trip.class);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         query.setParameter("date", dateFormat.format(date));

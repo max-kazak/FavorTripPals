@@ -149,4 +149,10 @@ public class UserMB
         checkActuality();
         return user.toString();
     }
+    
+    public String getUrlOfSmallPicture(long id)
+    {
+        checkActuality();
+        return getUserService().getUrlOfSmallPicture(id);
+    }
 }

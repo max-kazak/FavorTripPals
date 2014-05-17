@@ -14,4 +14,5 @@ public interface IUserDAO
     public User getUserByEmail(String login);
     //public User getUserBySocialConnection (SocialConnection socialConnection);
     public List<User> getUsers();
+    public String getUrlOfSmallPicture(long id);
 }
