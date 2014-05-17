@@ -9,33 +9,35 @@
         <h:form id="form">
         <p:panelGrid><p:row>
             <p:column width="45%" style="vertical-align: top;">
+                <h:outputText value="#{userMB.nameByUser}" style="font-size: 30px; padding-left: 30px;"/>
+                <br/><br/>
                 <p:graphicImage url="#{userMB.pictureByUser}" width="300"/>
             </p:column>
             
-            <p:column width="45%">
+            <p:column width="45%" style="vertical-align: top;">
                 <p>Trips.</p>
                 <p:dataGrid value="#{tripMB.tripsByUser}" var="tr" columns="1"  
-                            rows="12" paginator="true"
+                            rows="3" paginator="true" class="panel"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                    <p:panel header="#{tr.dest}" style="text-align:center;  border-style: none; padding: 0;">
-                        <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
-                            <p:column headerText="customer name">  
+                    <p:panel header="#{tr.dest}" style="text-align:center;  border-style: none;">
+                        <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}" class="panel">  
+                            <p:column headerText="customer" style="padding: 3px;">  
                                 <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
                             </p:column>
                             
-                            <p:column headerText="goods">  
+                            <p:column headerText="goods" style="width: 120px; padding: 3px;">  
                                 <h:outputText value="#{req.goods.name}" />  
                             </p:column>
                             
-                            <p:column headerText="cost">  
+                            <p:column headerText="cost" style="width: 95px; padding: 3px;">  
                                 <h:outputText value="#{req.maxCost} #{req.currency}" />  
                             </p:column>
 
-                            <p:column headerText="amount">  
+                            <p:column headerText="amount" style="width: 70px; padding: 3px;">  
                                 <h:outputText value="#{req.count}" />  
                             </p:column>  
 
-                            <p:column headerText="status">  
+                            <p:column headerText="status" style="width: 80px; padding: 3px;">  
                                 <h:outputText value="#{req.status}" />  
                             </p:column>
                         </p:dataTable>
@@ -44,31 +46,27 @@
                 
                 <p>Requests.</p>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
-                    <p:column headerText="traveller name">  
-                        <h:outputText value="#{req.trip.traveller.name}" />  
-                    </p:column>
-
-                    <p:column headerText="traveller nickname">  
-                        <h:outputText value="#{req.trip.traveller.nickname}" />  
+                    <p:column headerText="traveller name" style="padding: 3px;">  
+                        <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
                     </p:column>
                     
-                    <p:column headerText="destination">  
+                    <p:column headerText="destination" style="width: 120px; padding: 3px;">  
                         <h:outputText value="#{req.trip.dest}" />  
                     </p:column>
 
-                    <p:column headerText="goods">  
+                    <p:column headerText="goods" style="width: 120px; padding: 3px;">  
                         <h:outputText value="#{req.goods.name}" />  
                     </p:column>
                     
-                    <p:column headerText="cost">  
+                    <p:column headerText="cost" style="width: 95px; padding: 3px;">  
                         <h:outputText value="#{req.maxCost} #{req.currency}" />  
                     </p:column>
 
-                    <p:column headerText="amount">  
+                    <p:column headerText="amount" style="width: 70px; padding: 3px;">  
                         <h:outputText value="#{req.count}" />  
                     </p:column>
 
-                    <p:column headerText="status">
+                    <p:column headerText="status" style="width: 80px; padding: 3px;">
                         <h:outputText value="#{req.status}" />  
                     </p:column>
                 </p:dataTable>

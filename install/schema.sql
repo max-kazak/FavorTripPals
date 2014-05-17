@@ -10,7 +10,6 @@ CREATE TABLE users
 (
 	id		  INTEGER  NOT NULL ,
 	name		  VARCHAR2(20)  NULL ,
-	pass		  VARCHAR2(40)  NULL ,
 	state		  INTEGER  NULL ,
 	nickname	  VARCHAR2(20)  NULL ,
 	email		  VARCHAR2(30)  NULL, 

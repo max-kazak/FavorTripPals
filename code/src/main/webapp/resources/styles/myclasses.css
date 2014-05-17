@@ -2,6 +2,31 @@
     background: none !important;
     border: none !important;
 }
+.panel div, .panel table tbody tr td{
+    padding: 0 !important;
+}
+.friendpicture {
+    padding-top: 3px !important;
+    padding-left: 0px !important;
+    padding-bottom: 0px !important;
+    padding-right: 0px !important;
+    border: none !important;
+    width: 5% !important;
+}
+.frienddata {
+    padding-top: 3px !important;
+    padding-left: 0px !important;
+    padding-bottom: 0px !important;
+    padding-right: 0px !important;
+    border: none !important;
+    width: 95% !important;
+}
+.friends tbody tr {
+    padding: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-top: 0px !important;
+}
 /*
 .ui-layout-pane-north {
     border: none;
@@ -32,6 +57,11 @@
 	text-align: left;
  }
 
+ #menuButton
+ {
+    text-align: right;
+ }
+
 #toFriend:hover
 {
     border-bottom-style: outset;
@@ -42,5 +72,11 @@ body {
 margin: 0;
 padding: 0;
 text-align: center;
+}
+
+#main {
+border: solid black 1px; 
+-moz-border-radius: 4px; 
+-webkit-border-radius: 4px;
 }
 
