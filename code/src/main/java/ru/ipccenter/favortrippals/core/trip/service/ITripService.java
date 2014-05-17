@@ -21,4 +21,6 @@ public interface ITripService {
     public List<Trip> getTripsByTraveller(User traveller);
 
     public List<Trip> getTrips();
+    
+    public List<Trip> getUpcomingTrips(User user);
 }

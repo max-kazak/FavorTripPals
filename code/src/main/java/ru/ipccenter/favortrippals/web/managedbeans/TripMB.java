@@ -110,4 +110,9 @@ public class TripMB {
         checkActuality();
         return trip.toString();
     }
+    
+    public List<Trip> getUpcomingTrips()
+    {
+        return getTripService().getUpcomingTrips(getUserService().getCurrentUser());
+    }
 }
