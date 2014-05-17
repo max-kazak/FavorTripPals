@@ -53,6 +53,7 @@ public class FriendshipService implements IFriendshipService
         return getFriendshipDAO().getAllFriendshipsByUser(user);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public void createFriendship(User user1, User user2)
     {

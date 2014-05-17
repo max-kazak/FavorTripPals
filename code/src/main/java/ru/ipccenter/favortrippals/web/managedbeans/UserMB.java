@@ -110,6 +110,20 @@ public class UserMB
         checkActuality();
         return user.getName();
     }
+    
+    public String getNameByUser()
+    {
+        checkActuality();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("userId"))
+            return "";
+        long userId = Long.parseLong(map.get("userId"));
+        User friend = getUserService().getUserById(userId);
+        if (friend.getName() == null)
+            return "My dear friend";
+        return friend.getName();
+    }
 
     public String getNickname()
     {

@@ -11,25 +11,25 @@
     <h:form id="form">
         <p:panelGrid style="border-style: none;"><p:row>
             <p:column style="width: 1%;">
-                <h:outputText value="Hello #{userMB.name}!" style="font-size: 30px; padding-left: 50px;"/>
+                <h:outputText value="Hello #{userMB.name}!" style="font-size: 30px; padding-left: 30px;"/>
                 <br/><br/>
                 <p:graphicImage url="#{userMB.picture}" width="300"/>
 
                 <p:dataScroller value="#{friendshipMB.friendsByCurrentUser}" var="friend"
-                                chunkSize="10" mode="inline" scrollHeight="500" style="width:25%; border-style: none;">
+                                chunkSize="10" mode="inline" scrollHeight="300" style="width:25%;">
 
                     <f:facet name="header">Your friends</f:facet>
                     
                     <a id="toFriend" href="user.xhtml?userId=#{friend.id}">
-                        <p:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                        <p:panelGrid columns="2" style="width: 270px;" columnClasses="friendpicture,frienddata" styleClass="friends">
                             <p:graphicImage url="#{friend.picture}" width="80"/>
 
                             <p:outputPanel>
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="Name:" />
+                                <h:panelGrid columns="2" style="font-weight: bold">
+                                    <h:outputText value="Name:" style="font-weight: bold"/>
                                     <h:outputText value="#{friend.name}" style="font-weight: bold"/>
 
-                                    <h:outputText value="Nickname:" />
+                                    <h:outputText value="Nick:" style="font-weight: bold"/>
                                     <h:outputText value="#{friend.nickname}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
@@ -40,26 +40,26 @@
 
             <p:column style="width: 45%; vertical-align: top;">
                 <p>Your trips.</p>
-                <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true">
+                <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true" class="panel">
                     <p:tab title="#{tr.dest}">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
-                            <p:column headerText="customer name">  
+                            <p:column headerText="customer" style="padding: 3px;">  
                                 <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
                             </p:column>
                             
-                            <p:column headerText="goods">  
+                            <p:column headerText="goods" style="width: 120px; padding: 3px;">  
                                 <h:outputText value="#{req.goods.name}" />  
                             </p:column>
                             
-                            <p:column headerText="cost">  
+                            <p:column headerText="cost" style="width: 95px; padding: 3px;">  
                                 <h:outputText value="#{req.maxCost} #{req.currency}" />  
                             </p:column>
 
-                            <p:column headerText="amount">  
+                            <p:column headerText="amount" style="width: 70px; padding: 3px;">  
                                 <h:outputText value="#{req.count}" />  
                             </p:column>  
 
-                            <p:column headerText="status">  
+                            <p:column headerText="status" style="width: 80px; padding: 3px;">  
                                 <h:outputText value="#{req.status}" />  
                             </p:column>
                         </p:dataTable>
@@ -68,31 +68,27 @@
 
                 <p>Your requests.</p>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByCustomer}">  
-                    <p:column headerText="traveller name">  
-                        <h:outputText value="#{req.trip.traveller.name}" />  
-                    </p:column>
-
-                    <p:column headerText="traveller nickname">  
-                        <h:outputText value="#{req.trip.traveller.nickname}" />  
+                    <p:column headerText="traveller name" style="padding: 3px;">  
+                        <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
                     </p:column>
                     
-                    <p:column headerText="destination">  
+                    <p:column headerText="destination" style="width: 120px; padding: 3px;">  
                         <h:outputText value="#{req.trip.dest}" />  
                     </p:column>
 
-                    <p:column headerText="goods">  
+                    <p:column headerText="goods" style="width: 120px; padding: 3px;">  
                         <h:outputText value="#{req.goods.name}" />  
                     </p:column>
                     
-                    <p:column headerText="cost">  
+                    <p:column headerText="cost" style="width: 95px; padding: 3px;">  
                         <h:outputText value="#{req.maxCost} #{req.currency}" />  
                     </p:column>
 
-                    <p:column headerText="amount">  
+                    <p:column headerText="amount" style="width: 70px; padding: 3px;">  
                         <h:outputText value="#{req.count}" />  
                     </p:column>
 
-                    <p:column headerText="status">
+                    <p:column headerText="status" style="width: 80px; padding: 3px;">
                         <h:outputText value="#{req.status}" />  
                     </p:column>
                 </p:dataTable>
