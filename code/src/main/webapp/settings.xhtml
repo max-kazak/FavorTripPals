@@ -54,6 +54,9 @@
         
         <p:tab id="tab2" title="User data">
             <h:panelGrid id="panel2" columns="2">
+                <h:outputText value="Your id: "/>
+                <h:outputText value="#{userMB.id}"/>
+                
                 <h:outputText value="User name: " />  
                 <p:inplace id="ajaxInplace1" editor="true">  
                     <p:inputText value="#{userMB.name}"  
@@ -75,6 +78,14 @@
                                 required="true" label="text"/>  
                 </p:inplace>
             </h:panelGrid>
+        </p:tab>
+        
+        <p:tab id="tab3" title="Friends">
+            <p:messages id="msgs"/>
+            
+            <h:outputText value="You can update list of your friends. It will be synchronized with your profile."/>
+            <h:outputText value="Your new friends will be added."/>
+            <p:commandButton id="button" value="Update" update="msgs" actionListener="#{socialConnectionMB.updateFriends()}"/>
         </p:tab>
     </p:tabView>
  </h:form>

@@ -11,7 +11,7 @@
     <h:form id="form">
         <p:panelGrid style="border-style: none;"><p:row>
             <p:column style="width: 1%;">
-                <h:outputText value="Hello #{userMB.name}!" style="font-size: 30px; padding-left: 30px;"/>
+                <h:outputText value="Hello #{userMB.name}!" style="font-size: 25px; padding-left: 30px;"/>
                 <br/><br/>
                 <p:graphicImage url="#{userMB.picture}" width="300"/>
 
@@ -39,7 +39,10 @@
             </p:column>
 
             <p:column style="width: 45%; vertical-align: top;">
-                <p>Your trips.</p>
+                <h:panelGrid columns="2">
+                     <h:outputText value="Your trips." style="font-size: 25px; padding-left: 50px;"/>
+                     <p:button outcome="newtrip.xhtml" value="Create new trip"/>
+                </h:panelGrid>
                 <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true" class="panel">
                     <p:tab title="#{tr.dest}">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
@@ -66,7 +69,7 @@
                     </p:tab>
                 </p:accordionPanel>
 
-                <p>Your requests.</p>
+                <h:outputText value="Your requests." style="font-size: 25px; padding-left: 50px;"/>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByCustomer}">  
                     <p:column headerText="traveller name" style="padding: 3px;">  
                         <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
