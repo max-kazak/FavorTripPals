@@ -1,5 +1,6 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -8,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -115,5 +117,13 @@ public class TripMB {
     public List<Trip> getUpcomingTrips()
     {
         return getTripService().getUpcomingTrips(getUserService().getCurrentUser());
+    }
+    
+    public String dateToString(Calendar calendar)
+    {
+        if (calendar == null) return "Not stated";
+        Date date = calendar.getTime();
+        SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy");
+        return ft.format(date);
     }
 }

@@ -187,7 +187,8 @@ public class RequestMB
         
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-        Trip currentTrip = getTripService().getTripById(Long.parseLong(map.get("tripId")));
+        long tripId = Long.parseLong(map.get("tripId"));
+        Trip currentTrip = getTripService().getTripById(tripId);
         
         if (getRequestService().getRequestByAllIds(
                             getUserService().getCurrentUser(),
