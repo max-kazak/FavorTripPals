@@ -2,7 +2,10 @@ package ru.ipccenter.favortrippals.core.trip.dao;
 
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -85,6 +88,21 @@ public class TripDAO implements ITripDAO {
         Session session = getSessionFactory().getCurrentSession();
         Query query = session.createQuery(strQuery);
         query.setParameter(0, traveller);
+        List list = query.list();
+        return (List<Trip>)list;
+    }
+    
+    @Override
+    public List<Trip> getUpcomingTrips(User user)
+    {
+        String strQuery = "select Trips.* from Trips, Friendships where Trips.traveller = Friendships.user1 and "
+                + "Friendships.user2 = :user and Trips.departure_date>:date order by Trips.departure_date";
+        Session session = getSessionFactory().getCurrentSession();
+        Query query = session.createSQLQuery(strQuery).addEntity(Trip.class);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        query.setParameter("date", dateFormat.format(date));
+        query.setParameter("user", user);
         List list = query.list();
         return (List<Trip>)list;
     }

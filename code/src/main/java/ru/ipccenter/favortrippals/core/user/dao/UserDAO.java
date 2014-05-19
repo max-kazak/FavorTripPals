@@ -83,6 +83,19 @@ public class UserDAO implements IUserDAO
             return (User)list.get(0);
         else return null;
     }
+    
+    @Override
+    public String getUrlOfSmallPicture(long id)
+    {
+        String query = "select imageurl from Userconnection where userid=?";
+        List list = getSessionFactory().getCurrentSession()
+				.createSQLQuery(query)
+				.setParameter(0, id)
+				.list();
+        if(!list.isEmpty())
+            return (String)list.get(0);
+        else return null;
+    }
 
     private Long idGenerator ()
     {

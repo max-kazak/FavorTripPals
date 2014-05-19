@@ -108,6 +108,12 @@ public class TripMB {
     @Override
     public String toString() {
         checkActuality();
+        if (trip == null) return "no trip";
         return trip.toString();
+    }
+    
+    public List<Trip> getUpcomingTrips()
+    {
+        return getTripService().getUpcomingTrips(getUserService().getCurrentUser());
     }
 }

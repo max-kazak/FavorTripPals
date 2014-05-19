@@ -46,6 +46,12 @@ public class TripService implements ITripService{
     public List<Trip> getTrips() {
         return getTripDAO().getTrips();
     }
+    
+    @Override
+    public List<Trip> getUpcomingTrips(User user)
+    {
+        return getTripDAO().getUpcomingTrips(user);
+    }
 
     public ITripDAO getTripDAO() {
         return tripDAO;
