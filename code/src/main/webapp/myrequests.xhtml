@@ -20,7 +20,7 @@
             </p:column>    
             
             <p:column headerText="Period">  
-                <h:outputText value="#{req.trip.departure_date} - #{req.trip.arrival_date}" />  
+                <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} - #{tripMB.dateToString(req.trip.arrival_date)}" />  
             </p:column>
             
             <p:column headerText="Goods">  
@@ -51,7 +51,7 @@
             </p:column>    
             
             <p:column headerText="Period">  
-                <h:outputText value="#{req.trip.departure_date} - #{req.trip.arrival_date}" />  
+                <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} - #{tripMB.dateToString(req.trip.arrival_date)}" />  
             </p:column>
             
             <p:column headerText="Goods">  
