@@ -1,6 +1,5 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.FriendOperations;
+import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
+import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 
@@ -30,6 +34,18 @@ public class SocialConnectionMB
     private Map<String,String> providers;
     @ManagedProperty (value="#{userService}")
     IUserService userService;
+    @ManagedProperty (value="#{friendshipService}")
+    IFriendshipService friendshipService;
+
+    public IFriendshipService getFriendshipService()
+    {
+        return friendshipService;
+    }
+
+    public void setFriendshipService(IFriendshipService friendshipService)
+    {
+        this.friendshipService = friendshipService;
+    }
 
     public IUserService getUserService()
     {
@@ -149,6 +165,28 @@ public class SocialConnectionMB
         FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(
                     FacesMessage.SEVERITY_INFO,"Success.", ""));
         return "success";
+    }
+    
+    public void updateFriends ()
+    {
+        Connection connection = getSocialConnectionService().getCurrentConnection();
+        String provider = connection.getKey().getProviderId();
+        switch (provider.toLowerCase())
+        {
+            case "facebook":
+                Facebook fb = (Facebook)connection.getApi();
+                FriendOperations fo = fb.friendOperations();
+                List<String> friendIds = fo.getFriendIds();
+                for (String fId : friendIds)
+                {
+                    User friend = getUserService().getUserByProviderUserId(provider, fId);
+                    if (friend != null)
+                        getFriendshipService().createFriendship(getUserService().getCurrentUser(), friend);
+                }
+                break;
+            case "vk": case "vkontakte":
+                break;
+        }
     }
     
     public SocialConnectionMB ()

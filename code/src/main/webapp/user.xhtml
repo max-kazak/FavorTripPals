@@ -15,7 +15,7 @@
             </p:column>
             
             <p:column width="45%" style="vertical-align: top;">
-                <p>Trips.</p>
+                <h:outputText value="Trips." style="font-size: 25px; padding-left: 50px;"/>
                 <p:dataGrid value="#{tripMB.tripsByUser}" var="tr" columns="1"  
                             rows="3" paginator="true" class="panel"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
@@ -44,7 +44,7 @@
                     </p:panel>
                 </p:dataGrid>
                 
-                <p>Requests.</p>
+                <h:outputText value="Requests." style="font-size: 25px; padding-left: 50px;"/>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
                     <p:column headerText="traveller name" style="padding: 3px;">  
                         <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
