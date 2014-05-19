@@ -27,12 +27,12 @@
                 </button>
                 <input type="hidden" name="scope" value="email,publish_stream,offline_access" />
             </form>
-            <!--<form action="<c:url value="/signin/vkontakte" />" method="POST">
+            <form action="<c:url value="/signin/vkontakte" />" method="POST">
                 <button type="submit">
                     <img src="<c:url value="/resources/vk.jpg"/>" />
                 </button>
                 <input type="hidden" name="scope" value="notify,friends,offline" />
-            </form>-->
+            </form>
         </div>
     </body>
 </html>

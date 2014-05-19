@@ -83,7 +83,6 @@ public class TripDAO implements ITripDAO {
 
     @Override
     public List<Trip> getTripsByTraveller(User traveller) {
-        Logger.getLogger(TripDAO.class.getName()).log(Level.INFO, "\n" + traveller.getId());
         String strQuery = "from Trip where traveller=?";
         Session session = getSessionFactory().getCurrentSession();
         Query query = session.createQuery(strQuery);

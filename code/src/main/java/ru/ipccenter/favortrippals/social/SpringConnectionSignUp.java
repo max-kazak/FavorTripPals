@@ -1,7 +1,6 @@
 package ru.ipccenter.favortrippals.social;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.logging.Level;
@@ -63,6 +62,8 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
     @Override
     public String execute(Connection<?> connection)
     {
+        Logger.getLogger(SpringConnectionSignUp.class.getName()).log(Level.WARNING, "\n\nLALALALALALALA\n\n");
+        
         String providerUserId = connection.getKey().getProviderUserId();
         String provider = connection.getKey().getProviderId();
         User user = getUserService().getUserByProviderUserId(provider, providerUserId);

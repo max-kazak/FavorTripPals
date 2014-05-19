@@ -9,14 +9,15 @@
  
  <h:form id="form">
     <p:tabView id="tabView" >  
-        <p:tab id="tab1" title="Social connections">  
-            
+        <p:tab id="tab1" title="Social connections">
+            <p:messages id="msgc" closable="true" autoUpdate="true"/>
+
             <p:dataList id="datalist" value="#{socialConnectionMB.connections}" var="sc" type="definition" >  
                 Social network: #{sc.providerNameByType} <br />
                 User id: #{sc.providerUserId} <br />
                 User page: #{sc.userPage} <br />
                 <p:commandButton value="Delete" 
-                                 actionListener="#{socialConnectionMB.deleteConnection()}" update="datalist">
+                                 action="#{socialConnectionMB.deleteConnection()}" update="datalist">
                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />  
                     <f:param name="provider" value="#{sc.providerNameByType}"/>
                     <f:param name="id" value="#{sc.providerUserId}"/>
@@ -29,7 +30,7 @@
             </p:dataList>
 
             <p:panel id="panel1" header="New connection">  
-                <p:messages id="msgs" autoUpdate="true"/>  
+                <p:messages id="msgs" closable="true"/>  
 
                 <h:panelGrid columns="3">
                     <h:outputLabel for="id" value="Your id: *" />  
@@ -81,11 +82,12 @@
         </p:tab>
         
         <p:tab id="tab3" title="Friends">
-            <p:messages id="msgs"/>
+            <p:messages id="msgf" closable="true"/>
             
-            <h:outputText value="You can update list of your friends. It will be synchronized with your profile."/>
-            <h:outputText value="Your new friends will be added."/>
-            <p:commandButton id="button" value="Update" update="msgs" actionListener="#{socialConnectionMB.updateFriends()}"/>
+            <h:outputText value="You can update list of your friends. It will be synchronized with your profile. "/>
+            <h:outputText value="Your new friends will be added.  "/>
+            <br /><br />
+            <p:commandButton id="buttonf" value="Update" update="msgf" action="#{socialConnectionMB.updateFriends()}"/>
         </p:tab>
     </p:tabView>
  </h:form>

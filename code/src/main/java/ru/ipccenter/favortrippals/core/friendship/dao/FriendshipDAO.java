@@ -25,6 +25,8 @@ public class FriendshipDAO implements IFriendshipDAO
     @Override
     public void addFriendship(Friendship friendship)
     {
+        if (isFriendshipExists(friendship))
+            return;
         Friendship revers = new Friendship();
         revers.setUser1(friendship.getUser2());
         revers.setUser2(friendship.getUser1());
@@ -51,5 +53,14 @@ public class FriendshipDAO implements IFriendshipDAO
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, user).list();
         return (List<Friendship>)list;
+    }
+
+    @Override
+    public boolean isFriendshipExists(Friendship friendship)
+    {
+        String query = "from Friendship where user1=? and user2=?";
+        List list = getSessionFactory().getCurrentSession().createQuery(query)
+                .setParameter(0, friendship.getUser1()).setParameter(1, friendship.getUser2()).list();
+        return !list.isEmpty();
     }
 }

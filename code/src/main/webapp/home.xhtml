@@ -11,7 +11,7 @@
     <h:form id="form">
         <p:panelGrid style="border-style: none;"><p:row>
             <p:column style="width: 1%;">
-                <h:outputText value="Hello #{userMB.name}!" style="font-size: 25px; padding-left: 30px;"/>
+                <h:outputText value="Hello #{userMB.name}!" style="font-size: 22px; padding-left: 30px; font-style: italic;"/>
                 <br/><br/>
                 <p:graphicImage url="#{userMB.picture}" width="300"/>
 
@@ -40,8 +40,9 @@
 
             <p:column style="width: 45%; vertical-align: top;">
                 <h:panelGrid columns="2">
-                     <h:outputText value="Your trips." style="font-size: 25px; padding-left: 50px;"/>
-                     <p:button outcome="newtrip.xhtml" value="Create new trip"/>
+                     <h:outputText value="Your trips.     " style="font-size: 22px; font-weight: 900;
+                                   font-style: italic; padding-left: 30px; white-space: pre-wrap;"/>
+                     <p:button outcome="settings.xhtml" value="Create new trip"/>
                 </h:panelGrid>
                 <p:accordionPanel id="apanel" value="#{tripMB.tripsByCurrentUser}" var="tr" dynamic="true" cache="true" class="panel">
                     <p:tab title="#{tr.dest}">
@@ -69,7 +70,8 @@
                     </p:tab>
                 </p:accordionPanel>
 
-                <h:outputText value="Your requests." style="font-size: 25px; padding-left: 50px;"/>
+                <h:outputText value="Your requests." style="font-size: 22px; font-weight: 900;
+                                   font-style: italic; padding-left: 30px; white-space: pre-wrap;"/>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByCustomer}">  
                     <p:column headerText="traveller name" style="padding: 3px;">  
                         <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />

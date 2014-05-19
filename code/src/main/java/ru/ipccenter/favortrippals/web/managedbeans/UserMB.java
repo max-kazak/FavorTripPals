@@ -130,6 +130,20 @@ public class UserMB
         checkActuality();
         return user.getNickname();
     }
+    
+    public String getNicknameByUser()
+    {
+        checkActuality();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("userId"))
+            return "";
+        long userId = Long.parseLong(map.get("userId"));
+        User friend = getUserService().getUserById(userId);
+        if (friend.getName() == null)
+            return "no nick";
+        return friend.getNickname();
+    }
 
     public int getState()
     {

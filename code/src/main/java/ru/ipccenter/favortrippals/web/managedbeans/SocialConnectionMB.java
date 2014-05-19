@@ -3,12 +3,15 @@ package ru.ipccenter.favortrippals.web.managedbeans;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FriendOperations;
@@ -28,9 +31,9 @@ public class SocialConnectionMB
     // Field with @ManagedProperty annotation is injected by Spring
     @ManagedProperty (value="#{socialConnectionService}")
     ISocialConnectionService socialConnectionService;
-    private String userPage;
-    private String provider;
-    private String userId;
+    private String userPage = "Your page";
+    private String provider = "Select social network";
+    private String userId = "Your id";
     private Map<String,String> providers;
     @ManagedProperty (value="#{userService}")
     IUserService userService;
@@ -120,7 +123,7 @@ public class SocialConnectionMB
         }
     }
     
-    public String deleteConnection()
+    public void deleteConnection ()
     {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
@@ -131,22 +134,21 @@ public class SocialConnectionMB
             if ((sc.getNetworkType() == current.getNetworkType())&&
                             (sc.getProviderUserId().equals(current.getProviderUserId())))
             {
-                //FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(
-                    //FacesMessage.SEVERITY_ERROR,"You can't delete your current social connection.", ""));
-                return "error";
+                FacesContext.getCurrentInstance().addMessage("msgñ", new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR,"You can't delete your current social connection.", ""));
+                return;
             }
         getSocialConnectionService().deleteConnection(sc);
-        return "success";
     }
     
-    public String addConnection ()
+    public void addConnection ()
     {
         checkActuality();
         if (getProvider() == null)
         {
             FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,"Select your network.", ""));
-            return "error";
+            return;
         }
         if (getSocialConnectionService().getConnectionByUserAndType(
                             getUserService().getCurrentUser(),
@@ -154,7 +156,10 @@ public class SocialConnectionMB
         {
             FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,"Profile " + getProvider() + " already exist.", ""));
-            return "error";
+            userPage = "Your page";
+            provider = "Select social network";
+            userId = "Your id";
+            return;
         }
         SocialConnection socialConnection = new SocialConnection();
         socialConnection.setUserPage(getUserPage());
@@ -164,7 +169,9 @@ public class SocialConnectionMB
         getSocialConnectionService().addConnection(socialConnection);
         FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(
                     FacesMessage.SEVERITY_INFO,"Success.", ""));
-        return "success";
+        userPage = "Your page";
+        provider = "Select social network";
+        userId = "Your id";
     }
     
     public void updateFriends ()
@@ -187,6 +194,8 @@ public class SocialConnectionMB
             case "vk": case "vkontakte":
                 break;
         }
+        FacesContext.getCurrentInstance().addMessage("msgf", new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,"Success.", ""));
     }
     
     public SocialConnectionMB ()

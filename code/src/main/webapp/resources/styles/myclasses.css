@@ -3,7 +3,10 @@
     border: none !important;
 }
 .panel div, .panel table tbody tr td{
-    padding: 0 !important;
+    padding-bottom: 0.3px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
 }
 .friendpicture {
     padding-top: 3px !important;

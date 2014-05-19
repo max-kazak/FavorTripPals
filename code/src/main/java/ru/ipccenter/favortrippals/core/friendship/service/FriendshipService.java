@@ -60,13 +60,6 @@ public class FriendshipService implements IFriendshipService
         Friendship fsh = new Friendship();
         fsh.setUser1(user1);
         fsh.setUser2(user2);
-        try
-        {
-            getFriendshipDAO().addFriendship(fsh);
-        }
-        catch (Exception e)
-        {
-            Logger.getLogger(FriendshipService.class.getName()).log(Level.WARNING, e.getMessage());
-        }
+        getFriendshipDAO().addFriendship(fsh);
     }
 }

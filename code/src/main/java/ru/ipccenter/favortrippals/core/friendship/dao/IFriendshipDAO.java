@@ -13,4 +13,5 @@ public interface IFriendshipDAO
     public void deleteFriendship(Friendship friendship);
     public void updateFriendship(Friendship friendship);
     public List<Friendship> getAllFriendshipsByUser(User user);
+    public boolean isFriendshipExists (Friendship friendship);
 }

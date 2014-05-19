@@ -9,13 +9,14 @@
         <h:form id="form">
         <p:panelGrid><p:row>
             <p:column width="45%" style="vertical-align: top;">
-                <h:outputText value="#{userMB.nameByUser}" style="font-size: 30px; padding-left: 30px;"/>
+                <h:outputText value="#{userMB.nameByUser} #{userMB.nicknameByUser}" style="font-size: 25px; padding-left: 30px; font-style: italic;"/>
                 <br/><br/>
                 <p:graphicImage url="#{userMB.pictureByUser}" width="300"/>
             </p:column>
             
             <p:column width="45%" style="vertical-align: top;">
-                <h:outputText value="Trips." style="font-size: 25px; padding-left: 50px;"/>
+                <h:outputText value="Trips." style="font-size: 22px; font-weight: 900;
+                                   font-style: italic; padding-left: 30px; white-space: pre-wrap;"/>
                 <p:dataGrid value="#{tripMB.tripsByUser}" var="tr" columns="1"  
                             rows="3" paginator="true" class="panel"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
@@ -44,7 +45,8 @@
                     </p:panel>
                 </p:dataGrid>
                 
-                <h:outputText value="Requests." style="font-size: 25px; padding-left: 50px;"/>
+                <h:outputText value="Requests." style="font-size: 22px; font-weight: 900;
+                                   font-style: italic; padding-left: 30px; white-space: pre-wrap;"/>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
                     <p:column headerText="traveller name" style="padding: 3px;">  
                         <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
