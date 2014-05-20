@@ -10,6 +10,9 @@ import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FriendOperations;
 import org.springframework.social.facebook.api.ImageType;
+import org.springframework.social.vkontakte.api.FriendsOperations;
+import org.springframework.social.vkontakte.api.VKontakte;
+import org.springframework.social.vkontakte.api.VKontakteProfile;
 import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
@@ -57,16 +60,18 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
      * Else make new user and set to the DB.
      * Set current social connection to the DB if it isn't exist.
      * @param connection
-     * @return 
+     * @return
      */
     @Override
     public String execute(Connection<?> connection)
     {
-        Logger.getLogger(SpringConnectionSignUp.class.getName()).log(Level.WARNING, "\n\nLALALALALALALA\n\n");
-        
         String providerUserId = connection.getKey().getProviderUserId();
         String provider = connection.getKey().getProviderId();
+        
         User user = getUserService().getUserByProviderUserId(provider, providerUserId);
+        User curUser = getUserService().getCurrentUser();
+        if (curUser != null)
+            user = curUser;
         if (user == null)
         {
             user = new User();
@@ -76,6 +81,7 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
             user.setPicture(connection.getImageUrl());
             getUserService().addUser(user);
         }
+        
         SocialConnection socialConnection = 
                     getSocialConnectionService().getConnectionByUserAndType(user, 
                     SocialConnection.getNetworkTypeByString(provider));
@@ -93,23 +99,18 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
         {
             case "facebook":
                 Facebook fb = (Facebook)connection.getApi();
-                FriendOperations fo = fb.friendOperations();
-                List<String> friendIds = fo.getFriendIds();
-                for (String fId : friendIds)
-                {
-                    User friend = getUserService().getUserByProviderUserId(provider, fId);
-                    if (friend != null)
-                        getFriendshipService().createFriendship(user, friend);
-                }
-                
                 byte[] im = fb.userOperations().getUserProfileImage(ImageType.LARGE);
                 try
                 {
                     String path = File.separator + "resources" +
                                         File.separator + providerUserId + ".jpg";
                     File outFile = new File(".." + File.separator + "webapps" + File.separator + "favortrippals" + path);
-                    if (!outFile.exists())
-                        outFile.createNewFile();
+                    if (outFile.exists())
+                    {
+                        user.setPicture("." + path);
+                        getUserService().updateUser(user);
+                    }
+                    outFile.createNewFile();
                     FileOutputStream fout = new FileOutputStream(outFile);
                     fout.write(im);
                     fout.close();
@@ -122,6 +123,9 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
                 }
                 break;
             case "vk": case "vkontakte":
+                VKontakte vk = (VKontakte)connection.getApi();
+                user.setPicture(vk.usersOperations().getUser().getPhotoBig());
+                getUserService().updateUser(user);
                 break;
         }
         return new Long(user.getId()).toString();
@@ -131,5 +135,5 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
  *          CharArrayWriter c = new CharArrayWriter();
             PrintWriter p = new PrintWriter(c);
             e.printStackTrace(p);
-            Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, "\n" + c.toString());
+            Logger.getLogger(SpringConnectionSignUp.class.getName()).log(Level.WARNING, "\n" + c.toString());
  */

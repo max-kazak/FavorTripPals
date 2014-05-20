@@ -16,7 +16,7 @@
             
             <p:column width="45%" style="vertical-align: top;">
                 <h:outputText value="Trips." style="font-size: 22px; font-weight: 900;
-                                   font-style: italic; padding-left: 30px; white-space: pre-wrap;"/>
+                                   font-style: italic; padding-left: 30px; white-space: pre-wrap; padding-bottom: 7px;"/>
                 <p:dataGrid value="#{tripMB.tripsByUser}" var="tr" columns="1"  
                             rows="3" paginator="true" class="panel"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
@@ -46,8 +46,8 @@
                 </p:dataGrid>
                 
                 <h:outputText value="Requests." style="font-size: 22px; font-weight: 900;
-                                   font-style: italic; padding-left: 30px; white-space: pre-wrap;"/>
-                <p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
+                                   font-style: italic; padding-left: 30px; white-space: pre-wrap; padding-top: 7px;"/>
+                <p:dataTable var="req" value="#{requestMB.allRequestsByUser}" style="padding-top: 7px;">  
                     <p:column headerText="traveller name" style="padding: 3px;">  
                         <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
                     </p:column>

@@ -24,6 +24,7 @@
  <!-- SocialConnections Service Declaration -->
  <bean id="socialConnectionService" class="ru.ipccenter.favortrippals.core.socialconnection.service.SocialConnectionService">
      <property name="socialConnectionDAO" ref="socialConnectionDAO" />
+     <!--<property name="usersConnectionRepository" ref="usersConnectionRepository" />-->
  </bean>
  
  <!-- Request Service Declaration -->
@@ -108,7 +109,7 @@
      <property name="hibernateProperties">
          <props>
 	     <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-             <prop key="hibernate.show_sql">true</prop>
+             <prop key="hibernate.show_sql">false</prop>
 	 </props>
      </property>
  </bean>

@@ -30,6 +30,9 @@
     border-right: 0px !important;
     border-top: 0px !important;
 }
+.friends tbody tr:hover {
+	background: #DCEBF5 !important;
+}
 /*
 .ui-layout-pane-north {
     border: none;
