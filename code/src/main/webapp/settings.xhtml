@@ -85,7 +85,9 @@
             <p:messages id="msgf" closable="true"/>
             
             <h:outputText value="You can update list of your friends. It will be synchronized with your profile. "/>
-            <h:outputText value="Your new friends will be added.  "/>
+            <h:outputText value="Your new friends will be added."/>
+            <br />
+            <h:outputText value="Warning! It may take a few minutes."/>
             <br /><br />
             <p:commandButton id="buttonf" value="Update" update="msgf" action="#{socialConnectionMB.updateFriends()}"/>
         </p:tab>

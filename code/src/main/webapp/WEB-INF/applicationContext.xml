@@ -24,6 +24,7 @@
  <!-- SocialConnections Service Declaration -->
  <bean id="socialConnectionService" class="ru.ipccenter.favortrippals.core.socialconnection.service.SocialConnectionService">
      <property name="socialConnectionDAO" ref="socialConnectionDAO" />
+     <!--<property name="usersConnectionRepository" ref="usersConnectionRepository" />-->
  </bean>
  
  <!-- Request Service Declaration -->

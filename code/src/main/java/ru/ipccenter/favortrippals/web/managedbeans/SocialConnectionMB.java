@@ -15,6 +15,9 @@ import javax.faces.event.ActionEvent;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FriendOperations;
+import org.springframework.social.vkontakte.api.FriendsOperations;
+import org.springframework.social.vkontakte.api.VKontakte;
+import org.springframework.social.vkontakte.api.VKontakteProfile;
 import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
@@ -139,6 +142,7 @@ public class SocialConnectionMB
                 return;
             }
         getSocialConnectionService().deleteConnection(sc);
+        getSocialConnectionService().removeConnectionFromDB(sc);
     }
     
     public void addConnection ()
@@ -192,6 +196,16 @@ public class SocialConnectionMB
                 }
                 break;
             case "vk": case "vkontakte":
+                VKontakte vk = (VKontakte)connection.getApi();
+                FriendsOperations fovk = vk.friendsOperations();
+                List<VKontakteProfile> friendIdsVK = fovk.get();
+                for (VKontakteProfile fIdVK : friendIdsVK)
+                {
+                    String id = fIdVK.getUid();
+                    User friend = getUserService().getUserByProviderUserId(provider, id);
+                    if (friend != null)
+                        getFriendshipService().createFriendship(getUserService().getCurrentUser(), friend);
+                }
                 break;
         }
         FacesContext.getCurrentInstance().addMessage("msgf", new FacesMessage(
