@@ -10,7 +10,8 @@
 
     <h:form id="form">
   
-        <p>Upcoming Friends' Trips</p>
+        <h:panelGrid style="border-style: none;">            
+            <h:outputText value="Upcoming Trips" style="font-size: 30px; font-style: italic;"/> 
         <p:dataTable var="tr" value="#{tripMB.upcomingTrips}">  
             <p:column>
                 <p:graphicImage url="#{userMB.getUrlOfSmallPicture(tr.traveller.id)}"/>
@@ -34,6 +35,7 @@
                 </p:button>
             </p:column> 
         </p:dataTable> 
+        </h:panelGrid>
         
     </h:form>
     </ui:define>

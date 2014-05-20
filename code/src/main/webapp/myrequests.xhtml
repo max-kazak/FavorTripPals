@@ -2,14 +2,15 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
      
     <ui:param name ="tabIndex" value="2"/>
     <ui:define name="content">
      
     <h:form id="form">
-
-        <p>My Requests</p>
+        <h:panelGrid style="border-style: none;">            
+            <h:outputText value="My Requests" style="font-size: 30px; font-style: italic;"/> 
         <p:dataTable var="req" value="#{requestMB.allRequestsByCustomer}">  
             <p:column headerText="Destination of Trip">  
                 <h:outputText value="#{req.trip.dest}" />  
@@ -39,8 +40,11 @@
                 <h:outputText value="#{req.status}" />  
             </p:column>  
         </p:dataTable> 
+        </h:panelGrid>
         
-        <p>Requests, I should execute</p>
+        <h:panelGrid style="border-style: none;">
+                        <br/>
+            <h:outputText value="Requests, I should execute" style="font-size: 30px; font-style: italic; "/> 
         <p:dataTable var="req" value="#{requestMB.allRequestsByTraveller}">  
             <p:column headerText="Destination of Trip">  
                 <h:outputText value="#{req.trip.dest}" />  
@@ -70,6 +74,8 @@
                 <h:outputText value="#{req.status}" />  
             </p:column>  
         </p:dataTable>
+        </h:panelGrid>
+
     </h:form>
     </ui:define>
     </ui:composition>
