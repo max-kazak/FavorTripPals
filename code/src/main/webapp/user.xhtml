@@ -9,18 +9,23 @@
         <h:form id="form">
         <p:panelGrid><p:row>
             <p:column width="45%" style="vertical-align: top;">
-                <h:outputText value="#{userMB.nameByUser} #{userMB.nicknameByUser}" style="font-size: 25px; padding-left: 30px; font-style: italic;"/>
+                <h:outputText value="#{userMB.nameByUser}" style="font-size: 30px; padding-left: 30px;"/>
                 <br/><br/>
                 <p:graphicImage url="#{userMB.pictureByUser}" width="300"/>
             </p:column>
             
             <p:column width="45%" style="vertical-align: top;">
-                <h:outputText value="Trips." style="font-size: 22px; font-weight: 900;
-                                   font-style: italic; padding-left: 30px; white-space: pre-wrap; padding-bottom: 7px;"/>
-                <p:dataGrid value="#{tripMB.tripsByUser}" var="tr" columns="1"  
-                            rows="3" paginator="true" class="panel"
-                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                    <p:panel header="#{tr.dest}" style="text-align:center;  border-style: none;">
+				<p:dataScroller value="#{tripMB.tripsByUser}" var="tr" chunkSize="10" style="border: 0!important;border-left: 0px !important;border-right: 0px !important;border-top: 0px !important;">
+ 
+					<f:facet name="header">
+						Trips
+					</f:facet>
+					
+					<f:facet name="loader">
+						<p:commandButton type="button" value="More" />
+					</f:facet>
+					
+                    <p:fieldset legend="#{tr.dest}">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}" class="panel">  
                             <p:column headerText="customer" style="padding: 3px;">  
                                 <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
@@ -42,36 +47,37 @@
                                 <h:outputText value="#{req.status}" />  
                             </p:column>
                         </p:dataTable>
-                    </p:panel>
-                </p:dataGrid>
-                
-                <h:outputText value="Requests." style="font-size: 22px; font-weight: 900;
-                                   font-style: italic; padding-left: 30px; white-space: pre-wrap; padding-top: 7px;"/>
-                <p:dataTable var="req" value="#{requestMB.allRequestsByUser}" style="padding-top: 7px;">  
-                    <p:column headerText="traveller name" style="padding: 3px;">  
-                        <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
-                    </p:column>
-                    
-                    <p:column headerText="destination" style="width: 120px; padding: 3px;">  
-                        <h:outputText value="#{req.trip.dest}" />  
-                    </p:column>
+                    </p:fieldset>
+					<br/>
+                </p:dataScroller>
+                <br/>
+				<p:panel header="Requests">
+					<p:dataTable var="req" value="#{requestMB.allRequestsByUser}">  
+						<p:column headerText="traveller name" style="padding: 3px;">  
+							<h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
+						</p:column>
+						
+						<p:column headerText="destination" style="width: 120px; padding: 3px;">  
+							<h:outputText value="#{req.trip.dest}" />  
+						</p:column>
 
-                    <p:column headerText="goods" style="width: 120px; padding: 3px;">  
-                        <h:outputText value="#{req.goods.name}" />  
-                    </p:column>
-                    
-                    <p:column headerText="cost" style="width: 95px; padding: 3px;">  
-                        <h:outputText value="#{req.maxCost} #{req.currency}" />  
-                    </p:column>
+						<p:column headerText="goods" style="width: 120px; padding: 3px;">  
+							<h:outputText value="#{req.goods.name}" />  
+						</p:column>
+						
+						<p:column headerText="cost" style="width: 95px; padding: 3px;">  
+							<h:outputText value="#{req.maxCost} #{req.currency}" />  
+						</p:column>
 
-                    <p:column headerText="amount" style="width: 70px; padding: 3px;">  
-                        <h:outputText value="#{req.count}" />  
-                    </p:column>
+						<p:column headerText="amount" style="width: 70px; padding: 3px;">  
+							<h:outputText value="#{req.count}" />  
+						</p:column>
 
-                    <p:column headerText="status" style="width: 80px; padding: 3px;">
-                        <h:outputText value="#{req.status}" />  
-                    </p:column>
-                </p:dataTable>
+						<p:column headerText="status" style="width: 80px; padding: 3px;">
+							<h:outputText value="#{req.status}" />  
+						</p:column>
+					</p:dataTable>
+				</p:panel>
             </p:column>
         </p:row></p:panelGrid>
         </h:form>
