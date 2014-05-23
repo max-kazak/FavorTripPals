@@ -7,36 +7,33 @@
                 >
     <ui:param name ="tabIndex" value="3"/>
     <ui:define name="content">
-
     <h:form id="form">
-  
-        <h:panelGrid style="border-style: none;">            
-            <h:outputText value="Upcoming Trips" style="font-size: 30px; font-style: italic;"/> 
-        <p:dataTable var="tr" value="#{tripMB.upcomingTrips}">  
+        <p:panelGrid style="border-style: none;">
+        <p:row>
+        <p:column style="padding:1em">
+            <h:outputText value="Upcoming Trips" style="font-size: 30px; font-style: italic;"/>
+        <p:dataTable var="tr" value="#{tripMB.upcomingTrips}">
             <p:column>
                 <p:graphicImage url="#{userMB.getUrlOfSmallPicture(tr.traveller.id)}"/>
             </p:column>
-        
-            <p:column headerText="Traveller">  
-                <h:outputText value="#{tr.traveller.name}" />  
-            </p:column>    
-            
-            <p:column headerText="Destination">  
-                <h:outputText value="#{tr.dest}" />  
+            <p:column headerText="Traveller">
+                <h:outputText value="#{tr.traveller.name}"/>
             </p:column>
-            
-            <p:column headerText="Departure Date">  
-                <h:outputText value="#{tripMB.dateToString(tr.departure_date)}" />  
-            </p:column>  
-            
-            <p:column>  
+            <p:column headerText="Destination">
+                <h:outputText value="#{tr.dest}"/>
+            </p:column>
+            <p:column headerText="Departure Date">
+                <h:outputText value="#{tripMB.dateToString(tr.departure_date)}"/>
+            </p:column>
+            <p:column>
                 <p:button outcome="createrequest" value="Add Request">
-                    <f:param name="tripId" value="#{tr.id}" />
+                    <f:param name="tripId" value="#{tr.id}"/>
                 </p:button>
-            </p:column> 
-        </p:dataTable> 
-        </h:panelGrid>
-        
+            </p:column>
+        </p:dataTable>
+        </p:column>
+        </p:row>
+        </p:panelGrid>
     </h:form>
     </ui:define>
 </ui:composition>
