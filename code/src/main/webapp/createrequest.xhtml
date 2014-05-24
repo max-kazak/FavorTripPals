@@ -5,7 +5,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 >
-    <ui:param name ="tabIndex" value="1"/>
+    <ui:param name ="tabIndex" value="3"/>
     <ui:define name="content">
 
     <h:form id="form">
@@ -19,44 +19,24 @@
             <p:autoComplete id="acGoods" value="#{requestMB.newGoodsName}" required="true"   
                     completeMethod="#{autoCompleteMB.completeName}"/> 
             
-            <h:outputLabel value="Maximum Cost you want to pay: " for="costOfGoods" />  
-            <p:inputText id="costOfGoods" value="#{requestMB.maxCost}"  />
+            <h:outputLabel value="Maximum Cost you want to pay: *" for="costOfGoods" />  
+            <p:inputText id="costOfGoods" value="#{requestMB.maxCost}"  required="true"/>
             
-            <h:outputText id="currencies" value="Currency: " />  
-            <p:selectOneMenu value="#{requestMB.currency}" effect="fold" editable="true">  
+            <h:outputText id="currencies" value="Currency: *" />  
+            <p:selectOneMenu value="#{requestMB.currency}" effect="fold" editable="true" required="true">  
                 <f:selectItem itemValue="" />  
                 <f:selectItems value="#{pprMB.currencies}" />  
             </p:selectOneMenu>
             
-            <h:outputLabel value="Count of Goods: " for="countOfGoods" />  
-            <p:inputText id="countOfGoods" value="#{requestMB.count}"  />
+            <h:outputLabel value="Count of Goods: *" for="countOfGoods" />  
+            <p:inputText id="countOfGoods" value="#{requestMB.count}" required="true"/>
             
         </h:panelGrid>  
         </p:panel>
         
-        <p:commandButton value="Submit" id="submit" update="display" actionListener="#{requestMB.addRequest()}" 
-                         oncomplete="PF('dialog').show()"/>
-        
-        <p:dialog header="Your new Request" widgetVar="dialog"  
-            showEffect="fold" hideEffect="fold" width="200">  
-              
-            <h:panelGrid id="display" columns="2" cellpadding="5" >
-                <h:outputText value="Trip: " />  
-                <h:outputText value="#{requestMB.trip.dest}" />
-                
-                <h:outputText value="Customer: " />  
-                <h:outputText value="#{requestMB.customer.name}" />
-                
-                <h:outputText value="Goods: " />  
-                <h:outputText value="#{requestMB.goods.name}" />
-                
-                <h:outputText value="Count of Goods: " />  
-                <h:outputText value="#{requestMB.count}" /> 
-                
-                <h:outputText value="Cost: " />  
-                <h:outputText value="#{requestMB.maxCost} #{requestMB.currency}" /> 
-            </h:panelGrid>            
-        </p:dialog>
+        <p:commandButton value="Submit" id="submit" actionListener="#{requestMB.addRequest()}">
+            <f:param name="tripId" value="#{param.tripId}" />
+        </p:commandButton>
         
     </h:form>
     </ui:define>
