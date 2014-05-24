@@ -118,7 +118,7 @@ public class SocialConnectionService implements ISocialConnectionService
                 Logger.getLogger(SocialConnectionService.class.getName()).log(Priority.WARN, e.getMessage());
             }
         }
-        //vk post - is not work
+        //vk post - is not work because vk don't allow it
     }
 
     @Override
