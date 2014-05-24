@@ -1,8 +1,8 @@
 package ru.ipccenter.favortrippals.core.user.service;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+import javax.faces.context.FacesContext;
 
 import org.springframework.transaction.annotation.Transactional;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
@@ -108,5 +108,15 @@ public class UserService implements IUserService
     public String getUrlOfSmallPicture(long id)
     {
         return getUserDAO().getUrlOfSmallPicture(id);
+    }
+    
+    static public void removeCurrent ()
+    {
+        if (FacesContext.getCurrentInstance() != null)
+        {
+            Map m = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+            for (Object o : m.keySet())
+                m.put(o,null);
+        }
     }
 }

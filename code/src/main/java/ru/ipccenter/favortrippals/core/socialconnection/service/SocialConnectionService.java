@@ -120,26 +120,4 @@ public class SocialConnectionService implements ISocialConnectionService
         }
         //vk post - is not work because vk don't allow it
     }
-
-    @Override
-    public void removeConnectionFromDB (SocialConnection connection)
-    {
-        /*
-        Long userId = connection.getUser().getId();
-        ConnectionRepository rep = getUsersConnectionRepository().createConnectionRepository(userId.toString());
-        String provider;
-        switch (connection.getNetworkType())
-        {
-            case SocialConnection.FACEBOOK:
-                provider = "facebook";
-                break;
-            case SocialConnection.VKONTAKTE:
-                provider = "vkontakte";
-                break;
-            default:
-                provider = "";
-        }
-        rep.removeConnections(provider);
-        */
-    }
 }

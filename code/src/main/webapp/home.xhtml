@@ -22,7 +22,7 @@
                     
                     <a id="toFriend" href="user.xhtml?userId=#{friend.id}">
                         <p:panelGrid columns="2" style="width: 270px;" columnClasses="friendpicture,frienddata" styleClass="friends">
-                            <p:graphicImage url="#{friend.picture}" width="80"/>
+                            <p:graphicImage url="#{userMB.getUrlOfSmallPicture(friend.id)}" width="80" height="80"/>
 
                             <p:outputPanel>
                                 <h:panelGrid columns="2" style="font-weight: bold">

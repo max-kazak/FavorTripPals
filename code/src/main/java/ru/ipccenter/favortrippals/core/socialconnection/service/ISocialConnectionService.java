@@ -36,5 +36,4 @@ public interface ISocialConnectionService
     public SocialConnection getConnectionByProviderUserId (String provider, String providerUserId);
     public List<SocialConnection> getAllConnectionsByUser (User user);
     public void printOnTheWall (String message);
-    public void removeConnectionFromDB (SocialConnection connection);
 }

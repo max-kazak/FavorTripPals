@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
+import ru.ipccenter.favortrippals.core.user.service.UserService;
 
 @ManagedBean(name="userMB")
 @SessionScoped
@@ -167,6 +168,18 @@ public class UserMB
     public String getUrlOfSmallPicture(long id)
     {
         checkActuality();
-        return getUserService().getUrlOfSmallPicture(id);
+        String picture = getUserService().getUrlOfSmallPicture(id);
+        if (picture == null)
+            picture = getUserService().getUserById(id).getPicture();
+        return picture;
+    }
+    
+    public void removeCurrentSession ()
+    {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String redirect = "index";
+        NavigationHandler myNav = facesContext.getApplication().getNavigationHandler();
+        myNav.handleNavigation(facesContext, null, redirect);
+        UserService.removeCurrent();
     }
 }

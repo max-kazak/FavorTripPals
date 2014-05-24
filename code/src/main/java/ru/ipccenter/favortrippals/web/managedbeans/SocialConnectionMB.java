@@ -3,15 +3,12 @@ package ru.ipccenter.favortrippals.web.managedbeans;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FriendOperations;
@@ -142,7 +139,6 @@ public class SocialConnectionMB
                 return;
             }
         getSocialConnectionService().deleteConnection(sc);
-        getSocialConnectionService().removeConnectionFromDB(sc);
     }
     
     public void addConnection ()

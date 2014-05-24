@@ -32,7 +32,7 @@
                     <div id="menuButton">
                     <p:menuButton value="#{userMB.name}!">
                         <p:menuitem value="Settings" url="http://localhost:8080/favortrippals/settings.xhtml"/>
-                        <p:menuitem value="Log out"/>
+                        <p:menuitem value="Log out" actionListener="#{userMB.removeCurrentSession()}"/>
                     </p:menuButton>
                     </div>
 

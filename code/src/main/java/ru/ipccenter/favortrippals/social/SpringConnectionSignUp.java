@@ -2,22 +2,19 @@ package ru.ipccenter.favortrippals.social;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.FriendOperations;
 import org.springframework.social.facebook.api.ImageType;
-import org.springframework.social.vkontakte.api.FriendsOperations;
 import org.springframework.social.vkontakte.api.VKontakte;
-import org.springframework.social.vkontakte.api.VKontakteProfile;
 import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
+import ru.ipccenter.favortrippals.core.user.service.UserService;
 
 public final class SpringConnectionSignUp implements ConnectionSignUp
 {
@@ -65,19 +62,25 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
     @Override
     public String execute(Connection<?> connection)
     {
+        if (getUserService().getCurrentUser() != null)
+            UserService.removeCurrent();
+        
         String providerUserId = connection.getKey().getProviderUserId();
         String provider = connection.getKey().getProviderId();
         
         User user = getUserService().getUserByProviderUserId(provider, providerUserId);
-        User curUser = getUserService().getCurrentUser();
-        if (curUser != null)
-            user = curUser;
+        String email = connection.fetchUserProfile().getEmail();
+        if (user == null && email != null)
+            user = getUserService().getUserByEmail(email);
         if (user == null)
         {
             user = new User();
             user.setNickname(connection.getDisplayName());
             user.setName(connection.getDisplayName());
-            user.setEmail("Not set.");
+            if (email == null)
+                user.setEmail("Not set.");
+            else
+                user.setEmail(email);
             user.setPicture(connection.getImageUrl());
             getUserService().addUser(user);
         }
@@ -93,40 +96,40 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
             socialConnection.setUser(user);
             socialConnection.setUserPage(connection.getProfileUrl());
             getSocialConnectionService().addConnection(socialConnection);
-        }
 
-        switch (provider.toLowerCase())
-        {
-            case "facebook":
-                Facebook fb = (Facebook)connection.getApi();
-                byte[] im = fb.userOperations().getUserProfileImage(ImageType.LARGE);
-                try
-                {
-                    String path = File.separator + "resources" +
-                                        File.separator + providerUserId + ".jpg";
-                    File outFile = new File(".." + File.separator + "webapps" + File.separator + "favortrippals" + path);
-                    if (outFile.exists())
+            switch (provider.toLowerCase())
+            {
+                case "facebook":
+                    Facebook fb = (Facebook)connection.getApi();
+                    byte[] im = fb.userOperations().getUserProfileImage(ImageType.LARGE);
+                    try
                     {
+                        String path = File.separator + "resources" +
+                                            File.separator + providerUserId + ".jpg";
+                        File outFile = new File(".." + File.separator + "webapps" + File.separator + "favortrippals" + path);
+                        if (outFile.exists())
+                        {
+                            user.setPicture("." + path);
+                            getUserService().updateUser(user);
+                        }
+                        outFile.createNewFile();
+                        FileOutputStream fout = new FileOutputStream(outFile);
+                        fout.write(im);
+                        fout.close();
                         user.setPicture("." + path);
                         getUserService().updateUser(user);
                     }
-                    outFile.createNewFile();
-                    FileOutputStream fout = new FileOutputStream(outFile);
-                    fout.write(im);
-                    fout.close();
-                    user.setPicture("." + path);
+                    catch (Exception ex)
+                    {
+                        Logger.getLogger(SpringConnectionSignUp.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case "vk": case "vkontakte":
+                    VKontakte vk = (VKontakte)connection.getApi();
+                    user.setPicture(vk.usersOperations().getUser().getPhotoBig());
                     getUserService().updateUser(user);
-                }
-                catch (Exception ex)
-                {
-                    Logger.getLogger(SpringConnectionSignUp.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-            case "vk": case "vkontakte":
-                VKontakte vk = (VKontakte)connection.getApi();
-                user.setPicture(vk.usersOperations().getUser().getPhotoBig());
-                getUserService().updateUser(user);
-                break;
+                    break;
+            }
         }
         return new Long(user.getId()).toString();
     }

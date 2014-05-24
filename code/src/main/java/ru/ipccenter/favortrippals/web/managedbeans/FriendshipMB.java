@@ -5,13 +5,9 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  */
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.TransferEvent;
-import org.primefaces.model.DualListModel;
 import ru.ipccenter.favortrippals.core.friendship.service.IFriendshipService;
 import ru.ipccenter.favortrippals.core.model.Friendship;
 import ru.ipccenter.favortrippals.core.model.User;
