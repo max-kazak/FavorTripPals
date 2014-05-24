@@ -10,7 +10,7 @@
     <ui:define name="content">
     <h:form id="form">
         <p:panelGrid style="border-style: none;"><p:row>
-            <p:column style="width: 1%;">
+            <p:column style="width: 1%; vertical-align: top;">
                 <h:outputText value="Hello #{userMB.name}!" style="font-size: 22px; padding-left: 30px; font-style: italic;"/>
                 <br/><br/>
                 <p:graphicImage url="#{userMB.picture}" width="300"/>
@@ -64,7 +64,7 @@
                                 <h:outputText value="#{req.count}" />  
                             </p:column>  
 
-                            <p:column headerText="status" style="width: 80px; padding: 3px;">  
+                            <p:column headerText="status" style="width: 98px; padding: 3px;">  
                                 <h:outputText value="#{req.status}" />  
                             </p:column>
                         </p:dataTable>
@@ -94,7 +94,7 @@
                         <h:outputText value="#{req.count}" />  
                     </p:column>
 
-                    <p:column headerText="status" style="width: 80px; padding: 3px;">
+                    <p:column headerText="status" style="width: 98px; padding: 3px;">
                         <h:outputText value="#{req.status}" />  
                     </p:column>
                 </p:dataTable>

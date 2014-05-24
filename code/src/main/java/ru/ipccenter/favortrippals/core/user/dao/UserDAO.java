@@ -87,10 +87,9 @@ public class UserDAO implements IUserDAO
     @Override
     public String getUrlOfSmallPicture(long id)
     {
-        String query = "select imageurl from Userconnection where userid=?";
+        String query = "select imageurl from Userconnection where userid=" + id;
         List list = getSessionFactory().getCurrentSession()
 				.createSQLQuery(query)
-				.setParameter(0, id)
 				.list();
         if(!list.isEmpty())
             return (String)list.get(0);

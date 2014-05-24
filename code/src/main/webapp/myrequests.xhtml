@@ -14,37 +14,40 @@
         <p:column style="padding:1em">
             <h:outputText value="My Requests" style="font-size: 30px; font-style: italic;"/> 
         <p:dataTable id="datatable1" var="req" value="#{requestMB.allRequestsByCustomer}">  
-            <p:column headerText="Destination of Trip">  
+            <p:column headerText="Destination">  
                 <h:outputText value="#{req.trip.dest}" />  
             </p:column>  
         
-            <p:column headerText="Traveller">  
+            <p:column headerText="Traveller" style="width: 120px;">  
                 <h:outputText value="#{req.trip.traveller.name}" />  
             </p:column>    
             
-            <p:column headerText="Period">  
-                <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} - #{tripMB.dateToString(req.trip.arrival_date)}" />  
+            <p:column headerText="Period" style="width: 135px; padding: 5px;">  
+                <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} - 
+                              #{tripMB.dateToString(req.trip.arrival_date)}" style="font-size: 12px; font-weight: 900;"/>  
             </p:column>
             
-            <p:column headerText="Goods">  
+            <p:column headerText="Goods" style="width: 120px;">  
                 <h:outputText value="#{req.goods.name}" />  
             </p:column>  
             
-            <p:column headerText="Cost">  
+            <p:column headerText="Cost" style="width: 95px;">  
                 <h:outputText value="#{req.maxCost} #{req.currency}" />  
             </p:column>
             
-            <p:column headerText="Count of Goods">  
+            <p:column headerText="Count" style="width: 55px;">  
                 <h:outputText value="#{req.count}" />  
             </p:column>  
             
-            <p:column headerText="Status">  
+            <p:column headerText="Status" style="width: 98px;">  
                 <h:outputText value="#{req.status}" />  
             </p:column> 
             
-            <p:column headerText="Confirmation and Removal"> 
-                <p:commandButton actionListener="#{statusChangeMB.confirm(req)}" id="iconOnly1" update="datatable1" icon="ui-icon-check" title="Icon Only" />
-                <p:commandButton actionListener="#{statusChangeMB.delete(req)}" id="iconOnly2" update="datatable1" icon="ui-icon-closethick" title="Icon Only" />
+            <p:column headerText="Confirm or remove" style="width: 110px;"> 
+                <p:commandButton actionListener="#{statusChangeMB.confirm(req)}" id="iconOnly1" update="datatable1"
+                                 icon="ui-icon-check" title="Execute" style="height: 30px; width: 52px;"/>
+                <p:commandButton actionListener="#{statusChangeMB.delete(req)}" id="iconOnly2" update="datatable1"
+                                 icon="ui-icon-closethick" title="Delete" style="height: 30px; width: 52px;"/>
             </p:column> 
         </p:dataTable> 
         </p:column>
@@ -56,37 +59,40 @@
         <p:column style="padding:1em">
             <h:outputText value="Requests, I should execute" style="font-size: 30px; font-style: italic; "/> 
         <p:dataTable id="datatable2" var="req" value="#{requestMB.allRequestsByTraveller}">  
-            <p:column headerText="Destination of Trip">  
+            <p:column headerText="Destination">  
                 <h:outputText value="#{req.trip.dest}" />  
             </p:column>  
         
-            <p:column headerText="Customer">  
+            <p:column headerText="Customer" style="width: 120px;">  
                 <h:outputText value="#{req.customer.name}" />  
             </p:column>    
             
-            <p:column headerText="Period">  
-                <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} - #{tripMB.dateToString(req.trip.arrival_date)}" />  
+            <p:column headerText="Period" style="width: 135px; padding: 5px;">  
+                <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} -
+                              #{tripMB.dateToString(req.trip.arrival_date)}" style="font-size: 12px; font-weight: 900;"/>  
             </p:column>
             
-            <p:column headerText="Goods">  
+            <p:column headerText="Goods" style="width: 120px;">  
                 <h:outputText value="#{req.goods.name}" />  
             </p:column>  
             
-            <p:column headerText="Cost">  
+            <p:column headerText="Cost" style="width: 95px;">  
                 <h:outputText value="#{req.maxCost} #{req.currency}"/>  
             </p:column>
             
-            <p:column headerText="Count of Goods">  
+            <p:column headerText="Count" style="width: 55px;">  
                 <h:outputText value="#{req.count}"/>  
             </p:column>  
             
-            <p:column headerText="Status">  
+            <p:column headerText="Status" style="width: 98px;">  
                 <h:outputText value="#{req.status}" />  
             </p:column>  
             
-            <p:column headerText="Approval">  
-                <p:commandButton actionListener="#{statusChangeMB.approve(req)}" id="iconOnly3" update="datatable2" icon="ui-icon-plusthick" title="Icon Only" />
-                <p:commandButton actionListener="#{statusChangeMB.disapprove(req)}" id="iconOnly4" update="datatable2" icon="ui-icon-minusthick" title="Icon Only" />
+            <p:column headerText="Approval" style="width: 110px;">  
+                <p:commandButton actionListener="#{statusChangeMB.approve(req)}" id="iconOnly3" update="datatable2"
+                                 icon="ui-icon-plusthick" title="Approve" style="height: 30px; width: 52px;"/>
+                <p:commandButton actionListener="#{statusChangeMB.disapprove(req)}" id="iconOnly4" update="datatable2"
+                                 icon="ui-icon-minusthick" title="Disapprove" style="height: 30px; width: 52px;"/>
             </p:column>
         </p:dataTable>
         </p:column>

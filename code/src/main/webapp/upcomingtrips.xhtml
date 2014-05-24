@@ -13,8 +13,8 @@
         <p:column style="padding:1em">
             <h:outputText value="Upcoming Trips" style="font-size: 30px; font-style: italic;"/>
         <p:dataTable var="tr" value="#{tripMB.upcomingTrips}">
-            <p:column>
-                <p:graphicImage url="#{userMB.getUrlOfSmallPicture(tr.traveller.id)}"/>
+            <p:column style="width: 80px;">
+                <p:graphicImage url="#{userMB.getUrlOfSmallPicture(tr.traveller.id)}" width="80" height="80"/>
             </p:column>
             <p:column headerText="Traveller">
                 <h:outputText value="#{tr.traveller.name}"/>
@@ -25,7 +25,7 @@
             <p:column headerText="Departure Date">
                 <h:outputText value="#{tripMB.dateToString(tr.departure_date)}"/>
             </p:column>
-            <p:column>
+            <p:column style="width: 155px;">
                 <p:button outcome="createrequest" value="Add Request">
                     <f:param name="tripId" value="#{tr.id}"/>
                 </p:button>
