@@ -17,7 +17,7 @@
                 <p:graphicImage url="#{userMB.getUrlOfSmallPicture(tr.traveller.id)}" width="80" height="80"/>
             </p:column>
             <p:column headerText="Traveller">
-                <h:outputText value="#{tr.traveller.name}"/>
+                <h:outputText value="#{tr.traveller.name} (a.k.a. #{tr.traveller.nickname})"/>
             </p:column>
             <p:column headerText="Destination">
                 <h:outputText value="#{tr.dest}"/>
