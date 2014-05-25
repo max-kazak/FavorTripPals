@@ -40,6 +40,7 @@
  <!-- Trip Service Declaration -->
  <bean id="tripService" class="ru.ipccenter.favortrippals.core.trip.service.TripService">
      <property name="tripDAO" ref="tripDAO" />
+     <property name="userService" ref="userService" />
  </bean>
  
  <!-- Friendship Service Declaration -->

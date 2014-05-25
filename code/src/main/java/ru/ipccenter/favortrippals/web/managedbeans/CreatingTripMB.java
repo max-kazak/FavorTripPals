@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 
 import ru.ipccenter.favortrippals.core.model.Trip;
@@ -38,6 +39,13 @@ public class CreatingTripMB implements Serializable {
     private Calendar departure_date = Calendar.getInstance();
     private Calendar arrival_date = Calendar.getInstance();
 
+    private static final Logger log = Logger.getLogger(CreatingTripMB.class.getName());
+
+    public CreatingTripMB() {
+        super();
+        log.debug("CreatingTripMB created");
+    }
+
     public String registerTrip() {
         try {
             Trip trip = new Trip();
@@ -46,6 +54,9 @@ public class CreatingTripMB implements Serializable {
             trip.setArrival_date(getArrival_cal());
             trip.setCapacity(getCapacity());
             getTripService().addTrip(trip);
+
+            log.debug("trip created!");
+
             return SUCCESS;
         }   catch (DataAccessException e) {
             System.out.println(e);
