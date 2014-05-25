@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -54,6 +56,10 @@ public class CreatingTripMB implements Serializable {
             trip.setArrival_date(getArrival_cal());
             trip.setCapacity(getCapacity());
             getTripService().addTrip(trip);
+
+
+            FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,"Success.", ""));
 
             log.debug("trip created!");
 

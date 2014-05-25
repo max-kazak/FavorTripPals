@@ -31,6 +31,7 @@
             <p:calendar value="#{creatingTripMB.arrival_date}" id="popupCal2" />
 
             <p:commandButton id="button" value="Create trip" update="popupCal, popupCal2" actionListener="#{creatingTripMB.registerTrip()}"/>
+            <p:messages id="msg" closable="true" autoUpdate="true"/>
 
         </h:form>
     </ui:define>

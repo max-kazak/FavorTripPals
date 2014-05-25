@@ -1,9 +1,9 @@
 <ui:composition template="/resources/templates/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
         >
     <h:head>
         <title>FavorTripPals</title>
@@ -12,30 +12,31 @@
 
     <ui:param name ="tabIndex" value="1"/>
     <ui:define name="content">
+
         <h:form>
             <p:menubar>
                 <p:menuitem value="My trips"/>
                 <p:menuitem type="button" value="Create new trip" outcome="newtrip.xhtml" style="position:absolute; right:4px;"/>
             </p:menubar>
 
+            <p:dataTable id="datatable1" var="trp" value="#{tripMB.tripsByCurrentUser}">
 
+                <p:column headerText="Destination" style="width: 100px;">
+                    <h:outputText value="#{trp.dest}" />
+                </p:column>
 
-            <p:panel header="New Trip">
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputLabel for="dest" value="Destination : " />
-                    <p:inputText id="dest" value="#{creatingTripMB.dest}" required="true"></p:inputText>
+                <p:column headerText="Period" style="width: 135px; padding: 5px;">
+                    <h:outputText value="#{tripMB.dateToString(trp.departure_date)} -
+                              #{tripMB.dateToString(trp.arrival_date)}" style="font-size: 12px; font-weight: 900;"/>
+                </p:column>
 
-                    <h:outputLabel for="capacity" value="Capacity : " />
-                    <p:inputText id="capacity" value="#{creatingTripMB.capacity}" required="true"></p:inputText>
-                </h:panelGrid>
-            </p:panel>
+                <p:column headerText="Capacity" style="width: 50px;">
+                    <h:outputText value="#{trp.capacity}" />
+                </p:column>
+
+            </p:dataTable>
 
         </h:form>
-
-
-
-
-
 
     </ui:define>
 
