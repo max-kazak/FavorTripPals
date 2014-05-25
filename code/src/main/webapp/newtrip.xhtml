@@ -1,0 +1,38 @@
+<ui:composition template="/resources/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+        >
+    <h:head>
+        <title>FavorTripPals</title>
+        <h:outputStylesheet library="styles" name="myclasses.css"/>
+    </h:head>
+
+    <ui:param name ="tabIndex" value="1"/>
+    <ui:define name="content">
+        <h:form>
+
+            <h3>Enter your trip, please</h3>
+
+            <p:panelGrid columns="2" styleClass="noBorders">
+                <h:outputLabel for="dest" value="Destination : " />
+                <p:inputText id="dest" value="#{creatingTripMB.dest}" required="true"></p:inputText>
+
+                <h:outputLabel for="capacity" value="Capacity (in kg) : " />
+                <p:inputText id="capacity" value="#{creatingTripMB.capacity}" required="true"></p:inputText>
+            </p:panelGrid>
+
+            <h3>Enter your Departure date</h3>
+            <p:calendar value="#{creatingTripMB.departure_date}" id="popupCal" />
+
+            <h3>Enter your Arrival date</h3>
+            <p:calendar value="#{creatingTripMB.arrival_date}" id="popupCal2" />
+
+            <p:commandButton id="button" value="Create trip" update="popupCal, popupCal2" actionListener="#{creatingTripMB.registerTrip()}"/>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -5,17 +5,29 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
         >
+    <h:head>
+        <title>FavorTripPals</title>
+        <h:outputStylesheet library="styles" name="myclasses.css"/>
+    </h:head>
+
     <ui:param name ="tabIndex" value="1"/>
     <ui:define name="content">
         <h:form>
-            <p:panel header="New Trip">
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputLabel for="dest" value="Destination : " />
-                        <p:inputText id="dest" value="#{creatingTripMB.dest}" required="true"></p:inputText>
+            <p:menubar>
+                <p:menuitem value="My trips"/>
+                <p:menuitem type="button" value="Create new trip" outcome="newtrip.xhtml" style="position:absolute; right:4px;"/>
+            </p:menubar>
 
-                        <h:outputLabel for="capacity" value="Capacity : " />
-                        <p:inputText id="capacity" value="#{creatingTripMB.capacity}" required="true"></p:inputText>
-                    </h:panelGrid>
+
+
+            <p:panel header="New Trip">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="dest" value="Destination : " />
+                    <p:inputText id="dest" value="#{creatingTripMB.dest}" required="true"></p:inputText>
+
+                    <h:outputLabel for="capacity" value="Capacity : " />
+                    <p:inputText id="capacity" value="#{creatingTripMB.capacity}" required="true"></p:inputText>
+                </h:panelGrid>
             </p:panel>
 
         </h:form>

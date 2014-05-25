@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 import ru.ipccenter.favortrippals.core.user.service.UserService;
@@ -15,6 +16,8 @@ import ru.ipccenter.favortrippals.core.user.service.UserService;
 @SessionScoped
 public class UserMB
 {
+    private static final Logger log = Logger.getLogger(UserMB.class.getName());
+
     //Spring User Service is injected
     @ManagedProperty(value="#{userService}")
     IUserService userService;
@@ -109,6 +112,9 @@ public class UserMB
     public String getName()
     {
         checkActuality();
+
+        log.info("getName called");
+
         return user.getName();
     }
     
