@@ -3,6 +3,7 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  * @author Vasili
  */
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
@@ -18,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 
 import ru.ipccenter.favortrippals.core.model.Trip;
+import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import ru.ipccenter.favortrippals.core.trip.service.ITripService;
 
 @ManagedBean(name="creatingTripMB")
@@ -31,6 +33,8 @@ public class CreatingTripMB implements Serializable {
     //Spring Trip Service is injected
     @ManagedProperty(value="#{tripService}")
     ITripService tripService;
+    @ManagedProperty(value="#{socialConnectionService}")
+    ISocialConnectionService socialConnectionService;
 
     List<Trip> tripList;
 
@@ -55,6 +59,9 @@ public class CreatingTripMB implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(
                     FacesMessage.SEVERITY_INFO,"Success.", ""));
+            
+            getSocialConnectionService().printOnTheWall("Hey! I am going to visit " + trip.getDest() + 
+                    " on " + dateToString(trip.getDeparture_date()) + ". If you want to book something, please, create approriate request");
 
             return SUCCESS;
         }   catch (DataAccessException e) {
@@ -88,6 +95,14 @@ public class CreatingTripMB implements Serializable {
 
     public void setTripService(ITripService tripService) {
         this.tripService = tripService;
+    }
+    
+    public ISocialConnectionService getSocialConnectionService() {
+        return socialConnectionService;
+    }
+
+    public void setSocialConnectionService(ISocialConnectionService socialConnectionService) {
+        this.socialConnectionService = socialConnectionService;
     }
 
     public long getTraveler() {
@@ -152,5 +167,13 @@ public class CreatingTripMB implements Serializable {
 
     public void setArrival_cal(Calendar arrival_date) {
         this.arrival_date = arrival_date;
+    }
+    
+    public String dateToString(Calendar calendar)
+    {
+        if (calendar == null) return "Not stated";
+        Date date = calendar.getTime();
+        SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy");
+        return ft.format(date);
     }
 }

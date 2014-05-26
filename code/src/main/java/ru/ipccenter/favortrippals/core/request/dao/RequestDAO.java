@@ -46,7 +46,7 @@ public class RequestDAO implements IRequestDAO
     @Override
     public List<Request> getAllRequestsByCustomer(User customer)
     {
-        String query = "from Request where customer=?";
+        String query = "from Request where customer=? and status!='deleted'";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, customer).list();
         return (List<Request>)list;
@@ -55,7 +55,7 @@ public class RequestDAO implements IRequestDAO
     @Override
     public List<Request> getAllRequestsByTrip(Trip trip)
     {
-        String query = "from Request where trip=?";
+        String query = "from Request where trip=? and status!='deleted'";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, trip).list();
         return (List<Request>)list;
@@ -64,7 +64,7 @@ public class RequestDAO implements IRequestDAO
     @Override
     public List<Request> getAllRequestsByGoods(Goods goods)
     {
-        String query = "from Request where goods=?";
+        String query = "from Request where goods=? and status!='deleted'";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, goods).list();
         return (List<Request>)list;
@@ -87,7 +87,7 @@ public class RequestDAO implements IRequestDAO
     @Override
     public List<Request> getAllRequestsByUser(User user)
     {
-        String stringQuery = "from Request where trip.traveller=:traveller or customer=:customer";
+        String stringQuery = "from Request where trip.traveller=:traveller or customer=:customer and status!='deleted'";
         Query query = getSessionFactory().getCurrentSession().createQuery(stringQuery);
         query.setParameter("customer", user);
         query.setParameter("traveller", user);
@@ -98,7 +98,7 @@ public class RequestDAO implements IRequestDAO
     @Override
     public List<Request> getAllRequestsByTraveller(User traveller)
     {
-        String query = "from Request where trip.traveller=?";
+        String query = "from Request where trip.traveller=? and status!='deleted'";
         List list = getSessionFactory().getCurrentSession().createQuery(query)
 				.setParameter(0, traveller).list();
         return (List<Request>)list;
