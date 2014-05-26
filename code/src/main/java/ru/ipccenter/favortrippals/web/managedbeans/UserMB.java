@@ -112,9 +112,6 @@ public class UserMB
     public String getName()
     {
         checkActuality();
-
-        log.info("getName called");
-
         return user.getName();
     }
     

@@ -8,6 +8,7 @@ import ru.ipccenter.favortrippals.core.model.SocialConnection;
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.socialconnection.service.ISocialConnectionService;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
+import ru.ipccenter.favortrippals.core.user.service.UserService;
 
 /**
  * @author Ddiimmaann
@@ -41,6 +42,9 @@ public class SpringSecuritySignInAdapter implements SignInAdapter
     @Override
     public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request)
     {
+        if (getUserService().getCurrentUser() != null)
+            UserService.removeCurrent();
+        
         Long userId = Long.parseLong(localUserId);
         String provider = connection.getKey().getProviderId();
         User user = getUserService().getUserById(userId);
