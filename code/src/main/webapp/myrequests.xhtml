@@ -14,36 +14,36 @@
         <p:column style="padding:1em">
             <h:outputText value="My Requests" style="font-size: 30px; font-style: italic;"/> 
         <p:dataTable id="datatable1" var="req" value="#{requestMB.allRequestsByCustomer}">  
-            <p:column headerText="Destination">  
+            <p:column headerText="Destination" style="font-family: Arial;">
                 <h:outputText value="#{req.trip.dest}" />  
             </p:column>  
         
-            <p:column headerText="Traveller" style="width: 120px;">  
+            <p:column headerText="Traveller" style="width: 120px; font-family: Arial;">  
                 <h:outputText value="#{req.trip.traveller.name}" />  
             </p:column>    
             
-            <p:column headerText="Period" style="width: 135px; padding: 5px;">  
+            <p:column headerText="Period" style="width: 135px; padding: 5px; font-family: Arial;">  
                 <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} - 
                               #{tripMB.dateToString(req.trip.arrival_date)}" style="font-size: 12px; font-weight: 900;"/>  
             </p:column>
             
-            <p:column headerText="Goods" style="width: 120px;">  
+            <p:column headerText="Goods" style="width: 120px; font-family: Arial;">  
                 <h:outputText value="#{req.goods.name}" />  
             </p:column>  
             
-            <p:column headerText="Cost" style="width: 95px;">  
+            <p:column headerText="Cost" style="width: 95px; font-family: Arial;">  
                 <h:outputText value="#{req.maxCost} #{req.currency}" />  
             </p:column>
             
-            <p:column headerText="Count" style="width: 55px;">  
+            <p:column headerText="Count" style="width: 55px; font-family: Arial;">  
                 <h:outputText value="#{req.count}" />  
             </p:column>  
             
-            <p:column headerText="Status" style="width: 98px;">  
+            <p:column headerText="Status" style="width: 98px; font-family: Arial;">  
                 <h:outputText value="#{req.status}" />  
             </p:column> 
             
-            <p:column headerText="Confirm or remove" style="width: 110px;"> 
+            <p:column headerText="Confirm or remove" style="width: 110px; font-family: Arial;"> 
                 <p:commandButton actionListener="#{statusChangeMB.confirm(req)}" id="iconOnly1" update="datatable1"
                                  icon="ui-icon-check" title="Execute" style="height: 30px; width: 52px;"/>
                 <p:commandButton actionListener="#{statusChangeMB.delete(req)}" id="iconOnly2" update="datatable1"
@@ -59,36 +59,36 @@
         <p:column style="padding:1em">
             <h:outputText value="Requests, I should execute" style="font-size: 30px; font-style: italic; "/> 
         <p:dataTable id="datatable2" var="req" value="#{requestMB.allRequestsByTraveller}">  
-            <p:column headerText="Destination">  
+            <p:column headerText="Destination" style="font-family: Arial;">  
                 <h:outputText value="#{req.trip.dest}" />  
             </p:column>  
         
-            <p:column headerText="Customer" style="width: 120px;">  
+            <p:column headerText="Customer" style="width: 120px; font-family: Arial;">  
                 <h:outputText value="#{req.customer.name}" />  
             </p:column>    
             
-            <p:column headerText="Period" style="width: 135px; padding: 5px;">  
+            <p:column headerText="Period" style="width: 135px; padding: 5px; font-family: Arial;">  
                 <h:outputText value="#{tripMB.dateToString(req.trip.departure_date)} -
                               #{tripMB.dateToString(req.trip.arrival_date)}" style="font-size: 12px; font-weight: 900;"/>  
             </p:column>
             
-            <p:column headerText="Goods" style="width: 120px;">  
+            <p:column headerText="Goods" style="width: 120px; font-family: Arial;">  
                 <h:outputText value="#{req.goods.name}" />  
             </p:column>  
             
-            <p:column headerText="Cost" style="width: 95px;">  
+            <p:column headerText="Cost" style="width: 95px; font-family: Arial;">  
                 <h:outputText value="#{req.maxCost} #{req.currency}"/>  
             </p:column>
             
-            <p:column headerText="Count" style="width: 55px;">  
+            <p:column headerText="Count" style="width: 55px; font-family: Arial;">  
                 <h:outputText value="#{req.count}"/>  
             </p:column>  
             
-            <p:column headerText="Status" style="width: 98px;">  
+            <p:column headerText="Status" style="width: 98px; font-family: Arial;">  
                 <h:outputText value="#{req.status}" />  
             </p:column>  
             
-            <p:column headerText="Approval" style="width: 110px;">  
+            <p:column headerText="Approval" style="width: 110px; font-family: Arial;">  
                 <p:commandButton actionListener="#{statusChangeMB.approve(req)}" id="iconOnly3" update="datatable2"
                                  icon="ui-icon-plusthick" title="Approve" style="height: 30px; width: 52px;"/>
                 <p:commandButton actionListener="#{statusChangeMB.disapprove(req)}" id="iconOnly4" update="datatable2"

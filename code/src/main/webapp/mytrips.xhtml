@@ -16,21 +16,21 @@
         <h:form>
             <p:menubar>
                 <p:menuitem value="My trips"/>
-                <p:menuitem type="button" value="Create new trip" outcome="newtrip.xhtml" style="position:absolute; right:4px;"/>
+                <p:menuitem value="Create new trip" outcome="newtrip.xhtml" style="position:absolute; right:4px;"/>
             </p:menubar>
 
             <p:dataTable id="datatable1" var="trp" value="#{tripMB.tripsByCurrentUser}">
 
-                <p:column headerText="Destination" style="width: 100px;">
+                <p:column headerText="Destination" style="width: 100px; font-family: Arial;">
                     <h:outputText value="#{trp.dest}" />
                 </p:column>
 
-                <p:column headerText="Period" style="width: 135px; padding: 5px;">
+                <p:column headerText="Period" style="width: 135px; padding: 5px; font-family: Arial;">
                     <h:outputText value="#{tripMB.dateToString(trp.departure_date)} -
-                              #{tripMB.dateToString(trp.arrival_date)}" style="font-size: 12px; font-weight: 900;"/>
+                              #{tripMB.dateToString(trp.arrival_date)}" style="font-size: 12px; font-weight: 900; font-family: Arial;"/>
                 </p:column>
 
-                <p:column headerText="Capacity" style="width: 50px;">
+                <p:column headerText="Capacity" style="width: 50px; font-family: Arial;">
                     <h:outputText value="#{trp.capacity}" />
                 </p:column>
 

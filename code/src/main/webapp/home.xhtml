@@ -48,23 +48,23 @@
                                   class="panel" style="padding-bottom: 7px;">
                     <p:tab title="#{tr.dest}">
                         <p:dataTable var="req" value="#{requestMB.getAllRequestsByTrip(tr)}">  
-                            <p:column headerText="customer" style="padding: 3px;">  
+                            <p:column headerText="Customer" style="padding: 3px; font-family: Arial;">  
                                 <h:outputText value="#{req.customer.name} (a.k.a. #{req.customer.nickname})" />  
                             </p:column>
                             
-                            <p:column headerText="goods" style="width: 120px; padding: 3px;">  
+                            <p:column headerText="Goods" style="width: 120px; padding: 3px; font-family: Arial;">  
                                 <h:outputText value="#{req.goods.name}" />  
                             </p:column>
                             
-                            <p:column headerText="cost" style="width: 95px; padding: 3px;">  
+                            <p:column headerText="Cost" style="width: 95px; padding: 3px; font-family: Arial;">  
                                 <h:outputText value="#{req.maxCost} #{req.currency}" />  
                             </p:column>
 
-                            <p:column headerText="amount" style="width: 70px; padding: 3px;">  
+                            <p:column headerText="Amount" style="width: 70px; padding: 3px; font-family: Arial;">  
                                 <h:outputText value="#{req.count}" />  
                             </p:column>  
 
-                            <p:column headerText="status" style="width: 98px; padding: 3px;">  
+                            <p:column headerText="Status" style="width: 98px; padding: 3px; font-family: Arial;">  
                                 <h:outputText value="#{req.status}" />  
                             </p:column>
                         </p:dataTable>
@@ -74,27 +74,27 @@
                 <h:outputText value="Your requests." style="font-size: 22px; font-weight: 900;
                                    font-style: italic; padding-left: 30px; white-space: pre-wrap;"/>
                 <p:dataTable var="req" value="#{requestMB.allRequestsByCustomer}" style="padding-top: 7px;">  
-                    <p:column headerText="traveller name" style="padding: 3px;">  
+                    <p:column headerText="Traveller name" style="padding: 3px; font-family: Arial;">  
                         <h:outputText value="#{req.trip.traveller.name} (a.k.a. #{req.trip.traveller.nickname})" />
                     </p:column>
                     
-                    <p:column headerText="destination" style="width: 120px; padding: 3px;">  
+                    <p:column headerText="Destination" style="width: 120px; padding: 3px; font-family: Arial;">  
                         <h:outputText value="#{req.trip.dest}" />  
                     </p:column>
 
-                    <p:column headerText="goods" style="width: 120px; padding: 3px;">  
+                    <p:column headerText="Goods" style="width: 120px; padding: 3px; font-family: Arial;">  
                         <h:outputText value="#{req.goods.name}" />  
                     </p:column>
                     
-                    <p:column headerText="cost" style="width: 95px; padding: 3px;">  
+                    <p:column headerText="Cost" style="width: 95px; padding: 3px; font-family: Arial;">  
                         <h:outputText value="#{req.maxCost} #{req.currency}" />  
                     </p:column>
 
-                    <p:column headerText="amount" style="width: 70px; padding: 3px;">  
+                    <p:column headerText="Amount" style="width: 70px; padding: 3px; font-family: Arial;">  
                         <h:outputText value="#{req.count}" />  
                     </p:column>
 
-                    <p:column headerText="status" style="width: 98px; padding: 3px;">
+                    <p:column headerText="Status" style="width: 98px; padding: 3px; font-family: Arial;">
                         <h:outputText value="#{req.status}" />  
                     </p:column>
                 </p:dataTable>

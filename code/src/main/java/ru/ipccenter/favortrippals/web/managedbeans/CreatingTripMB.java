@@ -43,11 +43,6 @@ public class CreatingTripMB implements Serializable {
 
     private static final Logger log = Logger.getLogger(CreatingTripMB.class.getName());
 
-    public CreatingTripMB() {
-        super();
-        log.debug("CreatingTripMB created");
-    }
-
     public String registerTrip() {
         try {
             Trip trip = new Trip();
@@ -60,8 +55,6 @@ public class CreatingTripMB implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(
                     FacesMessage.SEVERITY_INFO,"Success.", ""));
-
-            log.debug("trip created!");
 
             return SUCCESS;
         }   catch (DataAccessException e) {

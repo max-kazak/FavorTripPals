@@ -16,16 +16,16 @@
             <p:column style="width: 80px;">
                 <p:graphicImage url="#{userMB.getUrlOfSmallPicture(tr.traveller.id)}" width="80" height="80"/>
             </p:column>
-            <p:column headerText="Traveller">
+            <p:column headerText="Traveller" style="font-family: Arial;">
                 <h:outputText value="#{tr.traveller.name} (a.k.a. #{tr.traveller.nickname})"/>
             </p:column>
-            <p:column headerText="Destination">
+            <p:column headerText="Destination" style="font-family: Arial;">
                 <h:outputText value="#{tr.dest}"/>
             </p:column>
-            <p:column headerText="Departure Date">
+            <p:column headerText="Departure Date" style="font-family: Arial;">
                 <h:outputText value="#{tripMB.dateToString(tr.departure_date)}"/>
             </p:column>
-            <p:column style="width: 155px;">
+            <p:column style="width: 155px; font-family: Arial;">
                 <p:button outcome="createrequest" value="Add Request">
                     <f:param name="tripId" value="#{tr.id}"/>
                 </p:button>

@@ -14,6 +14,8 @@
     <ui:define name="content">
         <h:form>
 
+            <p:messages id="msg" closable="true" autoUpdate="true"/>
+            
             <h3>Enter your trip, please</h3>
 
             <p:panelGrid columns="2" styleClass="noBorders">
@@ -31,8 +33,6 @@
             <p:calendar value="#{creatingTripMB.arrival_date}" id="popupCal2" />
 
             <p:commandButton id="button" value="Create trip" update="popupCal, popupCal2" actionListener="#{creatingTripMB.registerTrip()}"/>
-            <p:messages id="msg" closable="true" autoUpdate="true"/>
-
         </h:form>
     </ui:define>
 

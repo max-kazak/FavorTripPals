@@ -12,7 +12,7 @@
         <p:tab id="tab1" title="Social connections">
             <p:messages id="msgc" closable="true" autoUpdate="true"/>
 
-            <p:dataList id="datalist" value="#{socialConnectionMB.connections}" var="sc" type="definition" >  
+            <p:dataList id="datalist" value="#{socialConnectionMB.connections}" var="sc" type="definition" class="noBorders">  
                 Social network: #{sc.providerNameByType} <br />
                 User id: #{sc.providerUserId} <br />
                 User page: #{sc.userPage} <br />
@@ -79,6 +79,23 @@
                                 required="true" label="text"/>  
                 </p:inplace>
             </h:panelGrid>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <h:outputText value="You can delete your accout."/>
+            <br />        
+            <p:commandButton value="Delete" type="button" onclick="PF('del').show();" />
+
+            <p:dialog header="Delete account" widgetVar="del" modal="true" width="400">
+                <p:messages id="del" autoUpdate="true"/>
+                <h:outputText value="Warning!!!" style="font-size: 25px; font-family: Arial; text-align: center;
+                              padding-left: 120px; font-weight: 900;"/><br />
+                <h:outputText value="If you really want delete your account, enter:" style="font-family: Arial;"/><br />
+                <h:outputText value="&quot;I want delete&quot;." style="font-family: Arial;"/><br />
+                <h:outputLabel for="regex" style="font-weight:bold"/>                    
+                <p:inputText id="regex" value="#{userMB.name}" validatorMessage="Please, leave this page.">
+                    <f:validateRegex pattern="I want delete"/>
+                </p:inputText>
+                <p:commandButton value="Delete" update="del" icon="ui-icon-alert" validateClient="true" actionListener="#{userMB.deleteUser()}"/>
+            </p:dialog>
         </p:tab>
         
         <p:tab id="tab3" title="Friends">

@@ -8,6 +8,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
+import org.springframework.social.connect.UsersConnectionRepository;
 import ru.ipccenter.favortrippals.core.model.User;
 import ru.ipccenter.favortrippals.core.user.service.IUserService;
 import ru.ipccenter.favortrippals.core.user.service.UserService;
@@ -21,9 +23,22 @@ public class UserMB
     //Spring User Service is injected
     @ManagedProperty(value="#{userService}")
     IUserService userService;
-
+    @ManagedProperty(value="#{usersConnectionRepository}")
+    UsersConnectionRepository usersConnectionRepository;
+    
     private User user;
 
+    public UsersConnectionRepository getUsersConnectionRepository()
+    {
+        return usersConnectionRepository;
+    }
+
+    public void setUsersConnectionRepository(UsersConnectionRepository usersConnectionRepository)
+    {
+        checkActuality();
+        this.usersConnectionRepository = usersConnectionRepository;
+    }
+    
     public void setPicture(String picture)
     {
         checkActuality();
@@ -184,5 +199,15 @@ public class UserMB
         NavigationHandler myNav = facesContext.getApplication().getNavigationHandler();
         myNav.handleNavigation(facesContext, null, redirect);
         UserService.removeCurrent();
+    }
+    
+    public void deleteUser()
+    {
+        checkActuality();
+        UsersConnectionRepository rep = getUsersConnectionRepository();
+        
+        getUserService().deleteUser(getUserService().getCurrentUser());
+        
+        removeCurrentSession ();
     }
 }
