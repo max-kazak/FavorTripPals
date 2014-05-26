@@ -47,7 +47,13 @@
                 <p:commandButton actionListener="#{statusChangeMB.confirm(req)}" id="iconOnly1" update="datatable1"
                                  icon="ui-icon-check" title="Execute" style="height: 30px; width: 52px;"/>
                 <p:commandButton actionListener="#{statusChangeMB.delete(req)}" id="iconOnly2" update="datatable1"
-                                 icon="ui-icon-closethick" title="Delete" style="height: 30px; width: 52px;"/>
+                                 icon="ui-icon-closethick" title="Delete" style="height: 30px; width: 52px;">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+                </p:confirmDialog>
             </p:column> 
         </p:dataTable> 
         </p:column>
