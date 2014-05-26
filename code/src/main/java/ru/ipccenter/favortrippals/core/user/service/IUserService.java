@@ -11,7 +11,8 @@ public interface IUserService
     public void setCurrentUser (User user); 
     public void addUser (User user);
     public void updateUser (User user);
-    public void deleteUser (User user);
+    public void deleteUserData (User user);
+    public void deleteUserOnly (User user);
     public User getUserById (long id);
     public User getUserByEmail (String login);
     /**

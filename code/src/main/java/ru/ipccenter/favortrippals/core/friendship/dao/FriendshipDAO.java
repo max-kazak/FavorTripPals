@@ -3,6 +3,7 @@ package ru.ipccenter.favortrippals.core.friendship.dao;
  *
  * @author Anton
  */
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import ru.ipccenter.favortrippals.core.model.Friendship;
@@ -49,9 +50,15 @@ public class FriendshipDAO implements IFriendshipDAO
     @Override
     public List<Friendship> getAllFriendshipsByUser(User user)
     {
-        String query = "from Friendship where user1=?";
-        List list = getSessionFactory().getCurrentSession().createQuery(query)
+        String query1 = "from Friendship where user1=?";
+        List list1 = getSessionFactory().getCurrentSession().createQuery(query1)
 				.setParameter(0, user).list();
+        String query2 = "from Friendship where user2=?";
+        List list2 = getSessionFactory().getCurrentSession().createQuery(query2)
+				.setParameter(0, user).list();
+        List<Friendship> list = new ArrayList<>();
+        list.addAll(list1);
+        list.addAll(list2);
         return (List<Friendship>)list;
     }
 

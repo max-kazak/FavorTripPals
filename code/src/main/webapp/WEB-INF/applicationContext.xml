@@ -19,7 +19,10 @@
  <bean id="userService" class="ru.ipccenter.favortrippals.core.user.service.UserService">
      <property name="userDAO" ref="userDAO" />
      <property name="socialConnectionDAO" ref="socialConnectionDAO" />
- </bean>
+     <property name="friendshipDAO" ref="friendshipDAO" />
+     <property name="requestDAO" ref="requestDAO" />
+     <property name="tripDAO" ref="tripDAO" />
+</bean>
  
  <!-- SocialConnections Service Declaration -->
  <bean id="socialConnectionService" class="ru.ipccenter.favortrippals.core.socialconnection.service.SocialConnectionService">

@@ -1,12 +1,7 @@
 package ru.ipccenter.favortrippals.core.trip.dao;
 
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 

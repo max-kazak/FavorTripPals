@@ -73,5 +73,11 @@ public class SocialConnectionDAO implements ISocialConnectionDAO
             return null;
         return (SocialConnection)list.get(0);
     }
-    
+
+    @Override
+    public void deleteUserconnections(User user)
+    {
+        String query = "delete from Userconnection where userid=" + user.getId();
+        getSessionFactory().getCurrentSession().createSQLQuery(query).executeUpdate();
+    }
 }

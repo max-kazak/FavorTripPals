@@ -60,7 +60,8 @@ public class FriendshipMB
         List<User> friends = new ArrayList<>();
         for (Friendship friendship : fs)
         {
-            friends.add(friendship.getUser2());
+            if (friendship.getUser2().getId() != user.getId())
+                friends.add(friendship.getUser2());
         }
         return friends;
     }

@@ -9,10 +9,10 @@ DROP TABLE userconnection CASCADE CONSTRAINTS PURGE;
 CREATE TABLE users
 (
 	id		  INTEGER  NOT NULL ,
-	name		  VARCHAR2(20)  NULL ,
+	name		  VARCHAR2(50)  NULL ,
 	state		  INTEGER  NULL ,
-	nickname	  VARCHAR2(20)  NULL ,
-	email		  VARCHAR2(30)  NULL, 
+	nickname	  VARCHAR2(50)  NULL ,
+	email		  VARCHAR2(50)  NULL, 
   picture VARCHAR2(255)  NULL
 );
 
@@ -40,10 +40,10 @@ ALTER TABLE friendships
 
 CREATE TABLE goods
 (
-	name		  VARCHAR2(20)  NULL ,
+	name		  VARCHAR2(50)  NULL ,
 	id		  INTEGER  NOT NULL ,
-	description	  VARCHAR2(20)  NULL ,
-	location	  VARCHAR2(20)  NULL
+	description	  VARCHAR2(50)  NULL ,
+	location	  VARCHAR2(50)  NULL
 );
 
 CREATE UNIQUE INDEX XPKgoods ON goods
@@ -56,7 +56,7 @@ ALTER TABLE goods
 
 CREATE TABLE trips
 (
-	dest		  VARCHAR2(20)  NULL ,
+	dest		  VARCHAR2(50)  NULL ,
 	departure_date	  DATE  NULL ,
 	arrival_date	  DATE  NULL ,
 	id		  INTEGER  NOT NULL ,
@@ -79,7 +79,7 @@ CREATE TABLE requests
 	customer	  INTEGER  NOT NULL ,
 	count		  INTEGER  NULL ,
         max_cost          INTEGER  NULL ,
-	currency	  VARCHAR2(20)  NULL ,
+	currency	  VARCHAR2(10)  NULL ,
 	status            VARCHAR2(20)  NULL
 );
 

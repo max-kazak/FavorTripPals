@@ -3,12 +3,19 @@ package ru.ipccenter.favortrippals.core.user.service;
 import java.util.List;
 import java.util.Map;
 import javax.faces.context.FacesContext;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import org.springframework.transaction.annotation.Transactional;
+import ru.ipccenter.favortrippals.core.friendship.dao.IFriendshipDAO;
+import ru.ipccenter.favortrippals.core.model.Friendship;
+import ru.ipccenter.favortrippals.core.model.Request;
 import ru.ipccenter.favortrippals.core.model.SocialConnection;
+import ru.ipccenter.favortrippals.core.model.Trip;
 
 import ru.ipccenter.favortrippals.core.model.User;
+import ru.ipccenter.favortrippals.core.request.dao.IRequestDAO;
 import ru.ipccenter.favortrippals.core.socialconnection.dao.ISocialConnectionDAO;
+import ru.ipccenter.favortrippals.core.trip.dao.ITripDAO;
 import ru.ipccenter.favortrippals.core.user.dao.IUserDAO;
 
 
@@ -19,6 +26,39 @@ public class UserService implements IUserService
     User currentUser;
     IUserDAO userDAO;
     ISocialConnectionDAO socialConnectionDAO;
+    IFriendshipDAO friendshipDAO;
+    IRequestDAO requestDAO;
+    ITripDAO tripDAO;
+
+    public IFriendshipDAO getFriendshipDAO()
+    {
+        return friendshipDAO;
+    }
+
+    public void setFriendshipDAO(IFriendshipDAO friendshipDAO)
+    {
+        this.friendshipDAO = friendshipDAO;
+    }
+
+    public IRequestDAO getRequestDAO()
+    {
+        return requestDAO;
+    }
+
+    public void setRequestDAO(IRequestDAO requestDAO)
+    {
+        this.requestDAO = requestDAO;
+    }
+
+    public ITripDAO getTripDAO()
+    {
+        return tripDAO;
+    }
+
+    public void setTripDAO(ITripDAO tripDAO)
+    {
+        this.tripDAO = tripDAO;
+    }
 
     public ISocialConnectionDAO getSocialConnectionDAO()
     {
@@ -61,7 +101,31 @@ public class UserService implements IUserService
 
     @Transactional(readOnly = false)
     @Override
-    public void deleteUser(User user)
+    public void deleteUserData(User user)
+    {
+        List<Friendship> allFriendshipsByUser = getFriendshipDAO().getAllFriendshipsByUser(user);
+        for (Friendship friend : allFriendshipsByUser)
+            getFriendshipDAO().deleteFriendship(friend);
+        List<Request> allRequestsByUser = getRequestDAO().getAllRequestsByUser(user);
+        for (Request request : allRequestsByUser)
+            getRequestDAO().deleteRequest(request);
+        List<SocialConnection> allConnectionsByUser = getSocialConnectionDAO().getAllConnectionsByUser(user);
+        for (SocialConnection connection : allConnectionsByUser)
+            getSocialConnectionDAO().deleteConnection(connection);
+        List<Trip> tripsByTraveller = getTripDAO().getTripsByTraveller(user);
+        for (Trip trip : tripsByTraveller)
+        {
+            List<Request> allRequestsByTrip = getRequestDAO().getAllRequestsByTrip(trip);
+            for (Request request : allRequestsByTrip)
+                getRequestDAO().deleteRequest(request);
+            getTripDAO().deleteTrip(trip);
+        }
+        getSocialConnectionDAO().deleteUserconnections(user);
+    }
+    
+    @Transactional(readOnly = false)
+    @Override
+    public void deleteUserOnly (User user)
     {
         getUserDAO().deleteUser(user);
     }

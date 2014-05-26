@@ -28,4 +28,5 @@ public interface ISocialConnectionDAO
      */
     public SocialConnection getConnectionByProviderUserId (String provider, String providerUserId);
     public List<SocialConnection> getAllConnectionsByUser (User user);
+    public void deleteUserconnections (User user);
 }

@@ -1,6 +1,7 @@
 package ru.ipccenter.favortrippals.web.managedbeans;
 
 import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -23,20 +24,18 @@ public class UserMB
     //Spring User Service is injected
     @ManagedProperty(value="#{userService}")
     IUserService userService;
-    @ManagedProperty(value="#{usersConnectionRepository}")
-    UsersConnectionRepository usersConnectionRepository;
     
     private User user;
+    private String delete;
 
-    public UsersConnectionRepository getUsersConnectionRepository()
+    public String getDelete()
     {
-        return usersConnectionRepository;
+        return delete;
     }
 
-    public void setUsersConnectionRepository(UsersConnectionRepository usersConnectionRepository)
+    public void setDelete(String delete)
     {
-        checkActuality();
-        this.usersConnectionRepository = usersConnectionRepository;
+        this.delete = delete;
     }
     
     public void setPicture(String picture)
@@ -204,9 +203,16 @@ public class UserMB
     public void deleteUser()
     {
         checkActuality();
-        UsersConnectionRepository rep = getUsersConnectionRepository();
         
-        getUserService().deleteUser(getUserService().getCurrentUser());
+        if (!"I want delete".equals(delete))
+        {
+            FacesContext.getCurrentInstance().addMessage("del", new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Please, leave this page.", ""));
+            return;
+        }
+        
+        getUserService().deleteUserData(getUserService().getCurrentUser());
+        getUserService().deleteUserOnly(getUserService().getCurrentUser());
         
         removeCurrentSession ();
     }

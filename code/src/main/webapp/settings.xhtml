@@ -85,15 +85,13 @@
             <p:commandButton value="Delete" type="button" onclick="PF('del').show();" />
 
             <p:dialog header="Delete account" widgetVar="del" modal="true" width="400">
-                <p:messages id="del" autoUpdate="true"/>
+                <p:messages id="del"/>
                 <h:outputText value="Warning!!!" style="font-size: 25px; font-family: Arial; text-align: center;
                               padding-left: 120px; font-weight: 900;"/><br />
                 <h:outputText value="If you really want delete your account, enter:" style="font-family: Arial;"/><br />
                 <h:outputText value="&quot;I want delete&quot;." style="font-family: Arial;"/><br />
-                <h:outputLabel for="regex" style="font-weight:bold"/>                    
-                <p:inputText id="regex" value="#{userMB.name}" validatorMessage="Please, leave this page.">
-                    <f:validateRegex pattern="I want delete"/>
-                </p:inputText>
+                <h:outputLabel for="regex" style="font-weight:bold"/>
+                <p:inputText id="regex" value="#{userMB.delete}"></p:inputText>
                 <p:commandButton value="Delete" update="del" icon="ui-icon-alert" validateClient="true" actionListener="#{userMB.deleteUser()}"/>
             </p:dialog>
         </p:tab>
