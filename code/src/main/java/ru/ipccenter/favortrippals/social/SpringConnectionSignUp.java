@@ -131,6 +131,7 @@ public final class SpringConnectionSignUp implements ConnectionSignUp
                     break;
             }
         }
+        getUserService().setCurrentUser(user);
         return new Long(user.getId()).toString();
     }
 }

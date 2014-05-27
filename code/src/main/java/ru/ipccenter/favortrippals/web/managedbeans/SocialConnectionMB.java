@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FriendOperations;
+import org.springframework.social.facebook.api.PagedList;
 import org.springframework.social.vkontakte.api.FriendsOperations;
 import org.springframework.social.vkontakte.api.VKontakte;
 import org.springframework.social.vkontakte.api.VKontakteProfile;
@@ -183,7 +184,7 @@ public class SocialConnectionMB
             case "facebook":
                 Facebook fb = (Facebook)connection.getApi();
                 FriendOperations fo = fb.friendOperations();
-                List<String> friendIds = fo.getFriendIds();
+                PagedList<String> friendIds = fo.getFriendIds();
                 for (String fId : friendIds)
                 {
                     User friend = getUserService().getUserByProviderUserId(provider, fId);

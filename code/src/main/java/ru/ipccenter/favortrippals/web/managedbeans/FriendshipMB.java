@@ -5,6 +5,8 @@ package ru.ipccenter.favortrippals.web.managedbeans;
  */
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -59,10 +61,9 @@ public class FriendshipMB
         List<Friendship> fs = getFriendshipService().getAllFriendshipsByUser(user);
         List<User> friends = new ArrayList<>();
         for (Friendship friendship : fs)
-        {
-            if (friendship.getUser2().getId() != user.getId())
+            if (!friendship.getUser2().getId().equals(user.getId()))
                 friends.add(friendship.getUser2());
-        }
+            
         return friends;
     }
 }
